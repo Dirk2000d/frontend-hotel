@@ -1,0 +1,16 @@
+<script>
+    function ophalen(){
+        fetch("http://127.0.0.1:5000/jeroen/HAARLEM")
+        .then(r => r.json())
+        .then(d => gadoen(d))
+    }
+    function gadoen(dedata){
+        console.log(dedata);
+        for(x = 0; x< dedata.length; x++){
+            document.getElementById("resultaat").innerHTML += "<br>"+dedata[x].Adres;
+        }
+    }
+</script>
+
+<button onclick="ophalen()">haal op</button>
+<div id="resultaat">ok</div>
