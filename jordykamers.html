@@ -43,7 +43,7 @@
             <th scope="col">Handle</th>
           </tr>
         </thead>
-        <tbody id = "tabeltekst">
+        <tbody id="tabeltekst">
           <tr>
             <th scope="row">1</th>
             <td>Mark</td>
@@ -70,19 +70,20 @@
             fetch("http://localhost:8083/dekamers")
             .then(r => r.json())
             .then(d => kamers(d))
+
         }
 
-      function kamers(kamerlijst){
-        document.getElementById("tabeltekst").innerHTML = ""
-        for(let x = 0;x<kamerlijst.length;x++){
-          document.getElementById("tabeltekst").innerHTML += `<tr>
+        function kamers(kamerlijst){
+            document.getElementById("tabeltekst").innerHTML = ""
+            for(let x = 0;x<kamerlijst.length;x++){
+                document.getElementById("tabeltekst").innerHTML += `<tr>
             <th scope="row">1</th>
             <td>${kamerlijst[x].naam}</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <td>${kamerlijst[x].bedden}</td>
+            <td>${kamerlijst[x].beschikbaar}</td>
           </tr>`
+            }
         }
-      }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

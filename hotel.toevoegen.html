@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Toevoegen</title>
+    <script>
+        function VoegHotelToe() {
+            let hotel = {};
+            hotel.id = document.getElementById("idbox").value;
+            hotel.naam = document.getElementById("naambox").value;
+            hotel.adres =document.getElementById("adresbox").value;
+            hotel.aantalkamers = document.getElementById("aantalkamersbox").value;
+
+            let hotel_json = JSON.stringify(hotel);
+
+            console.log(hotel_json)
+
+            let thepost = {
+                method: "POST",
+                headers: {
+                    Accept: "application/json;charset=utf-8",
+                    "Content-Type": "application/json",
+                },
+                body: hotel_json,
+            };
+
+            if (hotel.id == 0) {
+                // ADD EXISTING HOTEL
+                fetch("http://localhost:8083/voeghoteltoe", thepost);
+            } else {
+                // UPDATE EXISTING HOTEL
+                fetch("http://localhost:8082/werkhotelbij", thepost)
+                    .then((response) => response.json())
+                    .then((data) => {
+
+                    });
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>Voeg Hotel Toe</h1>
+
+    Hotel id<br/>
+    <input type="text" id="idbox" placeholder="id" readonly><br/>
+    Hotelnaam <br/>
+    <input type="text" id="naambox" placeholder="naam"><br/>
+    Adres<br/>
+    <input type="text" id="adresbox" placeholder="adres"><br/>
+    Aantal kamers</br>
+    <input type="text" id="aantalkamersbox" placeholder="aantal kamers"><br/>
+    <button onclick="VoegHotelToe()">Voeg Hotel Toe</button>
+
+</body>
+
+</html>
