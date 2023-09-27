@@ -63,9 +63,36 @@
           </tr>
         </tbody>
       </table>
+      <form>
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname">
+      </form>
+      <button onclick="Requestb()">Opslaan
 
+
+
+      </button>
       
     <script>
+      function Requestb(){
+        let kamer={};
+        kamer.naam= document.getElementById("fname").value;
+        console.log(kamer)
+        let kamerjson = JSON.stringify(kamer);
+        fetch("http://localhost:8083/voegkamertoe",{
+        method: 'POST',
+        headers: {
+        Accept: 'application.json',
+        'Content-Type': 'application/json'
+  },
+  body: kamerjson
+})
+      }
+
+
+
         function haalkamers(){
             fetch("http://localhost:8083/dekamers")
             .then(r => r.json())
