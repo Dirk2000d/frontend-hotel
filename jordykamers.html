@@ -13,9 +13,31 @@
             margin: 25px;
         }
 
-        table {
-            margin: 25px;
+        button {
+            margin-left: 25px;
         }
+
+        table {
+            margin-left: 25px;
+        }
+
+        input {
+            margin-left: 25px;
+            margin-top: 25px;
+        }
+
+        label {
+            margin-left: 25px;
+        }
+
+        h2 {
+            color: black;
+            font-weight: bold;
+            margin-left: 25px;
+            margin-top: 100px;
+        }
+        
+
     </style>
 </head>
 <body>
@@ -29,43 +51,54 @@
 
       <h1 class="idk">Kamers</h1>
 
-      <button class="idk" onclick="haalkamers()">Klik hier</button>
-
-      <div id="tekst">Tekst</div>
+      <button class="idk" onclick="haalkamers()">Haal kamers op</button>
 
 
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">ID</th>
+            <th scope="col">Naam</th>
+            <th scope="col">Aantal bedden</th>
+            <th scope="col">Beschikbaar?</th>
           </tr>
         </thead>
         <tbody id="tabeltekst">
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          
         </tbody>
       </table>
 
+      <h2>Voeg kamer toe</h2>
+      <label for="fname">Kamer naam:</label>
+      <input id="fname">
+      <br>
+      <label for="bedden">Aantal bedden:</label>
+      <input id="bedden">
+      <br>
+      <label for="beschikbaarheid">Beschikbaar?:</label>
+      <input id="beschikbaarheid">
+      <br>
+      <button onclick="opslaan()">Sla op</button>
+
       
     <script>
+        function opslaan(){
+            let kamer = {};
+            kamer.naam = document.getElementById("fname").value;
+            kamer.bedden = document.getElementById("bedden").value;
+            kamer.beschikbaar = document.getElementById("beschikbaarheid").value;
+            console.log(kamer)
+            let kamerjson = JSON.stringify(kamer);
+            fetch("http://localhost:8083/voegkamertoe", {
+            method: 'POST',
+            headers: {
+            Accept: 'application.json',
+            'Content-Type': 'application/json'
+            },
+            body: kamerjson
+            })
+        }
+
         function haalkamers(){
             fetch("http://localhost:8083/dekamers")
             .then(r => r.json())
@@ -76,7 +109,7 @@
             document.getElementById("tabeltekst").innerHTML = ""
             for(let x = 0;x<kamerlijst.length;x++){
                 document.getElementById("tabeltekst").innerHTML += `<tr>
-            <th scope="row">1</th>
+            <th scope="row">${kamerlijst[x].id}</th>
             <td>${kamerlijst[x].naam}</td>
             <td>${kamerlijst[x].bedden}</td>
             <td>${kamerlijst[x].beschikbaar}</td>
