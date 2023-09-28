@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=hoi, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function toonKamers(){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(this.readyState == 4){
+                    console.log(this.responseText);
+                    var allKamers = JSON.parse(this.responseText);
+                    var eindString = "<table>";
+                    for(var i = 0; i < allKamers.length; i++){
+                        eindString += "<tr><td>"+ allKamers[i].kamerNummer +"</td><td><td>"+ allKamers[i].beschikbaar +"</td><td>"+ allKamers[i].prijs +"</td><td>"+ allKamers[i].kamerType +"</td><td><td><button onClick=verwijderen("+allKamers[i].id+")>verwijder</button></td><td><button onClick=updaten("+allKamers[i].id+")>updaten</button></td></tr>";
+                    }
+                    eindString += "</table>";
+                    document.getElementById("alleKamersTabel").innerHTML = eindString;
+                }
+            }
+            xhr.open("GET","http:/localhost:8083/dekamers", true);
+            xhr.send();
+        }
+
+        function toevoegen(){
+            // De JSON meegeven
+            var dekamer = {};
+            dekamer.naam = document.getElementById("naamkamer").value;
+
+            var deJSON = JSON.stringify(dekamer);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(this.readyState == 4){
+                    console.log("toevoegen gelukt");
+                }
+            }
+            xhr.open("POST","http://localhost:8083/voegkamertoe", true);
+            xhr.setRequestHeader("Content-Type","application/json");
+            xhr.send(deJSON);
+        }
+
+        function verwijderen(deid){
+            //console.log("ik ben aan het verwijderen"+deid);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(this.readyState == 4){
+                    console.log("verwijderen gelukt");
+                }
+            }
+
+            xhr.open("DELETE","http://localhost:8083/verwijderkamer/"+deid, true);
+            xhr.send();
+        }
+
+        function updaten(deid){
+            //console.log("ik ben aan het updaten"+deid);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(this.readyState == 4){
+                    console.log("updaten gelukt");
+                }
+            }
+
+            xhr.open("PUT","http://localhost:8083/updatekamer/"+deid, true);
+            xhr.send();
+        }
+
+    </script>
+</head>
+<body>
+    <input id="naamkamer">
+    <button onClick="toevoegen()">toevoegen</button>
+    <button onClick="toonKamers()">Toon alle Kamers</button>
+    <div id="alleKamersTabel"></div>
+</body>
+</html>
