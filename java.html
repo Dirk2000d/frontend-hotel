@@ -14,7 +14,7 @@
                     var allKamers = JSON.parse(this.responseText);
                     var eindString = "<table>";
                     for(var i = 0; i < allKamers.length; i++){
-                        eindString += "<tr><td>"+ allKamers[i].kamerNummer +"</td><td><td>"+ allKamers[i].beschikbaar +"</td><td>"+ allKamers[i].prijs +"</td><td>"+ allKamers[i].kamerType +"</td><td><td><button onClick=verwijderen("+allKamers[i].id+")>verwijder</button></td><td><button onClick=updaten("+allKamers[i].id+")>updaten</button></td></tr>";
+                        eindString += "<tr><td id='kamerNummer"+allKamers[i].id+"'>"+ allKamers[i].kamerNummer +"</td><td id='beschikbaar"+allKamers[i].id+"'>"+ allKamers[i].beschikbaar +"</td><td id='prijs"+allKamers[i].id+"'>"+ allKamers[i].prijs +"</td><td id='kamerType"+allKamers[i].id+"'>"+ allKamers[i].kamerType +"</td><td><td><button onClick=verwijderen("+allKamers[i].id+")>verwijder</button></td><td><button onClick=updaten("+allKamers[i].id+")>updaten</button></td></tr>";
                     }
                     eindString += "</table>";
                     document.getElementById("alleKamersTabel").innerHTML = eindString;
@@ -27,7 +27,10 @@
         function toevoegen(){
             // De JSON meegeven
             var dekamer = {};
-            dekamer.naam = document.getElementById("naamkamer").value;
+            dekamer.kamerNummer = document.getElementById("toevoegenInputKamerNummer").value;
+            dekamer.beschikbaar = document.getElementById("toevoegenInputBeschikbaar").value;
+            dekamer.prijs = document.getElementById("toevoegenInputPrijs").value;
+            dekamer.kamerType = document.getElementById("toevoegenInputKamerType").value;
 
             var deJSON = JSON.stringify(dekamer);
 
@@ -56,7 +59,24 @@
         }
 
         function updaten(deid){
-            //console.log("ik ben aan het updaten"+deid);
+            console.log("ik haal de gegevens op voor de update velden"+deid);
+            document.getElementById("updateInputKamerNummer").value = document.getElementById("kamerNummer"+deid).innerHTML;
+            document.getElementById("updateInputBeschikbaar").value = document.getElementById("beschikbaar"+deid).innerHTML;
+            document.getElementById("updateInputPrijs").value = document.getElementById("prijs"+deid).innerHTML;
+            document.getElementById("updateInputKamerType").value = document.getElementById("kamerType"+deid).innerHTML;
+            document.getElementById("updateInputId").value = deid;
+        }
+
+        function updatenStap2(){
+            console.log("ik verzend de gegevens van de update velden");
+            var a = {}; 
+            a.id = document.getElementById("updateInputId").value;
+            a.kamerNummer = document.getElementById("updateInputKamerNummer").value;
+            a.beschikbaar = document.getElementById("updateInputBeschikbaar").value;
+            a.prijs = document.getElementById("updateInputPrijs").value;
+            a.kamerType = document.getElementById("updateInputKamerType").value;
+            
+            var bJSON = JSON.stringify(a);
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function(){
                 if(this.readyState == 4){
@@ -64,16 +84,26 @@
                 }
             }
 
-            xhr.open("PUT","http://localhost:8083/updatekamer/"+deid, true);
-            xhr.send();
+            xhr.open("PUT","http://localhost:8083/updatekamer", true);
+            console.log(bJSON);
+            //xhr.setRequestHeader("Content-Type","application/json");
+            xhr.send(bJSON);
         }
 
     </script>
 </head>
 <body>
-    <input id="naamkamer">
+    <input id="toevoegenInputKamerNummer">
+    <input id="toevoegenInputBeschikbaar">
+    <input id="toevoegenInputPrijs">
+    <input id="toevoegenInputKamerType">
     <button onClick="toevoegen()">toevoegen</button>
     <button onClick="toonKamers()">Toon alle Kamers</button>
     <div id="alleKamersTabel"></div>
+    <input id="updateInputId" type="hidden">
+    <input id="updateInputKamerNummer">
+    <input id="updateInputBeschikbaar">
+    <input id="updateInputPrijs">
+    <input id="updateInputKamerType"><button onClick="updatenStap2()">wijziging opslaan</button>
 </body>
 </html>
