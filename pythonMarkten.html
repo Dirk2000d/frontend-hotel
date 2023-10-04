@@ -70,7 +70,7 @@
             var cell6 = row.insertCell(5);
             var cell7 = row.insertCell(6);
             var cell8 = row.insertCell(7);
-            cell1.innerHTML = dedata[x].Locatie;
+            cell1.innerHTML = "<b>" + dedata[x].Locatie + "</b>";
             cell2.innerHTML = dedata[x].Maandag;
             cell3.innerHTML = dedata[x].Dinsdag;
             cell4.innerHTML = dedata[x].Woensdag;
@@ -112,21 +112,21 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav><br>
 
     <div class="container mt-4 text-below-navbar">
-        <h1 style="font-size: 50px;">Markten Amsterdam</h1>
-    </div>
+        <h1>Markten Amsterdam</h1>
+    </div><br>
 
     <div class="container mt-4">
 
-        <h1 style="font-size: 35px;">Locaties</h1><br>
+        <h2>Locaties</h2><br>
 
         <iframe src="http://127.0.0.1:5000/marktenkaart" width="400" height="300" frameborder="0"></iframe>
     
         <br><br>
 
-        <h1 style="font-size: 35px;">Openingstijden</h1><br>
+        <h2>Openingstijden</h2><br>
 
         <label for="gebruikers_input">Kies het soort markt:</label><br>
         <select id="gebruikers_input" name="gebruikers_input" class="form-select form-select-sm">
@@ -140,7 +140,7 @@
 
         <br>
         <button onclick="ophalen()" type="button" class="btn btn-primary btn-sm">Zoeken</button><br>
-        <br>
+        <br><br>
 
         <table id="myTable" class="table">
             <thead>
