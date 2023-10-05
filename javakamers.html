@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=hoi, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>JavaHotel Kamers</title>
 
     <script>
         function toonKamers(){
@@ -41,6 +42,7 @@
                 }
             }
             xhr.open("POST","http://localhost:8083/voegkamertoe", true);
+            console.log(deJSON);
             xhr.setRequestHeader("Content-Type","application/json");
             xhr.send(deJSON);
         }
@@ -86,24 +88,58 @@
 
             xhr.open("PUT","http://localhost:8083/updatekamer", true);
             console.log(bJSON);
-            //xhr.setRequestHeader("Content-Type","application/json");
+            xhr.setRequestHeader("Content-Type","application/json");
             xhr.send(bJSON);
         }
 
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-    <input id="toevoegenInputKamerNummer">
-    <input id="toevoegenInputBeschikbaar">
-    <input id="toevoegenInputPrijs">
-    <input id="toevoegenInputKamerType">
-    <button onClick="toevoegen()">toevoegen</button>
-    <button onClick="toonKamers()">Toon alle Kamers</button>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <input id="toevoegenInputKamerNummer" placeholder="kamernummer">
+            </div>
+            <div class="col">
+                <input id="toevoegenInputBeschikbaar" placeholder="beschikbaar">
+            </div>
+            <div class="col">
+                <input id="toevoegenInputPrijs" placeholder="prijs">
+            </div>
+            <div class="col"></div>
+                <select class="form-select" id="toevoegenInputKamerType">
+                    <option selected>Type...</option>
+                    <option value=0>Suite</option>
+                    <option value=1>Tweepersoonskamer</option>
+                    <option value=2>Vierpersoonskamer</option>
+                    <option value=3>Trouwkamer</option>
+                </select>
+            </div>
+            <div class="col">
+                <button onClick="toevoegen()">toevoegen</button>
+            </div>
+            <div class="col">
+                <button onClick="toonKamers()">Toon alle Kamers</button>
+        
+            </div>
+        </div>
+    </div>
+      
+
     <div id="alleKamersTabel"></div>
     <input id="updateInputId" type="hidden">
     <input id="updateInputKamerNummer">
     <input id="updateInputBeschikbaar">
     <input id="updateInputPrijs">
-    <input id="updateInputKamerType"><button onClick="updatenStap2()">wijziging opslaan</button>
+    <select class="form-select" id="updateInputKamerType">
+        <option selected>Type...</option>
+        <option value=0>Suite</option>
+        <option value=1>Tweepersoonskamer</option>
+        <option value=2>Vierpersoonskamer</option>
+        <option value=3>Trouwkamer</option>
+    </select>
+    <button onClick="updatenStap2()">wijziging opslaan</button>
+    
 </body>
 </html>
