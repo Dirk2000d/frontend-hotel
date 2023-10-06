@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- CSS -->
+<style>
+    .custom-navbar {
+        background-color: #C70039; 
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 18px; 
+        color: #FFF5E0;
+        font-family: 'Lato', sans-serif;
+    }
+
+    /* Positie van de kaart */
+    #map_0 {
+        position: relative;
+        width: 80.0%;
+        height: 50.0%;
+        left: 10.0%;
+        top: 0.0%;
+    }
+
+    /* Kaart */
+    .leaflet-container { font-size: 1rem; }
+
+    /* Restaurants, museums, markten button groep */
+    .btn-group {
+        background-color: white;
+        border: none; 
+    }
+
+    .btn-group .btn {
+        background-color: #28397e;
+        color: #FFF5E0;
+        border: none; 
+        padding: 4px 20px;
+        font-size: 19px;
+        margin-right: 10px; 
+    }
+
+    .btn-group .btn:hover {
+        background-color: #0056b3;
+        color: white;
+        transform: scale(1.05);
+            transition: transform 0.2s ease;
+}
+
+</style>
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activiteiten</title> <!-- Naam pagina -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+
+    <!-- Kaart, NIET AANPASSEN -->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+
+<script>
+
+    /* Kaart */
+    L_NO_TOUCH = true;
+    L_DISABLE_3D = false;
+
+</script>
+
+<body>
+
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+        <div class="container">
+            <!-- Logo links -->
+            <a class="navbar-brand" href="#">
+               <img src="your-logo.png" height="30">
+            </a>
+
+            <!-- Buttons midden -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Kamers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Activiteiten</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Restaurant</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Buttons rechts -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="restaurantSearch.html">Inloggen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="MuseaGalleries.html">Registreren</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Restaurants, museums, markten knoppen -->
+    <div class="container mt-4">
+        <div class="d-flex justify-content-center">
+            <div class="btn-group " role="group" aria-label="Basic outlined example">
+                <button type="button" class="btn btn-outline-primary" onclick="ophalen('EtenDrinken.csv')">Restaurants</button>
+                <button type="button" class="btn btn-outline-primary" onclick="ophalen('MuseaGalleries.csv')">Museums</button>
+                <button type="button" class="btn btn-outline-primary" onclick="ophalen('MARKTEN_NEW.csv')">Markten</button>
+            </div>
+        </div>
+    </div><br>
+
+    <!-- Kaart -->
+    <div class="folium-map" id="map_0"></div>
+
+<script>
+    // Basis kaart, niet weghalen
+    var map_0 = L.map("map_0", {center: [52.3677956, 4.89307], crs: L.CRS.EPSG3857, zoom: 15, zoomControl: true, preferCanvas: false,});
+    var tile_layer_0 = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+    ).addTo(map_0);
+
+    // Voeg de marker toe voor het hotel
+    var marker_0 = L.marker([52.369401, 4.899627],{}).addTo(map_0); // Raamgracht 1
+    var icon_0 = L.AwesomeMarkers.icon({"extraClasses": "fa-rotate-0", "icon": "hotel", "iconColor": "white", "markerColor": "red", "prefix": "fa"});
+    marker_0.setIcon(icon_0);
+    marker_0.bindTooltip("<h5>Hotel</h5>",{"sticky": true});
+
+
+    // Toevoegen markers
+
+    var markersLayer = L.layerGroup();
+    var hotelLayer = L.layerGroup();
+
+    function ophalen(bestandsnaam){
+
+        markersLayer.clearLayers(); // Verwijder huidige markers
+
+        fetch("http://127.0.0.1:5000/longlat/" + bestandsnaam) // Haal data op met behulp van Flask
+        .then(r => r.json())
+        .then(d => gadoen(d, bestandsnaam))
+    }
+
+    function gadoen(dedata, bestandsnaam){ // Deze functie gaat werken als je op Restaurants, Museums of Markten klikt
+        console.log(dedata)
+
+        for(x = 0; x<dedata.length; x++){
+            
+            /* Maak en definieer de variabelen latitude en longitude
+               Vervang ',' met ',' wanneer nodig */
+            if(String(dedata[x].Latitude).indexOf(',') > -1){
+                latitude = parseFloat(dedata[x].Latitude.replace(',', '.'))
+                longitude = parseFloat(dedata[x].Longitude.replace(',', '.'))
+            }
+            else{
+                latitude = parseFloat(dedata[x].Latitude)
+                longitude = parseFloat(dedata[x].Longitude)
+            }
+
+            // Maak marker
+            var marker_0 = L.marker(
+                [latitude, longitude],
+                {}
+            );
+            
+            // Kleur en icoon van marker
+            if(bestandsnaam == 'MARKTEN_NEW.csv'){
+                // Verander de kleur van de marker voor Markten
+                if (dedata[x].Artikelen.startsWith('Algemene')){
+                    color='blue'; icon='store';
+                }
+                else if (dedata[x].Artikelen.startsWith('Kunst')){
+                    color='purple'; icon='palette';
+                }
+                else if (dedata[x].Artikelen.startsWith('Boeren')){
+                    color='green'; icon='tractor';
+                }
+                else if (dedata[x].Artikelen.startsWith('Boeken')){
+                    color='gray'; icon='book';
+                }
+                else if (dedata[x].Artikelen.startsWith('Postzegels')){
+                    color='darkblue'; icon='envelope';
+                }
+                else{
+                    color='orange'; icon='seedling';
+                }
+
+                // Verander het marker icoon
+                var icon_0 = L.AwesomeMarkers.icon(
+                    {"extraClasses": "fa-rotate-0", "icon": icon, "iconColor": "white", "markerColor": color, "prefix": "fa"}
+                );
+                marker_0.setIcon(icon_0);
+
+                // Tooltip  
+                marker_0.bindTooltip(
+                    "<h5><b> Soort markt: </b>" + dedata[x].Artikelen + "<br><b>Openingsdagen:</b> " + dedata[x].Dagen + "</h5>",
+                {"sticky": true}
+                );
+
+            }
+            
+            else if(bestandsnaam == 'EtenDrinken.csv'){
+                // Verander het marker icoon
+                var icon_0 = L.AwesomeMarkers.icon(
+                    {"extraClasses": "fa-rotate-0", "icon": 'utensils', "iconColor": "white", "markerColor": 'blue', "prefix": "fa"}
+                );
+                marker_0.setIcon(icon_0);
+
+                // Tooltip  
+                restaurantNaam = dedata[x].Locatienaam;
+                if(typeof restaurantNaam !== 'string'){ // als restaurantNaam == null
+                    restaurantNaam = "Onbekend";
+                }
+                marker_0.bindTooltip(
+                    "<h5><b>Naam: </b>" + restaurantNaam + "<br><b>Locatie: </b>" + dedata[x].Adres + "</h5>",
+                {"sticky": true}
+                );
+            }
+            
+            else if(bestandsnaam == 'MuseaGalleries.csv'){
+                // Verander het marker icoon
+                var icon_0 = L.AwesomeMarkers.icon(
+                    {"extraClasses": "fa-rotate-0", "icon": 'building-columns', "iconColor": "white", "markerColor": 'purple', "prefix": "fa"}
+                );
+                marker_0.setIcon(icon_0);
+
+                // Tooltip  
+                museumNaam = dedata[x].Locatienaam;
+                if(typeof museumNaam !== 'string'){ // als restaurantNaam == null
+                    museumNaam = "Onbekend";
+                }
+                marker_0.bindTooltip(
+                    "<h5><b>Naam: </b>" + museumNaam + "<br><b>Locatie: </b>" + dedata[x].Adres + "</h5>",
+                {"sticky": true}
+                );
+            }
+
+            // Voeg marker toe aan de laag
+            markersLayer.addLayer(marker_0);
+        }
+
+        // Voeg marker toe aan de kaart
+        markersLayer.addTo(map_0);
+    }
+
+</script>
+
+<!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
