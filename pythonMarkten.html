@@ -47,7 +47,7 @@
 <script>
     function ophalen(){
         var gebruikers_input = document.getElementById("gebruikers_input").value;
-        fetch("http://127.0.0.1:5000/luka/" + gebruikers_input)
+        fetch("http://127.0.0.1:5000/markten/" + gebruikers_input)
         .then(r => r.json())
         .then(d => gadoen(d))
     }
