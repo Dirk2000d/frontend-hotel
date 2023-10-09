@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocalRestaurants</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<script>
+  let currentPage = 1;
+  const resultsPerPage = 100;
+
+  function ophalen(){
+      var gebruikers_input = document.getElementById("gebruikers_input").value;
+      fetch("http://127.0.0.1:5000/jeroen3/" + gebruikers_input)
+      .then(r => r.json())
+      .then(d => gadoen(d));
+        console.log(d);
+  }
+  function gadoen(dedata) {
+    const resultaatDiv = document.getElementById("resultaat");
+    resultaatDiv.innerHTML = "";
+
+    const startIndex = (currentPage - 1) * resultsPerPage;
+    const endIndex = startIndex + resultsPerPage;
+
+    for (let x = startIndex; x < endIndex && x < dedata.length; x++) {
+      resultaatDiv.innerHTML += "<br><b>"+ dedata[x].Name + "</b> : " + dedata[x].City + "<b> : " + dedata[x]["Price Range"] + "</b> : " + dedata[x].Reviews;
+      }
+
+    const totalPages = Math.ceil(dedata.length / resultsPerPage);
+    const maxPages = 10;
+
+    const paginationDiv = document.getElementById("pagination");
+    paginationDiv.innerHTML = "";
+
+    let startPage = Math.max(currentPage - Math.floor(maxPages / 2), 1);
+    let endPage = Math.min(startPage + maxPages - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+      paginationDiv.innerHTML += `<button onclick="changePage(${i})">${i}</button>`;
+    }
+  }
+function changePage(page) {
+  currentPage = page;
+  ophalen();
+}
+</script>
+<style>
+  body {
+    background-color: white;
+  }
+  header {
+    background-color: #b4d4ee;
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 50px;
+  }
+  form {
+    margin-top: 20px;
+  }
+  #resultaat {
+    margin-top: 20px;
+  }
+  .btn-primary {
+    background-color: black;
+    color: white;
+  }
+  #pagination button {
+    background-color: black;
+    color: white;
+  }
+  .custom-navbar {
+    background-color: #083d77; 
+        }
+  .navbar-nav .nav-link {
+    font-size: 18px; 
+    font-weight: bold; 
+    color: #ffffff; 
+        }
+  .nav-pills {
+    display: flex;
+    justify-content: center;
+  }
+  .nav-pills .nav-link {
+    color: white; /* Set the text color */
+    background-color: #083d77; /* Set the background color */
+    border-color: #083d77; /* Set the border color */
+  }
+  .nav-pills .nav-item {
+    margin-right: 10px; /* Adjust the right margin to create space */
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+  <div class="container">
+      <a class="navbar-brand" href="#">
+          <img src="your-logo.png" height="30">
+      </a>
+      <!-- Home button -->
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="locatiesOverzicht.html">Home</a>
+          </li>
+      </ul>
+      <!-- Buttons for Restaurants, Museums, and Markten -->
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" href="restaurantSearch.html">Restaurants</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="MuseaGalleries.html">Museums</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="pythonMarkten.html">Markten</a>
+          </li>
+      </ul>
+  </div>
+</nav>
+<header>
+  <h1>Restaurant Overzicht</h1>
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="#">Lokale Restaurants</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="restaurantGraph.html">Grafiek</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Internationale Restaurants</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+    </li>
+  </ul>
+<body>
+</header>
+<body>
+<br>
+<label for="gebruikers_input">Kies jouw prijscategorie:</label><br>
+<select id="gebruikers_input" name="gebruikers_input">
+  <option value="$">Goedkoopst</option>
+  <option value="$$ - $$$">Gemiddeld Geprijsd</option>
+  <option value="$$$$">Duurst</option>
+</select>
+<br>
+<button onclick="ophalen()" type="button" class="btn btn-outline-success">Zoeken</button><br><br>
+<b>Locaties:</b>
+<div id="resultaat"></div>
+<div id="pagination"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>
