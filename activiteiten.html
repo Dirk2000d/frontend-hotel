@@ -93,8 +93,8 @@
     /* Openingstijden markten ophalen */
     function marktenOphalen(){
         document.getElementById("marktenTabel").style.display = "block"; 
-        var gebruikers_input = document.getElementById("gebruikers_input").value; // Het soort markt
-        fetch("http://127.0.0.1:5000/markten/" + gebruikers_input) // Haalt alle data op voor het soort markt
+        var artikelen_input = document.getElementById("artikelen_input").value; // Het soort markt
+        fetch("http://127.0.0.1:5000/markten/" + artikelen_input) // Haalt alle data op voor het soort markt
         .then(r => r.json())
         .then(d => openingstijdenMarkten(d))
     }
@@ -223,28 +223,36 @@
 
     <!-- Restaurants container -->
     <div class="container mt-4" id="linkerKnop" style="display:none">
-        <button type="button" class="btn btn-primary" onclick="prijzenRestaurants(1)">Lokale Restaurants</button>
-        <button type="button" class="btn btn-primary" onclick="prijzenRestaurants(2)">Internationale Restaurants</button>
-        <br>
-        <br>
-    <div class="container mt-4" id="lokaalRestaurant" style="display:none">
-        Lokaal Restaurant
-        <label for="gebruikers_input">Kies jouw prijscategorie:</label><br>
-        <select id="gebruikers_input" name="gebruikers_input">
-            <option value="$">Goedkoopst</option>
-            <option value="$$ - $$$">Gemiddeld Geprijsd</option>
-            <option value="$$$$">Duurst</option>
-        </select>
-<br>
-<button onclick="ophalen()" type="button" class="btn btn-outline-success">Zoeken</button><br><br>
-<b>Locaties:</b>
-<div id="resultaat"></div>
-<div id="pagination"></div>
+        <button type="button" class="btn btn-primary" onclick="containerRestaurants(1)">Lokale Restaurants</button>
+        <button type="button" class="btn btn-primary" onclick="containerRestaurants(2)">Internationale Restaurants</button>
+        <br><br>
+
+        <!-- Container lokale restaurants -->
+        <div class="container mt-4" id="lokaalRestaurant" style="display:none">
+            Lokaal Restaurant
+
+            <label for="gebruikers_input">Kies jouw prijscategorie:</label><br>
+            <select id="gebruikers_input" name="gebruikers_input">
+                <option value="$">Goedkoopst</option>
+                <option value="$$ - $$$">Gemiddeld Geprijsd</option>
+                <option value="$$$$">Duurst</option>
+            </select><br>
+
+            <button onclick="ophalen()" type="button" class="btn btn-outline-success">Zoeken</button><br><br>
+            <b>Locaties:</b>
+            <div id="resultaat"></div>
+            <div id="pagination"></div>
+
+        </div>
+
+        <!-- Container internationale restaurants -->
+        <div class="container mt-4" id="internationaalRestaurant" style="display:none">
+            Internationale Restaurants
+
+        </div>   
+
     </div>
-    <div class="container mt-4" id="internationaalRestaurant" style="display:none">
-        Internationaal Restaurants
-    </div>
-</div>
+
     <!-- Museums container -->
     <div class="container mt-4" id="middenKnop" style="display:none">
         Museums
@@ -255,7 +263,7 @@
     <div class="container mt-4" id="rechterKnop" style="display:none">
         <div class="input-group">
             <div class="d-flex">
-            <select class="form-select markten-select" id="gebruikers_input" name="gebruikers_input" style="width:100px;">
+            <select class="form-select markten-select" id="artikelen_input" name="artikelen_input" style="width:100px;">
                 <option value="Algemene waren">Algemene waren</option>
                 <option value="Kunst">Kunst / Antiek en curiosa</option>
                 <option value="Boerenmarkt">Boerenmarkt / Bioversmarkt</option>
@@ -314,7 +322,6 @@
     }
 
     function drieButtons(dedata, bestandsnaam, buttonNummer){ // Deze functie gaat werken als je op Restaurants, Museums of Markten klikt
-        console.log(dedata)
 
         for(x = 0; x<dedata.length; x++){
             // Verberg alle containers
@@ -430,21 +437,22 @@
         markersLayer.addTo(map_0);
 
     }
-    function prijzenRestaurants(nummerButton){ // Deze functie gaat werken als je op Restaurants, Museums of Markten klikt
-        console.log(dedata)
+    
+    function containerRestaurants(nummerButton){ // Deze functie gaat werken als je op Nationale Restaurants of Internationale Restaurants klikt
 
-            // Verberg alle containers
-            document.getElementById("lokaalRestaurant").style.display = "none"; 
-            document.getElementById("internationaalRestaurant").style.display = "none"; 
+        // Verberg alle containers
+        document.getElementById("lokaalRestaurant").style.display = "none"; 
+        document.getElementById("internationaalRestaurant").style.display = "none"; 
 
-            // Laat de juiste container zien
-            if(nummerButton == 1){
-                document.getElementById("lokaalRestaurant").style.display = "block"; 
-            }
-            else if (nummerButton == 2){
-                document.getElementById("internationaalRestaurant").style.display = "block"; 
-            }
+        // Laat de juiste container zien
+        if(nummerButton == 1){
+            document.getElementById("lokaalRestaurant").style.display = "block"; 
         }
+        else if (nummerButton == 2){
+            document.getElementById("internationaalRestaurant").style.display = "block"; 
+        }
+    }
+
 </script>
 
 <!-- Bootstrap -->
