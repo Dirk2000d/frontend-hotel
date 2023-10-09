@@ -130,7 +130,40 @@
             cell8.innerHTML = dedata[x].Zondag;
         }
     }
+    let currentPage = 1;
+    const resultsPerPage = 100;
 
+  function ophalen(){
+      var gebruikers_input = document.getElementById("gebruikers_input").value;
+      fetch("http://127.0.0.1:5000/jeroen3/" + gebruikers_input)
+      .then(r => r.json())
+      .then(d => gadoen(d));
+        console.log(d);
+  }
+  function gadoen(dedata) {
+    const resultaatDiv = document.getElementById("resultaat");
+    resultaatDiv.innerHTML = "";
+
+    const startIndex = (currentPage - 1) * resultsPerPage;
+    const endIndex = startIndex + resultsPerPage;
+
+    for (let x = startIndex; x < endIndex && x < dedata.length; x++) {
+      resultaatDiv.innerHTML += "<br><b>"+ dedata[x].Name + "</b> : " + dedata[x].City + "<b> : " + dedata[x]["Price Range"] + "</b> : " + dedata[x].Reviews;
+      }
+
+    const totalPages = Math.ceil(dedata.length / resultsPerPage);
+    const maxPages = 10;
+
+    const paginationDiv = document.getElementById("pagination");
+    paginationDiv.innerHTML = "";
+
+    let startPage = Math.max(currentPage - Math.floor(maxPages / 2), 1);
+    let endPage = Math.min(startPage + maxPages - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+      paginationDiv.innerHTML += `<button onclick="changePage(${i})">${i}</button>`;
+    }
+  }
 </script>
 
 <body>
@@ -190,14 +223,32 @@
 
     <!-- Restaurants container -->
     <div class="container mt-4" id="linkerKnop" style="display:none">
-        Restaurants
+        <button type="button" class="btn btn-primary" onclick="prijzenRestaurants(1)">Lokale Restaurants</button>
+        <button type="button" class="btn btn-primary" onclick="prijzenRestaurants(2)">Internationale Restaurants</button>
+        <br>
+        <br>
+    <div class="container mt-4" id="lokaalRestaurant" style="display:none">
+        Lokaal Restaurant
+        <label for="gebruikers_input">Kies jouw prijscategorie:</label><br>
+        <select id="gebruikers_input" name="gebruikers_input">
+            <option value="$">Goedkoopst</option>
+            <option value="$$ - $$$">Gemiddeld Geprijsd</option>
+            <option value="$$$$">Duurst</option>
+        </select>
+<br>
+<button onclick="ophalen()" type="button" class="btn btn-outline-success">Zoeken</button><br><br>
+<b>Locaties:</b>
+<div id="resultaat"></div>
+<div id="pagination"></div>
     </div>
-
+    <div class="container mt-4" id="internationaalRestaurant" style="display:none">
+        Internationaal Restaurants
+    </div>
+</div>
     <!-- Museums container -->
     <div class="container mt-4" id="middenKnop" style="display:none">
         Museums
     </div>
-
     <!-- Markten container -->
 
     <!-- Drop-down menu en button -->
@@ -377,8 +428,23 @@
 
         // Voeg marker toe aan de kaart
         markersLayer.addTo(map_0);
-    }
 
+    }
+    function prijzenRestaurants(nummerButton){ // Deze functie gaat werken als je op Restaurants, Museums of Markten klikt
+        console.log(dedata)
+
+            // Verberg alle containers
+            document.getElementById("lokaalRestaurant").style.display = "none"; 
+            document.getElementById("internationaalRestaurant").style.display = "none"; 
+
+            // Laat de juiste container zien
+            if(nummerButton == 1){
+                document.getElementById("lokaalRestaurant").style.display = "block"; 
+            }
+            else if (nummerButton == 2){
+                document.getElementById("internationaalRestaurant").style.display = "block"; 
+            }
+        }
 </script>
 
 <!-- Bootstrap -->
