@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>JavaHotel Klanten</title>
+
+    <script>
+        function toonKlanten() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log(this.responseText);
+                    var allKlanten = JSON.parse(this.responseText);
+                    var eindString = "<table>";
+                    for (var i = 0; i < allKlanten.length; i++) {
+                        eindString += "<tr><td id='klantNaam" + allKlanten[i].id + "'>" + allKlanten[i].name + "</td><td id='email" + allKlanten[i].id + "'>" + allKlanten[i].email + "</td><td id='adres" + allKlanten[i].id + "'>" + allKlanten[i].adres + "</td><td id='paspoortNummer" + allKlanten[i].id + "'>" + allKlanten[i].paspoortNummer + "</td><td><td><button onClick=verwijderen(" + allKlanten[i].id + ")>verwijder</button></td><td><button onClick=updaten(" + allKlanten[i].id + ")>updaten</button></td></tr>";
+                    }
+                    eindString += "</table>";
+                    document.getElementById("alleKlantenTabel").innerHTML = eindString;
+                }
+            }
+            xhr.open("GET", "http:/localhost:8083/deklanten", true);
+            xhr.send();
+        }
+
+        function toevoegen() {
+            // De JSON meegeven
+            var deklant = {};
+            deklant.name = document.getElementById("inputNaam").value;
+            deklant.email = document.getElementById("inputEmail").value;
+            deklant.adres = document.getElementById("inputAdres").value;
+            deklant.paspoortNummer = document.getElementById("inputPaspoortNummer").value;
+
+            var deJSON = JSON.stringify(deklant);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log("toevoegen gelukt");
+                }
+            }
+            xhr.open("POST", "http://localhost:8083/voegklanttoe", true);
+            console.log(deJSON);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(deJSON);
+        }
+
+        function verwijderen(deid) {
+            //console.log("ik ben aan het verwijderen"+deid);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log("verwijderen gelukt");
+                }
+            }
+
+            xhr.open("DELETE", "http://localhost:8083/verwijderklant/" + deid, true);
+            xhr.send();
+        }
+
+        function updaten(deid) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log(this.responseText);
+                    var klant = JSON.parse(this.responseText);
+                    document.getElementById("inputNaam").value = klant.name; 
+                    
+                }
+            }
+            xhr.open("GET", "http:/localhost:8083/klant/" + deid, true);
+            xhr.send();
+
+            // console.log("ik haal de gegevens op voor de update velden"+deid);
+            // document.getElementById("updateInputNaam").value = document.getElementById("name").innerHTML;
+            // document.getElementById("updateInputEmail").value = document.getElementById("email").innerHTML;
+            // document.getElementById("updateInputAdres").value = document.getElementById("adres").innerHTML;
+            // document.getElementById("updateInputPaspoortNummer").value = document.getElementById("paspoortNummer").innerHTML;
+            // document.getElementById("updateInputId").value = deid;
+        }
+
+        function updatenStap2() {
+            console.log("ik verzend de gegevens van de update velden");
+            var a = {};
+            a.id = document.getElementById("inputId").value;
+            a.kamerNummer = document.getElementById("inputNaam").value;
+            a.beschikbaar = document.getElementById("inputEmail").value;
+            a.prijs = document.getElementById("inputAdres").value;
+            a.kamerType = document.getElementById("inputPaspoortNummer").value;
+
+            var bJSON = JSON.stringify(a);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log("updaten gelukt");
+                }
+            }
+
+            xhr.open("PUT", "http://localhost:8083/updateklant", true);
+            console.log(bJSON);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(bJSON);
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <button onClick="toevoegen()">toevoegen</button>
+            </div>
+            <div class="col">
+                <button onClick="toonKlanten()">Toon alle Klanten</button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="alleKlantenTabel"></div>
+    <input id="inputId" type="hidden">
+    <input id="inputNaam">
+    <input id="inputEmail">
+    <input id="inputAdres">
+    <input id="inputPaspoortNummer">
+
+    <button onClick="updatenStap2()">wijziging opslaan</button>
+
+</body>
+
+</html>
