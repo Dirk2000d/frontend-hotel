@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- CSS -->
+<style>
+
+    /* Navbar hotel */
+    .hotel-navbar {
+        background-color: #C70039; 
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 18px; 
+        color: #FFF5E0;
+        font-family: 'Lato', sans-serif;
+    }
+
+    /* Positie van de kaart */
+    #map_0 {
+        position: relative;
+        width: 90.0%;
+        height: 50.0%;
+        left: 5.0%;
+        top: 0.0%;
+    }
+
+    /* Restaurants, museums, markten button groep */
+    .btn-group {
+        background-color: white;
+        border: none; 
+    }
+
+    .btn-group .btn {
+        background-color: #28397e;
+        color: #FFF5E0;
+        border: none; 
+        padding: 4px 20px;
+        font-size: 19px;
+        margin-right: 10px; 
+    }
+
+    .btn-group .btn:hover {
+        background-color: #0056b3;
+        color: white;
+        transform: scale(1.05);
+            transition: transform 0.2s ease;
+    }
+
+    /* Knop voor openingstijden markten */
+    .markten-select {
+        width: 300px !important;
+    }
+
+    .btn-markten {
+        background-color: #e7e7e5 !important; 
+        color: rgb(0, 0, 0) !important; 
+    }
+
+    /* Tabel header openingstijden markten */
+    .th-markten {
+        background-color: #e7e7e5 !important;
+        color: #000000 !important;
+    }
+</style>
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activiteiten Amsterdam</title> <!-- Naam pagina -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+
+    <!-- Kaart, NIET AANPASSEN -->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+
+<script>
+
+    /* Kaart */
+    L_NO_TOUCH = true;
+    L_DISABLE_3D = false;
+
+    /* Openingstijden markten ophalen */
+    function marktenOphalen(){
+        document.getElementById("marktenTabel").style.display = "block"; 
+        var gebruikers_input = document.getElementById("gebruikers_input").value; // Het soort markt
+        fetch("http://127.0.0.1:5000/markten/" + gebruikers_input) // Haalt alle data op voor het soort markt
+        .then(r => r.json())
+        .then(d => openingstijdenMarkten(d))
+    }
+
+    /* Openingstijden markten in tabel zetten */
+    function openingstijdenMarkten(dedata){
+        var marktTabelBody = document.getElementById("marktTabelBody");
+
+        /* Leegmaken van bestaande rijen in de tabel */
+        while (marktTabelBody.firstChild) {
+            marktTabelBody.removeChild(marktTabelBody.firstChild);
+        }
+
+        /* Toevoegen van nieuwe rijen aan de tabel */
+        for(x = 0; x< dedata.length; x++){
+            var table = document.getElementById("marktTabelBody");
+            var row = table.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+            var cell7 = row.insertCell(6);
+            var cell8 = row.insertCell(7);
+            cell1.innerHTML = "<b>" + dedata[x].Locatie + "</b>";
+            cell2.innerHTML = dedata[x].Maandag;
+            cell3.innerHTML = dedata[x].Dinsdag;
+            cell4.innerHTML = dedata[x].Woensdag;
+            cell5.innerHTML = dedata[x].Donderdag;
+            cell6.innerHTML = dedata[x].Vrijdag;
+            cell7.innerHTML = dedata[x].Zaterdag;
+            cell8.innerHTML = dedata[x].Zondag;
+        }
+    }
+    let currentPage = 1;
+    const resultsPerPage = 100;
+
+  function ophalen(){
+      var gebruikers_input = document.getElementById("gebruikers_input").value;
+      fetch("http://127.0.0.1:5000/jeroen3/" + gebruikers_input)
+      .then(r => r.json())
+      .then(d => gadoen(d));
+        console.log(d);
+  }
+  function gadoen(dedata) {
+    const resultaatDiv = document.getElementById("resultaat");
+    resultaatDiv.innerHTML = "";
+
+    const startIndex = (currentPage - 1) * resultsPerPage;
+    const endIndex = startIndex + resultsPerPage;
+
+    for (let x = startIndex; x < endIndex && x < dedata.length; x++) {
+      resultaatDiv.innerHTML += "<br><b>"+ dedata[x].Name + "</b> : " + dedata[x].City + "<b> : " + dedata[x]["Price Range"] + "</b> : " + dedata[x].Reviews;
+      }
+
+    const totalPages = Math.ceil(dedata.length / resultsPerPage);
+    const maxPages = 10;
+
+    const paginationDiv = document.getElementById("pagination");
+    paginationDiv.innerHTML = "";
+
+    let startPage = Math.max(currentPage - Math.floor(maxPages / 2), 1);
+    let endPage = Math.min(startPage + maxPages - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+      paginationDiv.innerHTML += `<button onclick="changePage(${i})">${i}</button>`;
+    }
+  }
+</script>
+
+<body>
+
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light hotel-navbar">
+        <div class="container">
+            <!-- Logo links -->
+            <a class="navbar-brand" href="#">
+               <img src="your-logo.png" height="30">
+            </a>
+
+            <!-- Buttons midden -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Kamers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Activiteiten</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Restaurant</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Buttons rechts -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="restaurantSearch.html">Inloggen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="MuseaGalleries.html">Registreren</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Restaurants, museums, markten knoppen -->
+    <div class="container mt-4">
+        <div class="d-flex justify-content-center">
+            <div class="btn-group " role="group" aria-label="Basic outlined example">
+                <button type="button" class="btn btn-outline-primary" onclick="bestandOphalen('EtenDrinken.csv', 1)">Restaurants</button>
+                <button type="button" class="btn btn-outline-primary" onclick="bestandOphalen('MuseaGalleries.csv', 2)">Museums</button>
+                <button type="button" class="btn btn-outline-primary" onclick="bestandOphalen('MARKTEN_NEW.csv', 3)">Markten</button>
+            </div>
+        </div>
+    </div><br>
+
+    <!-- Kaart -->
+    <div class="folium-map" id="map_0"></div><br>
+
+    <!-- Restaurants container -->
+    <div class="container mt-4" id="linkerKnop" style="display:none">
+        <button type="button" class="btn btn-primary" onclick="prijzenRestaurants(1)">Lokale Restaurants</button>
+        <button type="button" class="btn btn-primary" onclick="prijzenRestaurants(2)">Internationale Restaurants</button>
+        <br>
+        <br>
+    <div class="container mt-4" id="lokaalRestaurant" style="display:none">
+        Lokaal Restaurant
+        <label for="gebruikers_input">Kies jouw prijscategorie:</label><br>
+        <select id="gebruikers_input" name="gebruikers_input">
+            <option value="$">Goedkoopst</option>
+            <option value="$$ - $$$">Gemiddeld Geprijsd</option>
+            <option value="$$$$">Duurst</option>
+        </select>
+<br>
+<button onclick="ophalen()" type="button" class="btn btn-outline-success">Zoeken</button><br><br>
+<b>Locaties:</b>
+<div id="resultaat"></div>
+<div id="pagination"></div>
+    </div>
+    <div class="container mt-4" id="internationaalRestaurant" style="display:none">
+        Internationaal Restaurants
+    </div>
+</div>
+    <!-- Museums container -->
+    <div class="container mt-4" id="middenKnop" style="display:none">
+        Museums
+    </div>
+    <!-- Markten container -->
+
+    <!-- Drop-down menu en button -->
+    <div class="container mt-4" id="rechterKnop" style="display:none">
+        <div class="input-group">
+            <div class="d-flex">
+            <select class="form-select markten-select" id="gebruikers_input" name="gebruikers_input" style="width:100px;">
+                <option value="Algemene waren">Algemene waren</option>
+                <option value="Kunst">Kunst / Antiek en curiosa</option>
+                <option value="Boerenmarkt">Boerenmarkt / Bioversmarkt</option>
+                <option value="Boeken">Boeken</option>
+                <option value="Postzegels en munten">Postzegels en munten</option>
+                <option value="Bloemen en planten">Bloemen en planten</option>
+            </select>
+            <button class="btn btn-outline-secondary btn-markten" type="button" onclick="marktenOphalen()">Vind de openingstijden</button>
+          </div>
+        </div><br><br>
+
+        <!-- Openingstijden tabel -->
+        <table id="marktenTabel" class="table" style="display:none">
+            <thead>
+            <tr>
+                <th class="th-markten">Locatie</th>
+                <th class="th-markten">Maandag</th>
+                <th class="th-markten">Dinsdag</th>
+                <th class="th-markten">Woensdag</th>
+                <th class="th-markten">Donderdag</th>
+                <th class="th-markten">Vrijdag</th>
+                <th class="th-markten">Zaterdag</th>
+                <th class="th-markten">Zondag</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider" id="marktTabelBody"><tr></tr></tbody>
+        </table><br><br>
+
+    </div>
+
+<script>
+    // Basis kaart, niet weghalen
+    var map_0 = L.map("map_0", {center: [52.3677956, 4.89307], crs: L.CRS.EPSG3857, zoom: 15, zoomControl: true, preferCanvas: false,});
+    var tile_layer_0 = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+    ).addTo(map_0);
+
+    // Voeg de marker toe voor het hotel
+    var marker_0 = L.marker([52.369401, 4.899627],{}).addTo(map_0); // Raamgracht 1
+    var icon_0 = L.AwesomeMarkers.icon({"extraClasses": "fa-rotate-0", "icon": "hotel", "iconColor": "white", "markerColor": "red", "prefix": "fa"});
+    marker_0.setIcon(icon_0);
+    marker_0.bindTooltip("<h5>Hotel</h5>",{"sticky": true});
+
+
+    // Toevoegen markers
+
+    var markersLayer = L.layerGroup();
+
+    function bestandOphalen(bestandsnaam, buttonNummer){
+
+        markersLayer.clearLayers(); // Verwijder huidige markers
+
+        fetch("http://127.0.0.1:5000/alleinfo/" + bestandsnaam) // Haal data op
+        .then(r => r.json())
+        .then(d => drieButtons(d, bestandsnaam, buttonNummer))
+    }
+
+    function drieButtons(dedata, bestandsnaam, buttonNummer){ // Deze functie gaat werken als je op Restaurants, Museums of Markten klikt
+        console.log(dedata)
+
+        for(x = 0; x<dedata.length; x++){
+            // Verberg alle containers
+            document.getElementById("linkerKnop").style.display = "none"; 
+            document.getElementById("middenKnop").style.display = "none"; 
+            document.getElementById("rechterKnop").style.display = "none"; 
+
+            // Laat de juiste container zien
+            if(buttonNummer == 1){
+                document.getElementById("linkerKnop").style.display = "block"; 
+            }
+            else if (buttonNummer == 2){
+                document.getElementById("middenKnop").style.display = "block"; 
+            }
+            else if (buttonNummer == 3){ 
+                document.getElementById("rechterKnop").style.display = "block";
+            }
+
+            /* Maak en definieer de variabelen latitude en longitude
+               Vervang ',' met ',' wanneer nodig */
+            if(String(dedata[x].Latitude).indexOf(',') > -1){
+                latitude = parseFloat(dedata[x].Latitude.replace(',', '.'))
+                longitude = parseFloat(dedata[x].Longitude.replace(',', '.'))
+            }
+            else{
+                latitude = parseFloat(dedata[x].Latitude)
+                longitude = parseFloat(dedata[x].Longitude)
+            }
+
+            // Maak marker
+            var marker_0 = L.marker(
+                [latitude, longitude],
+                {}
+            );
+            
+            // Kleur en icoon van marker
+            if(bestandsnaam == 'MARKTEN_NEW.csv'){
+                // Verander de kleur van de marker voor Markten
+                if (dedata[x].Artikelen.startsWith('Algemene')){
+                    color='blue'; icon='store';
+                }
+                else if (dedata[x].Artikelen.startsWith('Kunst')){
+                    color='purple'; icon='palette';
+                }
+                else if (dedata[x].Artikelen.startsWith('Boeren')){
+                    color='green'; icon='tractor';
+                }
+                else if (dedata[x].Artikelen.startsWith('Boeken')){
+                    color='gray'; icon='book';
+                }
+                else if (dedata[x].Artikelen.startsWith('Postzegels')){
+                    color='darkblue'; icon='envelope';
+                }
+                else{
+                    color='orange'; icon='seedling';
+                }
+
+                // Verander het marker icoon
+                var icon_0 = L.AwesomeMarkers.icon(
+                    {"extraClasses": "fa-rotate-0", "icon": icon, "iconColor": "white", "markerColor": color, "prefix": "fa"}
+                );
+                marker_0.setIcon(icon_0);
+
+                // Tooltip  
+                marker_0.bindTooltip(
+                    "<h5><b> Soort markt: </b>" + dedata[x].Artikelen + "<br><b>Openingsdagen:</b> " + dedata[x].Dagen + "</h5>",
+                {"sticky": true}
+                );
+
+            }
+            
+            else if(bestandsnaam == 'EtenDrinken.csv'){
+                // Verander het marker icoon
+                var icon_0 = L.AwesomeMarkers.icon(
+                    {"extraClasses": "fa-rotate-0", "icon": 'utensils', "iconColor": "white", "markerColor": 'blue', "prefix": "fa"}
+                );
+                marker_0.setIcon(icon_0);
+
+                // Tooltip  
+                restaurantNaam = dedata[x].Locatienaam;
+                if(typeof restaurantNaam !== 'string'){ // als restaurantNaam == null
+                    restaurantNaam = "Onbekend";
+                }
+                marker_0.bindTooltip(
+                    "<h5><b>Naam: </b>" + restaurantNaam + "<br><b>Locatie: </b>" + dedata[x].Adres + "</h5>",
+                {"sticky": true}
+                );
+            }
+            
+            else if(bestandsnaam == 'MuseaGalleries.csv'){
+                // Verander het marker icoon
+                var icon_0 = L.AwesomeMarkers.icon(
+                    {"extraClasses": "fa-rotate-0", "icon": 'building-columns', "iconColor": "white", "markerColor": 'purple', "prefix": "fa"}
+                );
+                marker_0.setIcon(icon_0);
+
+                // Tooltip  
+                museumNaam = dedata[x].Locatienaam;
+                if(typeof museumNaam !== 'string'){ // als restaurantNaam == null
+                    museumNaam = "Onbekend";
+                }
+                marker_0.bindTooltip(
+                    "<h5><b>Naam: </b>" + museumNaam + "<br><b>Locatie: </b>" + dedata[x].Adres + "</h5>",
+                {"sticky": true}
+                );
+            }
+
+            // Voeg marker toe aan de laag
+            markersLayer.addLayer(marker_0);
+        }
+
+        // Voeg marker toe aan de kaart
+        markersLayer.addTo(map_0);
+
+    }
+    function prijzenRestaurants(nummerButton){ // Deze functie gaat werken als je op Restaurants, Museums of Markten klikt
+        console.log(dedata)
+
+            // Verberg alle containers
+            document.getElementById("lokaalRestaurant").style.display = "none"; 
+            document.getElementById("internationaalRestaurant").style.display = "none"; 
+
+            // Laat de juiste container zien
+            if(nummerButton == 1){
+                document.getElementById("lokaalRestaurant").style.display = "block"; 
+            }
+            else if (nummerButton == 2){
+                document.getElementById("internationaalRestaurant").style.display = "block"; 
+            }
+        }
+</script>
+
+<!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
