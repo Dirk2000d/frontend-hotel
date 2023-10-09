@@ -73,14 +73,25 @@
     color: white;
   }
   .custom-navbar {
-            background-color: #083d77; 
+    background-color: #083d77; 
         }
-
   .navbar-nav .nav-link {
-            font-size: 18px; 
-            font-weight: bold; 
-            color: #ffffff; 
+    font-size: 18px; 
+    font-weight: bold; 
+    color: #ffffff; 
         }
+  .nav-pills {
+    display: flex;
+    justify-content: center;
+  }
+  .nav-pills .nav-link {
+    color: white; /* Set the text color */
+    background-color: #083d77; /* Set the background color */
+    border-color: #083d77; /* Set the border color */
+  }
+  .nav-pills .nav-item {
+    margin-right: 10px; /* Adjust the right margin to create space */
+  }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
   <div class="container">
@@ -108,7 +119,21 @@
   </div>
 </nav>
 <header>
-  <h1>De Zevende Hemel</h1>
+  <h1>Restaurant Overzicht</h1>
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" href="localRestaurants.html">Lokale Restaurants</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="restaurantGraph.html">Grafiek</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="restaurantSearch.html">Internationale Restaurants</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+    </li>
+  </ul>
 <body>
 </header>
       <br>
