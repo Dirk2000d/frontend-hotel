@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+        let currentPage = 1;
+        const resultsPerPage = 100;
+
+        function ophalen(){
+            var gebruikers_input = document.getElementById("gebruikers_input").value;
+            fetch("http://127.0.0.1:5000/jeroen2/" + gebruikers_input)
+            .then(r => r.json())
+            .then(d => gadoen(d));
+              console.log(d);
+        }
+        function gadoen(dedata) {
+          const resultaatDiv = document.getElementById("resultaat");
+          resultaatDiv.innerHTML = "";
+
+          const startIndex = (currentPage - 1) * resultsPerPage;
+          const endIndex = startIndex + resultsPerPage;
+
+          for (let x = startIndex; x < endIndex && x < dedata.length; x++) {
+            resultaatDiv.innerHTML += "<br><b>"+ dedata[x].Name + "</b> : " + dedata[x].City + "<b> : " + dedata[x].Rating + "</b> : " + dedata[x].Reviews;
+            }
+
+          const totalPages = Math.ceil(dedata.length / resultsPerPage);
+          const maxPages = 10;
+
+          const paginationDiv = document.getElementById("pagination");
+          paginationDiv.innerHTML = "";
+
+          let startPage = Math.max(currentPage - Math.floor(maxPages / 2), 1);
+          let endPage = Math.min(startPage + maxPages - 1, totalPages);
+
+          for (let i = startPage; i <= endPage; i++) {
+            paginationDiv.innerHTML += `<button onclick="changePage(${i})">${i}</button>`;
+          }
+        }
+      function changePage(page) {
+        currentPage = page;
+        ophalen();
+      }
+</script>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants</title>
+</head>
+<style>
+  body {
+    background-color: white;
+  }
+  header {
+    background-color: #b4d4ee;
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 50px;
+  }
+  form {
+    margin-top: 20px;
+  }
+  #resultaat {
+    margin-top: 20px;
+  }
+  .btn-primary {
+    background-color: black;
+    color: white;
+  }
+  #pagination button {
+    background-color: black;
+    color: white;
+  }
+  .custom-navbar {
+            background-color: #083d77; 
+        }
+
+  .navbar-nav .nav-link {
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #ffffff; 
+        }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+  <div class="container">
+      <a class="navbar-brand" href="#">
+          <img src="your-logo.png" height="30">
+      </a>
+      <!-- Home button -->
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="locatiesOverzicht.html">Home</a>
+          </li>
+      </ul>
+      <!-- Buttons for Restaurants, Museums, and Markten -->
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" href="restaurantSearch.html">Restaurants</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="MuseaGalleries.html">Museums</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="pythonMarkten.html">Markten</a>
+          </li>
+      </ul>
+  </div>
+</nav>
+<header>
+  <h1>De Zevende Hemel</h1>
+<body>
+</header>
+      <br>
+      <br>
+      <form action="http://127.0.0.1:5000/jeroen2/" method="GET">
+          <label for="gebruikers_input">Zoek:</label>
+          <input type="text" id="gebruikers_input" name="search" placeholder="Enter your search query">
+          <button onclick="ophalen()" type="button" class="btn btn-primary btn-sm">Zoeken</button>
+      </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+</body>
+<div id="resultaat"></div>
+<div id="pagination"></div>
+</html>
