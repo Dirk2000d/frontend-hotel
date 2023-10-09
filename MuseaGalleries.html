@@ -4,20 +4,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script>
       L_NO_TOUCH = false;
       L_DISABLE_3D = false;
     </script>
 
     <style>
-      html,
-      body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+      .custom-navbar {
+            background-color: #083d77; 
+        }
+        .navbar-nav .nav-link {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff; 
+        }
+</style>
+
     <style>
       ul.menu {
         list-style: none;
@@ -39,13 +43,13 @@
       }
 
       #map {
-        position: absolute;
+        position: static;
         top: 0;
-        bottom: 0;
         right: 0;
         left: 0;
       }
     </style>
+    
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -82,7 +86,7 @@
     />
     <style>
       #map_95ce84cd1cdbbc09a5bc5bc535a27b9d {
-        position: relative;
+        position: absolute;
         width: 100%;
         height: 50%;
         left: 0%;
@@ -92,12 +96,40 @@
         font-size: 1rem;
       }
     </style>
+    
     <title>MuseaGalleries</title>
   </head>
+
+  
   <body>
-    <ul class="menu">
-      <li><a href="#">Home</a></li>
-    </ul>
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+      <div class="container">
+          <!-- Logo on the left -->
+          <a class="navbar-brand" href="#">
+              <img src="your-logo.png" height="30">
+          </a>
+
+          <!-- Home button -->
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                  <a class="nav-link" href="locatiesOverzicht.html">Home</a>
+              </li>
+          </ul>
+
+          <!-- Buttons for Restaurants, Museums, and Markten -->
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" href="restaurantSearch.html">Restaurants</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="MuseaGalleries.html">Museums</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="pythonMarkten.html">Markten</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
     <h1>MuseaGalleries</h1>
     <div class="Welkome zin">
       Welkom bij MuseaGalleries Amsterdam, dé gids voor musea in en rond Amsterdam.<br>
@@ -106,66 +138,47 @@
       Laat je betoveren door de rijke culturele wereld van Amsterdam!
     </div>
     <br>
+    <h1>Zoek een museum</h1>
+ 
+        <label for="museumTitle">Titel van het museum:</label>
+        <input type="text" id="museumTitle" name="museumTitle">
+        <button type="button" onclick="zoekMusea()">Zoeken</button>
 
-    <form id="search-form">
-      <input type="text" id="search-input" placeholder="Voer een naam in" />
-      <input type="submit" value="Zoeken" />
-    </form>
+   
 
-    <table id="results-table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Short Description</th>
-          <th>Calendar Summary</th>
-          <th>City</th>
-          <th>Address</th>
-          <th>Zipcode</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Hier worden de zoekresultaten ingevoegd -->
-      </tbody>
-    </table>
+  <br>
+  <br>
+  <div class="folium-map" id="map_95ce84cd1cdbbc09a5bc5bc535a27b9d"></div>
 
-    <div class="folium-map" id="map_95ce84cd1cdbbc09a5bc5bc535a27b9d"></div>
+  <div id="searchResult">AA</div>
+  <script>
+    function zoekMusea() {
+      var zoekwoord= document.getElementById("museumTitle").value;
+        fetch('http://127.0.0.1:5000/ZoekLocatieMusea/'+ zoekwoord) // Verander deze URL naar de juiste backend-URL
+       
+        .then(response => response.json())
+        //.then(r=>console.log(r))    
+        .then(data => toonResultaten(data))
+            //.catch(error => console.error('Fout bij het ophalen van gegevens:', error));
+    }
+
+    function toonResultaten(data) {
+        const resultaatDiv = document.getElementById('searchResult');
+        if (data.error) {
+            resultaatDiv.innerHTML = `<p>${data.error}</p>`;
+        } else {
+            const resultaten = data;
+            let resultaatHTML = '<ul>';
+            for (const resultaat of resultaten) {
+                resultaatHTML += `<li><strong>Titel:</strong> ${resultaat.Title}, <strong>Shortdiscription:</strong> ${resultaat.Shortdiscription}</li>`;
+            }
+            resultaatHTML += '</ul>';
+            resultaatDiv.innerHTML = resultaatHTML;
+        }
+    }
+</script>
   </body>
   <script>
-    //zoek functie
-    document
-      .getElementById("search-form")
-      .addEventListener("submit", function (e) {
-        e.preventDefault();
-        const searchInput = document.getElementById("search-input").value;
-
-        fetch(`/zoek?name=${encodeURIComponent(searchInput)}`)
-          .then((response) => response.json())
-          .then((data) => {
-            const resultsTable = document.getElementById("results-table");
-            const tbody = resultsTable.querySelector("tbody");
-            tbody.innerHTML = "";
-
-            if (data.length === 0) {
-              const newRow = tbody.insertRow();
-              const cell = newRow.insertCell(0);
-              cell.colSpan = 6;
-              cell.textContent = "Geen resultaten gevonden.";
-            } else {
-              data.forEach((item) => {
-                const newRow = tbody.insertRow();
-                newRow.insertCell(0).textContent = item.title;
-                newRow.insertCell(1).textContent = item.Shortdescription;
-                newRow.insertCell(2).textContent = item.Calendarsummary;
-                newRow.insertCell(3).textContent = item.city;
-                newRow.insertCell(4).textContent = item.adres;
-                newRow.insertCell(5).textContent = item.zipcode;
-              });
-            }
-          })
-          .catch((error) => {
-            console.error("Fout bij het zoeken:", error);
-          });
-      });
 
     var map_95ce84cd1cdbbc09a5bc5bc535a27b9d = L.map(
       "map_95ce84cd1cdbbc09a5bc5bc535a27b9d",
