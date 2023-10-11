@@ -356,22 +356,21 @@
 
       <!-- Container lokale restaurants -->
       <div class="container mt-4" id="lokaalRestaurant" style="display: none">
-        Lokaal Restaurant
-
-        <label for="gebruikers_input">Kies jouw prijscategorie:</label><br />
+        <br>
+        <label for="gebruikers_input"><strong>Kies jouw prijscategorie:</strong></label><br />
         <select id="gebruikers_input" name="gebruikers_input">
           <option value="$">Goedkoopst</option>
           <option value="$$ - $$$">Gemiddeld Geprijsd</option>
-          <option value="$$$$">Duurst</option></select
-        ><br />
+          <option value="$$$$">Duurst</option></select>
+        
 
         <button
           onclick="ophalenLokaal()"
           type="button"
           class="btn btn-outline-success"
-        >
-          Zoeken</button
-        ><br /><br />
+        >Zoeken</button>
+        <br>
+        <br>
         <b>Locaties:</b>
         <div id="resultaat"></div>
         <div id="pagination"></div>
