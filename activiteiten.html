@@ -350,20 +350,8 @@
 
     <!-- Restaurants container -->
     <div class="container mt-4" id="linkerKnop" style="display: none">
-      <button
-        type="button"
-        class="btn btn-primary"
-        onclick="containerRestaurants(1)"
-      >
-        Lokale Restaurants
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary"
-        onclick="containerRestaurants(2)"
-      >
-        Internationale Restaurants
-      </button>
+      <button type="button" class="btn btn-primary" onclick="containerRestaurants(1)"> Lokale Restaurants </button>
+      <button type="button" class="btn btn-primary" onclick="containerRestaurants(2)"> Internationale Restaurants </button>
       <br /><br />
 
       <!-- Container lokale restaurants -->
@@ -408,7 +396,7 @@
   <div id="resultaatInternationaal"></div>
   <div id="paginationInternationaal"></div>
       </div>
-
+    </div>  
     <!-- Museums container -->
     <div class="container mt-4" id="middenKnop" style="display: none">
       Museums
@@ -523,20 +511,24 @@
       function drieButtons(dedata, bestandsnaam, buttonNummer) {
         // Deze functie gaat werken als je op Restaurants, Museums of Markten klikt
 
-        for (x = 0; x < dedata.length; x++) {
-          // Verberg alle containers
-          document.getElementById("linkerKnop").style.display = "none";
-          document.getElementById("middenKnop").style.display = "none";
-          document.getElementById("rechterKnop").style.display = "none";
+        // Verberg alle containers
+        document.getElementById("linkerKnop").style.display = "none";
+        document.getElementById("middenKnop").style.display = "none";
+        document.getElementById("rechterKnop").style.display = "none";
+        document.getElementById("lokaalRestaurant").style.display = "none";
+        document.getElementById("internationaalRestaurant").style.display = "none";
 
-          // Laat de juiste container zien
-          if (buttonNummer == 1) {
-            document.getElementById("linkerKnop").style.display = "block";
-          } else if (buttonNummer == 2) {
-            document.getElementById("middenKnop").style.display = "block";
-          } else if (buttonNummer == 3) {
-            document.getElementById("rechterKnop").style.display = "block";
-          }
+        // Laat de juiste container zien
+        if (buttonNummer == 1) {
+          document.getElementById("linkerKnop").style.display = "block";
+        } else if (buttonNummer == 2) {
+          document.getElementById("middenKnop").style.display = "block";
+          console.log("Hallo!", buttonNummer);
+        } else if (buttonNummer == 3) {
+          document.getElementById("rechterKnop").style.display = "block";
+        }
+
+        for (x = 0; x < dedata.length; x++) {
 
           /* Maak en definieer de variabelen latitude en longitude
                Vervang ',' met ',' wanneer nodig */
@@ -658,15 +650,13 @@
 
         // Verberg alle containers
         document.getElementById("lokaalRestaurant").style.display = "none";
-        document.getElementById("internationaalRestaurant").style.display =
-          "none";
+        document.getElementById("internationaalRestaurant").style.display = "none";
 
         // Laat de juiste container zien
         if (nummerButton == 1) {
           document.getElementById("lokaalRestaurant").style.display = "block";
         } else if (nummerButton == 2) {
-          document.getElementById("internationaalRestaurant").style.display =
-            "block";
+          document.getElementById("internationaalRestaurant").style.display = "block";
         }
       }
     </script>
