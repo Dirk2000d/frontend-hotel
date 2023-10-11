@@ -15,7 +15,11 @@
                     var allKamers = JSON.parse(this.responseText);
                     var eindString = "<table>";
                     for(var i = 0; i < allKamers.length; i++){
-                        eindString += "<tr><td id='kamerNummer"+allKamers[i].id+"'>"+ allKamers[i].kamerNummer +"</td><td id='beschikbaar"+allKamers[i].id+"'>"+ allKamers[i].beschikbaar +"</td><td id='prijs"+allKamers[i].id+"'>"+ allKamers[i].prijs +"</td><td id='kamerType"+allKamers[i].id+"'>"+ allKamers[i].kamerType +"</td><td><td><button onClick=verwijderen("+allKamers[i].id+")>verwijder</button></td><td><button onClick=updaten("+allKamers[i].id+")>updaten</button></td></tr>";
+                        eindString += "<tr><td id='kamerNummer"+allKamers[i].id+"'>"+ 
+                            allKamers[i].kamerNummer +"</td><td id='beschikbaar"+
+                            allKamers[i].id+"'>"+ allKamers[i].beschikbaar +"</td><td id='prijs"+allKamers[i].id+"'>"+ 
+                            allKamers[i].prijs +"</td><td id='kamerType"+allKamers[i].id+"'>"+ allKamers[i].kamerType +
+                            "</td><td><td><button onClick=verwijderen("+allKamers[i].id+")>verwijder</button></td><td><button onClick=updaten("+allKamers[i].id+")>updaten</button></td><td><button onClick = details("+allKamers[i].id+")>details</button></td></tr>";
                     }
                     eindString += "</table>";
                     document.getElementById("alleKamersTabel").innerHTML = eindString;
@@ -86,10 +90,21 @@
                 }
             }
 
+            
             xhr.open("PUT","http://localhost:8083/updatekamer", true);
             console.log(bJSON);
             xhr.setRequestHeader("Content-Type","application/json");
             xhr.send(bJSON);
+        
+        }
+
+        function details(deid) {
+            // Bouw de URL op met de variabele als queryparameter en verwijzen naar "details.html"
+            var nieuweURL = "details.html?kamerid=" + encodeURIComponent(deid);
+            console.log(deid);
+            // Navigeer naar de nieuwe URL
+            window.location.href = nieuweURL;
+
         }
 
     </script>
@@ -129,7 +144,7 @@
 
     <div id="alleKamersTabel"></div>
     <input id="updateInputId" type="hidden">
-    <input id="updateInputKamerNummer">
+    <input id="updateInputKamerNummer">x
     <input id="updateInputBeschikbaar">
     <input id="updateInputPrijs">
     <select class="form-select" id="updateInputKamerType">
