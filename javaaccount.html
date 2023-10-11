@@ -69,28 +69,24 @@
                     console.log(this.responseText);
                     var klant = JSON.parse(this.responseText);
                     document.getElementById("inputNaam").value = klant.name; 
+                    document.getElementById("inputEmail").value = klant.email;
+                    document.getElementById("inputAdres").value = klant.adres;
+                    document.getElementById("paspoortNummer").value = klant.paspoortNummer;
                     
                 }
             }
             xhr.open("GET", "http:/localhost:8083/klant/" + deid, true);
             xhr.send();
-
-            // console.log("ik haal de gegevens op voor de update velden"+deid);
-            // document.getElementById("updateInputNaam").value = document.getElementById("name").innerHTML;
-            // document.getElementById("updateInputEmail").value = document.getElementById("email").innerHTML;
-            // document.getElementById("updateInputAdres").value = document.getElementById("adres").innerHTML;
-            // document.getElementById("updateInputPaspoortNummer").value = document.getElementById("paspoortNummer").innerHTML;
-            // document.getElementById("updateInputId").value = deid;
         }
 
         function updatenStap2() {
             console.log("ik verzend de gegevens van de update velden");
             var a = {};
             a.id = document.getElementById("inputId").value;
-            a.kamerNummer = document.getElementById("inputNaam").value;
-            a.beschikbaar = document.getElementById("inputEmail").value;
-            a.prijs = document.getElementById("inputAdres").value;
-            a.kamerType = document.getElementById("inputPaspoortNummer").value;
+            a.name = document.getElementById("inputNaam").value;
+            a.email = document.getElementById("inputEmail").value;
+            a.adres = document.getElementById("inputAdres").value;
+            a.paspoortNummer = document.getElementById("inputPaspoortNummer").value;
 
             var bJSON = JSON.stringify(a);
             var xhr = new XMLHttpRequest();
