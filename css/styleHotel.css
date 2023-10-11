@@ -1,3 +1,5 @@
+/** Hotel navigation bar **/
+
 .navigation.navbar {
     float: right;
     padding-top: 14px !important;
@@ -54,3 +56,69 @@
     text-transform: uppercase;
     line-height: 35px;
 }
+
+/** Einde hotel navigation bar **/
+
+/** Kamers pagina **/
+
+.alle_kamers {
+    background-color: #f4f5f7;
+    padding: 60px 0 30px 0;
+    margin-top: 50px;
+}
+
+.alle_kamers .titlepage {
+    text-align: center;
+}
+
+.alle_kamers .titlepage p {
+    color: #121212;
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+.alle_kamers .room {
+    text-align: center;
+    background-color: #fff;
+    margin-bottom: 30px;
+    transition: ease-in all 0.5s;
+}
+
+.alle_kamers .room .room_img {
+    overflow: hidden;
+}
+
+.alle_kamers .room .room_img figure {
+    margin: 0;
+}
+
+.alle_kamers .room .room_img figure img {
+    width: 100%;
+    transition: all .5s;
+}
+
+.alle_kamers .room .room_img figure img:hover {
+    transform: scale(1.2);
+}
+
+.alle_kamers .room .bed_room {
+    padding: 33px 30px;
+}
+
+.alle_kamers .room .bed_room h3 {
+    color: #121212;
+    font-size: 25px;
+    line-height: 20px;
+    font-weight: 500;
+    transition: ease-in all 0.5s;
+    margin: auto;
+}
+
+#serv_hover:hover.room {
+    cursor: pointer;
+    box-shadow: 0px 0px 30px rgba(255, 9, 9, 0.15);
+    transition: ease-in all 0.5s;
+}
+
+
+/** Einde kamers pagina **/

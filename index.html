@@ -3,6 +3,31 @@
 
 <!-- CSS -->
 <style>
+
+
+/* Centered text */
+.centered {
+  position: absolute;
+  font-size: 40pt;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pagina_titel {
+     background-color: #000000;
+}
+.pagina_titel .title {
+     text-align: center;
+}
+.pagina_titel .title h2 {
+    color:#ffffff;
+    font-size: 60px;
+    padding: 50px 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 35px;
+}
 </style>
 
 <head>
@@ -60,7 +85,7 @@
                                     <a class="nav-link" href="#">Inloggen</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Registreren</a>
+                                    <a class="nav-link" href="registreren.html">Registreren</a>
                                 </li>
                             </ul>
                         </div>
@@ -72,7 +97,20 @@
 </header>
 
 <body>
-    <img src="Afbeeldingen/Algemene foto Amsterdam.jpg">
+    <div>
+        <img src="Afbeeldingen/Algemene foto Amsterdam.jpg">
+        <div class="centered">    <div class="pagina_titel">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="title">
+                        <h2>Welkom bij ons hotel!</h2>
+                     </div>
+                  </div>
+               </div>
+            </div>
+        </div></div>
+    </div>
 
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
