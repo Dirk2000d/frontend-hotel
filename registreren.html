@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>registreren</title>
     <script>
          function toevoegen() {
             // De JSON meegeven
@@ -14,7 +14,6 @@
             deklant.paspoortNummer = document.getElementById("inputPaspoortNummer").value;
             deklant.geboorteDatum = document.getElementById("inputGeboorteDatum").value;
             deklant.wachtwoord = document.getElementById("inputWachtwoord").value;
-            deklant.wachtwoordCheck = document.getElementById("inputWachtwoordCheck").value;
 
             var deJSON = JSON.stringify(deklant);
 
@@ -28,6 +27,14 @@
             console.log(deJSON);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(deJSON);
+            }
+
+            function vergelijken()  {
+               if (document.getElementById("inputWachtwoord").value === document.getElementById("inputWachtwoordCheck").value){
+                    toevoegen();
+               } else {
+                    console.log("wachtwoord komt niet overeen");
+               }
             }
     </script>
 </head>
@@ -47,7 +54,7 @@
     <input id="inputWachtwoord">
     <label for="wachtwoordCheck">Wachtwoord check:</label>
     <input id="inputWachtwoordCheck">
-    <button onClick="toevoegen()">registreren</button>
+    <button onClick="vergelijken()">registreren</button>
 
 </body>
 </html>
