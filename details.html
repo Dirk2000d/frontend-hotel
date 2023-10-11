@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <script></script>
+</head>
+
+
+<body onload = "haalGetalUitURL()">
+    <div id="header">
+        <div id="header-text">
+            <div id="header-text1">
+                <input id="kamersoort" placeholder="kamersoort">
+            </div>
+            <div id="header-text2">
+                <input id="kamersoort" placeholder="kamersoort">
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<script>
+
+    
+    function haalGetalUitURL() {
+        // Haal de queryparameters op uit de huidige URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Haal de waarde op van de "kamerid" parameter
+        const kamerid = urlParams.get("kamerid");
+
+        // Controleer of de "kamerid" parameter bestaat en toon deze
+        if (kamerid) {
+            console.log("De waarde van kamerid is: " + kamerid);
+        } else {
+            console.log("Kamerid-parameter niet gevonden in de URL.");
+        }
+        
+    }
+
+    console.log(getal);
+</script>
+
+</html>
