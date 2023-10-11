@@ -18,8 +18,8 @@
     }
 
     .btn-group .btn {
-      background-color: #28397e;
-      color: #fff5e0;
+      background-color: #ffc107;
+      color: black;
       border: none;
       padding: 4px 20px;
       font-size: 19px;
@@ -27,7 +27,7 @@
     }
 
     .btn-group .btn:hover {
-      background-color: #0056b3;
+      background-color: black;
       color: white;
       transform: scale(1.05);
       transition: transform 0.2s ease;
@@ -39,14 +39,42 @@
     }
 
     .btn-markten {
-      background-color: #e7e7e5 !important;
-      color: rgb(0, 0, 0) !important;
+      background-color: black !important;
+      color: white !important;
     }
 
     /* Tabel header openingstijden markten */
     .th-markten {
       background-color: #e7e7e5 !important;
       color: #000000 !important;
+    }
+    .btn-restaurant {
+      background-color: black !important;
+      color: white !important;
+      border: none !important;
+      text-align: center !important;
+    }
+    .btn-restaurant:hover {
+      background-color: #ffc107  !important;
+      color: white !important;
+      transform: scale(1.05) !important;
+      transition: transform 0.2s ease !important;
+    }
+    .btn_zoekprijs {
+      background-color: black !important;
+      color: white !important;
+      border: none;
+    }
+    .btn-sm {
+      background-color: black !important;
+      color: white !important;
+      border: none !important;
+    }
+    .btn-museum {
+      background-color: black !important;
+      color: white !important;
+      border: none !important;
+      text-align: center !important;
     }
   </style>
 
@@ -368,9 +396,9 @@
 
     <!-- Restaurants container -->
     <div class="container mt-4" id="linkerKnop" style="display: none">
-      <button type="button" class="btn btn-primary" onclick="containerRestaurants(1)"> Lokale Restaurants </button>
-      <button type="button" class="btn btn-primary" onclick="containerRestaurants(2)"> Internationale Restaurants </button>
-      <br /><br />
+      <button type="button" class="btn btn-primary btn-restaurant" onclick="containerRestaurants(1)"> Lokale Restaurants </button>
+      <button type="button" class="btn btn-primary btn-restaurant" onclick="containerRestaurants(2)"> Internationale Restaurants </button>
+      
 
       <!-- Container lokale restaurants -->
       <div class="container mt-4" id="lokaalRestaurant" style="display: none">
@@ -385,7 +413,7 @@
         <button
           onclick="ophalenLokaal()"
           type="button"
-          class="btn btn-outline-success"
+          class="btn btn-outline-success btn_zoekprijs"
         >Zoeken</button>
         <br>
         <br>
@@ -400,11 +428,10 @@
         id="internationaalRestaurant"
         style="display: none"
       >
-        Internationale Restaurants
 
         <form action="http://127.0.0.1:5000/jeroen2/" method="GET">
             <label for="gebruikers_input_internationaal">Zoek:</label>
-            <input type="text" id="gebruikers_input_internationaal" name="search" placeholder="Enter your search query">
+            <input type="text" id="gebruikers_input_internationaal" name="search" placeholder="Voer je zoekopdracht in">
             <button onclick="ophalenInternationaal()" type="button" class="btn btn-primary btn-sm">Zoeken</button>
         </form>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -416,14 +443,14 @@
     </div>  
     <!-- Museums container -->
     <div class="container mt-4" id="middenKnop" style="display: none">
-      Museums
-      <h1>Zoek een museum</h1>
+      
+      <h3>Zoek een museum</h3>
 
-      <label for="museumTitle">Titel van het museum:</label>
+      <label for="museumTitle">Naam van het museum:</label>
       <input type="text" id="museumTitle" name="museumTitle" />
-      <button type="button" onclick="zoekMusea()">Zoeken</button>
+      <button type="button" onclick="zoekMusea()" class="btn-museum">Zoeken</button>
 
-      <div id="searchResult">AA</div>
+      <div id="searchResult"></div>
     </div>
     <!-- Markten container -->
 
