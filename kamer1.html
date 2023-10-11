@@ -9,7 +9,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Naam pagina -->
-    <title>Kamers</title>
+    <title>Kamer details</title>
 
     <!-- Style-->
     <link rel="stylesheet" href="css/styleHotel.css">
@@ -78,84 +78,39 @@
            <div class="row">
               <div class="col-md-12">
                  <div class="title">
-                    <h2>Kamers</h2>
+                    <h2>Kamer 1</h2>
                  </div>
               </div>
            </div>
         </div>
     </div>
 
-    <!-- Alle 4 de kamers -->
     <div class="alle_kamers">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-4">
-                <div id="serv_hover"  class="room">
-                    <div class="room_img">
-                        <figure><img src="Afbeeldingen/Kamer1.png" alt="#"/></figure>
-                    </div>
-                    <div class="bed_room">
-                        <h3>Kamer 1</h3>
-                        <p style="text-align: left;">  
-                            <br>
-                            Maximaal aantal personen: <br>
-                            Minimum prijs: <br><br>
-                        </p>
-                        <p><button type="button" class="btn btn-dark btn-lg" onclick="window.location.href = 'kamer1.html';">Bekijk kamer</button></p>
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-4">
+                    Aankomstdatum:<br>
+                    <input type="date" id="date"><br><br>
+                    Vertrekdatum:<br>
+                    <input type="date" id="date"><br><br>
+                    <br><br>Prijs:
+                    <br><br>Prijs inclusief ontbijt:
+                    <br><br><br>
+                    <button type="button" class="btn btn-warning btn-lg">Reserveren</button>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <div id="serv_hover"  class="room">
-                    <div class="room_img">
-                        <figure><img src="Afbeeldingen/Kamer1.png" alt="#"/></figure>
-                    </div>
-                    <div class="bed_room">
-                        <h3>Kamer 2</h3>
-                        <p style="text-align: left;">  
-                        <br>
-                        Maximaal aantal personen: <br>
-                        Minimum prijs: <br><br>
-                        </p>
-                        <p><button type="button" class="btn btn-dark btn-lg" onclick="window.location.href = '#';">Bekijk kamer</button></p>
-                    </div>
+                <div class="col-md-4 col-sm-4">
+                    <br><input type="checkbox" id="ontbijt">
+                    Ontbijt<br><br>
+                    Aantal personen:<br>
+                    <input type="number" id="aantalPersonen" min="1" max="5">
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <div id="serv_hover"  class="room">
-                    <div class="room_img">
-                        <figure><img src="Afbeeldingen/Kamer1.png" alt="#"/></figure>
-                    </div>
-                    <div class="bed_room">
-                        <h3>Kamer 3</h3>
-                        <p style="text-align: left;">  
-                        <br>
-                        Maximaal aantal personen: <br>
-                        Minimum prijs: <br><br>
-                        </p>
-                        <p><button type="button" class="btn btn-dark btn-lg" onclick="window.location.href = '#';">Bekijk kamer</button></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <div id="serv_hover"  class="room">
-                    <div class="room_img">
-                        <figure><img src="Afbeeldingen/Kamer1.png" alt="#"/></figure>
-                    </div>
-                    <div class="bed_room">
-                        <h3>Kamer 4</h3>
-                        <p style="text-align: left;">  
-                        <br>
-                        Maximaal aantal personen: <br>
-                        Minimum prijs: <br><br>
-                        </p>
-                        <p><button type="button" class="btn btn-dark btn-lg" onclick="window.location.href = '#';">Bekijk kamer</button></p>
-                    </div>
+                <br><br><br>
+                <div class="col-md-3 col-sm-4">
+                    <figure><img src="Afbeeldingen/Kamer1.png" alt="#"/></figure>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+        </div>
 
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
