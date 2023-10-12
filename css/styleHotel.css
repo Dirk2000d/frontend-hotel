@@ -1,0 +1,124 @@
+/** Hotel navigation bar **/
+
+.navigation.navbar {
+    float: right;
+    padding-top: 14px !important;
+    padding: 0;
+}
+
+.navigation.navbar-dark .navbar-nav .nav-link {
+    padding: 7px 0px 27px 0px;
+    margin: 0 22px;
+    color: #010101;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: #fff solid 3px;
+}   
+
+.navigation.navbar-dark .navbar-nav .nav-link:focus,
+.navigation.navbar-dark .navbar-nav .nav-link:hover {
+    color: #fe0000;
+    border-bottom: #fe0000 solid 3px;
+}
+
+.navigation.navbar-dark .navbar-nav .active>.nav-link,
+.navigation.navbar-dark .navbar-nav .nav-link.active,
+.navigation.navbar-dark .navbar-nav .nav-link.show,
+.navigation.navbar-dark .navbar-nav .show>.nav-link {
+    color: #fe0000;
+    border-bottom: #fe0000 solid 3px;
+}
+
+.navbar-expand-md .navbar-nav {
+    padding-right: 10px;
+}
+
+.header {
+    width: 100%;
+    height: 86px;
+    padding: 15px 0px 15px 0px;
+    background: #fff;
+}
+
+.black_title {
+     background-color: #0f1521;
+}
+.black_title .title {
+     text-align: center;
+}
+.black_title .title h2 {
+    color:#fff;
+    font-size: 40px;
+    padding: 25px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 35px;
+}
+
+/** Einde hotel navigation bar **/
+
+/** Kamers pagina **/
+
+.alle_kamers {
+    background-color: #f4f5f7;
+    padding: 60px 0 30px 0;
+    margin-top: 50px;
+}
+
+.alle_kamers .titlepage {
+    text-align: center;
+}
+
+.alle_kamers .titlepage p {
+    color: #121212;
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+.alle_kamers .room {
+    text-align: center;
+    background-color: #fff;
+    margin-bottom: 30px;
+    transition: ease-in all 0.5s;
+}
+
+.alle_kamers .room .room_img {
+    overflow: hidden;
+}
+
+.alle_kamers .room .room_img figure {
+    margin: 0;
+}
+
+.alle_kamers .room .room_img figure img {
+    width: 100%;
+    transition: all .5s;
+}
+
+.alle_kamers .room .room_img figure img:hover {
+    transform: scale(1.2);
+}
+
+.alle_kamers .room .bed_room {
+    padding: 33px 30px;
+}
+
+.alle_kamers .room .bed_room h3 {
+    color: #121212;
+    font-size: 25px;
+    line-height: 20px;
+    font-weight: 500;
+    transition: ease-in all 0.5s;
+    margin: auto;
+}
+
+#serv_hover:hover.room {
+    cursor: pointer;
+    box-shadow: 0px 0px 30px rgba(255, 9, 9, 0.15);
+    transition: ease-in all 0.5s;
+}
+
+
+/** Einde kamers pagina **/
