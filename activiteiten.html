@@ -205,7 +205,9 @@
       }
     }
     function zoekMusea() {
-      var zoekwoord = document.getElementById("museumTitle").value;
+      var zoekwoord = document
+        .getElementById("museumTitle")
+        .value.toLowerCase();
       fetch("http://127.0.0.1:5000/ZoekLocatieMusea/" + zoekwoord) // Verander deze URL naar de juiste backend-URL
         .then((response) => response.json())
         //.then(r=>console.log(r))
@@ -221,7 +223,7 @@
         const resultaten = data;
         let resultaatHTML = "<ul>";
         for (const resultaat of resultaten) {
-          resultaatHTML += `<li><strong>Titel:</strong> ${resultaat.Title}, <strong>Shortdiscription:</strong> ${resultaat.Shortdiscription}</li>`;
+          resultaatHTML += `<li><strong>Titel:</strong> ${resultaat.Title}<br><strong>Openingstijden:</strong> ${resultaat.Calendarsummary}</li> <br> `;
         }
         resultaatHTML += "</ul>";
         resultaatDiv.innerHTML = resultaatHTML;

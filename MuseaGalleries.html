@@ -153,12 +153,25 @@
   <div id="searchResult">AA</div>
   <script>
     function zoekMusea() {
-      var zoekwoord= document.getElementById("museumTitle").value;
+      var zoekwoord= document.getElementById("museumTitle").value.toLowerCase();
         fetch('http://127.0.0.1:5000/ZoekLocatieMusea/'+ zoekwoord) // Verander deze URL naar de juiste backend-URL
        
         .then(response => response.json())
         //.then(r=>console.log(r))    
-        .then(data => toonResultaten(data))
+        .then((data) => {toonResultaten(data);
+          if (data.length > 0) {
+            marker.setIcon(customIconRed);
+          } else {
+            marker.setIcon(customIcon);
+      }
+    });
+    var customIconRed = L.icon({
+      iconUrl: 'red_marker.png', // Voeg hier het pad naar een rode markerafbeelding to
+      iconSize: [25, 41], // Pas de grootte aan indien nodig
+      iconAnchor: [12, 41],
+    });
+
+
             //.catch(error => console.error('Fout bij het ophalen van gegevens:', error));
     }
 
