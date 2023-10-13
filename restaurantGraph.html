@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Make a Fetch API request to your Flask endpoint
-        fetch("http://127.0.0.1:5000/jeroen3/")  // Replace with your actual endpoint and rating threshold
-            .then(r => response.json())
-            .then(d => {
+        fetch("http://127.0.0.1:5000/jeroen4/")  
+            .then(r => r.json())
+            .then(data => {
+                console.log('Received data:', data);
+                
                 // Assuming your Flask endpoint returns data in the format { "city_counts": { "City1": count1, "City2": count2, ... } }
-                const cities = Object.keys(data.city_counts);
-                const restaurantCounts = Object.values(data.city_counts);
+                if (data && data.city_counts_dict) {
+                    const cities = Object.keys(data.city_counts_dict);
+                    const restaurantCounts = Object.values(data.city_counts_dict);
 
                 // Code to create a bar chart using Chart.js
                 const ctx = document.getElementById('myChart').getContext('2d');
@@ -19,42 +23,45 @@
                         datasets: [{
                             label: 'Number of Restaurants',
                             data: restaurantCounts,
-                            backgroundColor: 'blue',
+                            backgroundColor: 'rgba(255, 255, 0, 0.5)',
+                            borderRadius: Number.MAX_VALUE,
+                            borderWidth: 2,
+                            borderColor: 'black',
                         }]
                     },
                     options: {
                         scales: {
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'City'
-                                }
-                            },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: 'Number of Restaurants'
-                                }
-                            }
-                        }
+                        x: [{
+                        title: {
+                        display: true,
+                        text: 'City'
                     }
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+                }],
+                        y: [{
+                        title: {
+                        display: true,
+                        text: 'Number of Restaurants'
+                    }
+                }]
+            }
+        }
     });
+ }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
 </script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bar Chart</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body> 
     <h1>Highly Rated Restaurants Chart</h1>
     <div id="chart-container" style="width: 80%; margin: auto;">
-        <canvas id="myChart"></canvas>
+        <canvas id="myChart" width="400" height="400"></canvas>
     </div>
 </body>
 </html>
