@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- CSS -->
+  <style>
+   .text {
+        text-align: left;
+    }
+    
+  #map_0 {
+      position: relative;
+      width: 40%;
+      height: 45%;
+      left: 35%;
+      border: 3px solid black
+     
+    }
+
+  .centered {
+    position: absolute;
+    font-size: 40pt;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .pagina_titel {
+    background-color: #000000;
+  }
+  .pagina_titel .title {
+    text-align: center;
+  }
+  .pagina_titel .title h2 {
+    color:#ffffff;
+    font-size: 60px;
+    padding: 30px 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 70px;
+    }
+    </style>
+  
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Style-->
+   <link rel="stylesheet" href="css/styleHotel.css" />
+
+   <!-- Bootstrap -->
+   <link
+     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+     rel="stylesheet"
+   />
+   
+   <!-- Kaart, NIET AANPASSEN -->
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <style>
+    #map {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      top: 0;
+      right: 0;
+    }
+    
+  </style>
+   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+   <st src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+   <link
+     rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"
+   />
+   <link
+     rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"
+   />
+   <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"
+   />
+   <link
+     rel="stylesheet"
+     href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"
+   />
+   <meta
+     name="viewport"
+     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+   />
+ 
+
+  <title>Contact</title>
+
+</head>
+<!-- Naam pagina -->
+<title>Contact</title>
+
+</head>
+<script>
+  /* Kaart */
+  L_NO_TOUCH = true;
+  L_DISABLE_3D = false;
+  </script>
+
+<!-- Navigatie bar -->
+<header>
+<div class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
+                        <div class="logo">
+                            <a href="index.html"><img src="Afbeeldingen/Logo.png" alt="#" height="60"/></a>
+                        </div>
+            </div>
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarsExample04">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="kamers.html">Kamers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="activiteiten.html">Activiteiten</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Reviews</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Restaurant</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Contact.html">Contact</a>
+                            </li>
+                        </ul>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section"></div>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Inloggen</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="registreren.html">Registreren</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<he>
+  <div class="black_title">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-12">
+             <div class="title">
+                <h2>Contact</h2>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
+</header>
+<body>
+  <div class="text">
+    <p class="contact-info">Adres: </p>
+    <p class="contact-info">E-mail: voorbeeld@email.com</p>
+    <p class="contact-info">Telefoonnummer: (123) 456-7890</p>
+  </div>
+<!-- Kaart -->
+<div class="folium-map" id="map_0"></div>
+
+ <script>
+  // Basis kaart, niet weghalen
+  var map_0 = L.map("map_0", {
+    center: [52.369401, 4.899627],
+    crs: L.CRS.EPSG3857,
+    zoom: 15,
+    zoomControl: true,
+    preferCanvas: false,
+  });
+  var tile_layer_0 = L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      attribution:
+        'Data by \u0026copy; \u003ca target="_blank" href="http://openstreetmap.org"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target="_blank" href="http://www.openstreetmap.org/copyright"\u003eODbL\u003c/a\u003e.',
+      detectRetina: false,
+      maxNativeZoom: 18,
+      maxZoom: 18,
+      minZoom: 0,
+      noWrap: false,
+      opacity: 1,
+      subdomains: "abc",
+      tms: false,
+    }
+  ).addTo(map_0);
+
+  // Voeg de marker toe voor het hotel
+  var marker_0 = L.marker([52.369401, 4.899627], {}).addTo(map_0); // Raamgracht 1
+  var icon_0 = L.AwesomeMarkers.icon({
+    extraClasses: "fa-rotate-0",
+    icon: "hotel",
+    iconColor: "white",
+    markerColor: "red",
+    prefix: "fa",
+  });
+  marker_0.setIcon(icon_0);
+  marker_0.bindTooltip("<h5>Hotel</h5>", { sticky: true });
+
+</script>
+
+<!-- Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
