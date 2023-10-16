@@ -288,8 +288,25 @@
           "</b> : " +
           dedata[x].Reviews;
       }
-<<<<<<< HEAD
-      document.addEventListener('DOMContentLoaded', function() {
+
+      const totalPages = Math.ceil(dedata.length / resultsPerPage);
+      const maxPages = 10;
+
+      const paginationDiv = document.getElementById("paginationInternationaal");
+      paginationDiv.innerHTML = "";
+
+      let startPage = Math.max(currentPage - Math.floor(maxPages / 2), 1);
+      let endPage = Math.min(startPage + maxPages - 1, totalPages);
+
+      for (let i = startPage; i <= endPage; i++) {
+        paginationDiv.innerHTML += `<button onclick="changePageInternational(${i})">${i}</button>`;
+      }
+    }
+    function changePageInternational(page) {
+      currentPage = page;
+      ophalenInternationaal();
+    }
+    document.addEventListener('DOMContentLoaded', function() {
         // Make a Fetch API request to your Flask endpoint
         fetch("http://127.0.0.1:5000/jeroen4/")  
             .then(r => r.json())
@@ -348,26 +365,6 @@
             console.error('Error fetching data:', error);
         });
 });
-=======
-
-      const totalPages = Math.ceil(dedata.length / resultsPerPage);
-      const maxPages = 10;
-
-      const paginationDiv = document.getElementById("paginationInternationaal");
-      paginationDiv.innerHTML = "";
-
-      let startPage = Math.max(currentPage - Math.floor(maxPages / 2), 1);
-      let endPage = Math.min(startPage + maxPages - 1, totalPages);
-
-      for (let i = startPage; i <= endPage; i++) {
-        paginationDiv.innerHTML += `<button onclick="changePageInternational(${i})">${i}</button>`;
-      }
-    }
-    function changePageInternational(page) {
-      currentPage = page;
-      ophalenInternationaal();
-    }
->>>>>>> main
   </script>
 
   <!-- Navigatie bar -->
@@ -543,13 +540,10 @@
         <div id="paginationInternationaal"></div>
       </div>
     </div>
-<<<<<<< HEAD
     <!-- grafiek container -->
     <div class= "container mt-4" id="chart-container" style="width: 80%; margin: auto; display: none">
         <canvas id="myChart" width="400" height="400"></canvas>
     </div>
-=======
->>>>>>> main
     <!-- Museums container -->
     <div class="container mt-4" id="middenKnop" style="display: none">
       <h3>Zoek een museum</h3>
@@ -804,26 +798,16 @@
 
         // Verberg alle containers
         document.getElementById("lokaalRestaurant").style.display = "none";
-<<<<<<< HEAD
         document.getElementById("internationaalRestaurant").style.display = "none";
         document.getElementById("chart-container").style.display = "none";
-=======
-        document.getElementById("internationaalRestaurant").style.display =
-          "none";
->>>>>>> main
-
+        
         // Laat de juiste container zien
         if (nummerButton == 1) {
           document.getElementById("lokaalRestaurant").style.display = "block";
         } else if (nummerButton == 2) {
-<<<<<<< HEAD
           document.getElementById("internationaalRestaurant").style.display = "block";
         } else if (nummerButton == 3) {
           document.getElementById("chart-container").style.display = "block";
-=======
-          document.getElementById("internationaalRestaurant").style.display =
-            "block";
->>>>>>> main
         }
       }
     </script>
