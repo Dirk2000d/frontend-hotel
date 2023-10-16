@@ -68,10 +68,11 @@
                 if (this.readyState == 4) {
                     console.log(this.responseText);
                     var klant = JSON.parse(this.responseText);
+                    document.getElementById("inputId").value = klant.id;
                     document.getElementById("inputNaam").value = klant.name; 
                     document.getElementById("inputEmail").value = klant.email;
                     document.getElementById("inputAdres").value = klant.adres;
-                    document.getElementById("paspoortNummer").value = klant.paspoortNummer;
+                    document.getElementById("inputPaspoortNummer").value = klant.paspoortNummer;
                     
                 }
             }

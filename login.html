@@ -25,8 +25,6 @@
             xhr.open("GET", "http://localhost:8083/loginklant", true);
             console.log(deJSON);
             xhr.setRequestHeader("Content-Type", "application/json");
-            // xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
-            // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
             xhr.send(deJSON);
         }
     </script>
@@ -37,6 +35,6 @@
     <input id="inputEmail">
     <label for="wachtwoord">Wachtwoord:</label>
     <input id="inputWachtwoord">
-    <button onClick="vergelijken()">login</button>
+    <button onclick="vergelijken()">login</button>
 </body>
 </html>
