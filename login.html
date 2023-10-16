@@ -22,7 +22,7 @@
                     console.log("login verstuurd");
                 }
             }
-            xhr.open("GET", "http://localhost:8083/loginklant", true);
+            xhr.open("GET", BACKEND_URL + "/loginklant", true);
             console.log(deJSON);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(deJSON);
