@@ -28,7 +28,7 @@
                     document.getElementById("alleKamersTabel").innerHTML = eindString;
                 }
             }
-            xhr.open("GET","http:/localhost:8083/dekamers", true);
+            xhr.open("GET",BACKEND_URL + "/dekamers", true);
             xhr.send();
         }
 
@@ -48,7 +48,7 @@
                     console.log("toevoegen gelukt");
                 }
             }
-            xhr.open("POST","http://localhost:8083/voegkamertoe", true);
+            xhr.open("POST",BACKEND_URL + "/voegkamertoe", true);
             console.log(deJSON);
             xhr.setRequestHeader("Content-Type","application/json");
             xhr.send(deJSON);
@@ -63,7 +63,7 @@
                 }
             }
 
-            xhr.open("DELETE","http://localhost:8083/verwijderkamer/"+deid, true);
+            xhr.open("DELETE",BACKEND_URL + "/verwijderkamer/"+deid, true);
             xhr.send();
         }
 
@@ -94,7 +94,7 @@
             }
 
             
-            xhr.open("PUT","http://localhost:8083/updatekamer", true);
+            xhr.open("PUT",BACKEND_URL + "/updatekamer", true);
             console.log(bJSON);
             xhr.setRequestHeader("Content-Type","application/json");
             xhr.send(bJSON);
@@ -112,6 +112,7 @@
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="js/base.js"></script>
 </head>
 <body>
     <div class="container text-center">

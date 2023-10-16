@@ -28,7 +28,7 @@
 
             if (hotel.id == 0) {
                 // ADD EXISTING HOTEL
-                fetch("http://localhost:8083/voeghoteltoe", thepost);
+                fetch(BACKEND_URL + "/voeghoteltoe", thepost);
             } else {
                 // UPDATE EXISTING HOTEL
                 fetch("http://localhost:8082/werkhotelbij", thepost)
@@ -39,6 +39,7 @@
             }
         }
     </script>
+    <script src="js/base.js"></script>
 </head>
 
 <body>
