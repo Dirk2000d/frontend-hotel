@@ -81,7 +81,7 @@
         kamer.naam= document.getElementById("fname").value;
         console.log(kamer)
         let kamerjson = JSON.stringify(kamer);
-        fetch("http://localhost:8083/voegkamertoe",{
+        fetch(BACKEND_URL + "/voegkamertoe",{
         method: 'POST',
         headers: {
         Accept: 'application.json',
@@ -94,7 +94,7 @@
 
 
         function haalkamers(){
-            fetch("http://localhost:8083/dekamers")
+            fetch(BACKEND_URL + "/dekamers")
             .then(r => r.json())
             .then(d => kamers(d))
         }

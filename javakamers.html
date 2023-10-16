@@ -19,13 +19,16 @@
                             allKamers[i].kamerNummer +"</td><td id='beschikbaar"+
                             allKamers[i].id+"'>"+ allKamers[i].beschikbaar +"</td><td id='prijs"+allKamers[i].id+"'>"+ 
                             allKamers[i].prijs +"</td><td id='kamerType"+allKamers[i].id+"'>"+ allKamers[i].kamerType +
-                            "</td><td><td><button onClick=verwijderen("+allKamers[i].id+")>verwijder</button></td><td><button onClick=updaten("+allKamers[i].id+")>updaten</button></td><td><button onClick = details("+allKamers[i].id+")>details</button></td></tr>";
+                            "</td><td><td><button onClick=verwijderen("+allKamers[i].id+
+                            ")>verwijder</button></td><td><button onClick=updaten("+allKamers[i].id+
+                            ")>updaten</button></td><td><button onClick = details("+allKamers[i].id+
+                            ")>details</button></td></tr>";
                     }
                     eindString += "</table>";
                     document.getElementById("alleKamersTabel").innerHTML = eindString;
                 }
             }
-            xhr.open("GET","http:/localhost:8083/dekamers", true);
+            xhr.open("GET",BACKEND_URL + "/dekamers", true);
             xhr.send();
         }
 
@@ -45,7 +48,7 @@
                     console.log("toevoegen gelukt");
                 }
             }
-            xhr.open("POST","http://localhost:8083/voegkamertoe", true);
+            xhr.open("POST",BACKEND_URL + "/voegkamertoe", true);
             console.log(deJSON);
             xhr.setRequestHeader("Content-Type","application/json");
             xhr.send(deJSON);
@@ -60,7 +63,7 @@
                 }
             }
 
-            xhr.open("DELETE","http://localhost:8083/verwijderkamer/"+deid, true);
+            xhr.open("DELETE",BACKEND_URL + "/verwijderkamer/"+deid, true);
             xhr.send();
         }
 
@@ -91,7 +94,7 @@
             }
 
             
-            xhr.open("PUT","http://localhost:8083/updatekamer", true);
+            xhr.open("PUT",BACKEND_URL + "/updatekamer", true);
             console.log(bJSON);
             xhr.setRequestHeader("Content-Type","application/json");
             xhr.send(bJSON);

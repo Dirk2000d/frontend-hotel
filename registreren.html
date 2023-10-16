@@ -38,7 +38,7 @@
             console.log("toevoegen verstuurd");
           }
         };
-        xhr.open("POST", "http://localhost:8083/voegklanttoe", true);
+        xhr.open("POST", BACKEND_URL + "/voegklanttoe", true);
         console.log(deJSON);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(deJSON);
@@ -80,7 +80,7 @@
                     }
                 }
             }
-            xhr.open("POST", "http://localhost:8083/voegklanttoe", true);
+            xhr.open("POST", BACKEND_URL + "/voegklanttoe", true);
             console.log(deJSON);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(deJSON);

@@ -23,7 +23,7 @@
                     document.getElementById("alleKlantenTabel").innerHTML = eindString;
                 }
             }
-            xhr.open("GET", "http:/localhost:8083/deklanten", true);
+            xhr.open("GET", BACKEND_URL + "/deklanten", true);
             xhr.send();
         }
 
@@ -43,7 +43,7 @@
                     console.log("toevoegen gelukt");
                 }
             }
-            xhr.open("POST", "http://localhost:8083/voegklanttoe", true);
+            xhr.open("POST", BACKEND_URL + "/voegklanttoe", true);
             console.log(deJSON);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(deJSON);
@@ -58,7 +58,7 @@
                 }
             }
 
-            xhr.open("DELETE", "http://localhost:8083/verwijderklant/" + deid, true);
+            xhr.open("DELETE", BACKEND_URL + "/verwijderklant/" + deid, true);
             xhr.send();
         }
 
@@ -68,14 +68,15 @@
                 if (this.readyState == 4) {
                     console.log(this.responseText);
                     var klant = JSON.parse(this.responseText);
+                    document.getElementById("inputId").value = klant.id;
                     document.getElementById("inputNaam").value = klant.name; 
                     document.getElementById("inputEmail").value = klant.email;
                     document.getElementById("inputAdres").value = klant.adres;
-                    document.getElementById("paspoortNummer").value = klant.paspoortNummer;
+                    document.getElementById("inputPaspoortNummer").value = klant.paspoortNummer;
                     
                 }
             }
-            xhr.open("GET", "http:/localhost:8083/klant/" + deid, true);
+            xhr.open("GET", BACKEND_URL + "/klant/" + deid, true);
             xhr.send();
         }
 
@@ -96,7 +97,7 @@
                 }
             }
 
-            xhr.open("PUT", "http://localhost:8083/updateklant", true);
+            xhr.open("PUT", BACKEND_URL + "/updateklant", true);
             console.log(bJSON);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(bJSON);
