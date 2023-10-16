@@ -19,7 +19,10 @@
                             allKamers[i].kamerNummer +"</td><td id='beschikbaar"+
                             allKamers[i].id+"'>"+ allKamers[i].beschikbaar +"</td><td id='prijs"+allKamers[i].id+"'>"+ 
                             allKamers[i].prijs +"</td><td id='kamerType"+allKamers[i].id+"'>"+ allKamers[i].kamerType +
-                            "</td><td><td><button onClick=verwijderen("+allKamers[i].id+")>verwijder</button></td><td><button onClick=updaten("+allKamers[i].id+")>updaten</button></td><td><button onClick = details("+allKamers[i].id+")>details</button></td></tr>";
+                            "</td><td><td><button onClick=verwijderen("+allKamers[i].id+
+                            ")>verwijder</button></td><td><button onClick=updaten("+allKamers[i].id+
+                            ")>updaten</button></td><td><button onClick = details("+allKamers[i].id+
+                            ")>details</button></td></tr>";
                     }
                     eindString += "</table>";
                     document.getElementById("alleKamersTabel").innerHTML = eindString;
