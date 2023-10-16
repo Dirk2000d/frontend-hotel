@@ -1,1 +1,1 @@
-const BACKEND_URL = BACKEND_URL + ""
+const BACKEND_URL = "http://localhost:8083"
