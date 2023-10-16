@@ -10,9 +10,11 @@
                 console.log('Received data:', data);
                 
                 // Assuming your Flask endpoint returns data in the format { "city_counts": { "City1": count1, "City2": count2, ... } }
-                if (data && data.city_counts_dict) {
-                    const cities = Object.keys(data.city_counts_dict);
-                    const restaurantCounts = Object.values(data.city_counts_dict);
+                if (data && data.city_info_dict) {
+                    const cities = Object.keys(data.city_info_dict);
+                    const restaurantCounts = Object.values(data.city_info_dict).map(item => item.RestaurantCount);
+                    const maxReviewsToShow = 100000;
+                    const reviewCounts = Object.values (data.city_info_dict).map(item => item.TotalReviews);
 
                 // Code to create a bar chart using Chart.js
                 const ctx = document.getElementById('myChart').getContext('2d');
@@ -27,21 +29,28 @@
                             borderRadius: Number.MAX_VALUE,
                             borderWidth: 2,
                             borderColor: 'black',
+                        }, {
+                            label: 'Number of Reviews',
+                            data: reviewCounts,
+                            backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                            borderRadius: Number.MAX_VALUE,
+                            borderWidth: 2,
+                            borderColor: 'black',
                         }]
                     },
                     options: {
                         scales: {
-                        x: [{
-                        title: {
-                        display: true,
-                        text: 'City'
+                            xAxes: [{
+                                scaleLabel: {
+                                display: true,
+                                    text: 'City'
                     }
                 }],
-                        y: [{
-                        title: {
-                        display: true,
-                        text: 'Number of Restaurants'
-                    }
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Count'
+                    },
                 }]
             }
         }

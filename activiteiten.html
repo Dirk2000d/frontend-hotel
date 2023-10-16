@@ -117,6 +117,7 @@
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"
@@ -287,6 +288,67 @@
           "</b> : " +
           dedata[x].Reviews;
       }
+<<<<<<< HEAD
+      document.addEventListener('DOMContentLoaded', function() {
+        // Make a Fetch API request to your Flask endpoint
+        fetch("http://127.0.0.1:5000/jeroen4/")  
+            .then(r => r.json())
+            .then(data => {
+                console.log('Received data:', data);
+                
+                // Assuming your Flask endpoint returns data in the format { "city_counts": { "City1": count1, "City2": count2, ... } }
+                if (data && data.city_info_dict) {
+                    const cities = Object.keys(data.city_info_dict);
+                    const restaurantCounts = Object.values(data.city_info_dict).map(item => item.RestaurantCount);
+                    const maxReviewsToShow = 100000;
+                    const reviewCounts = Object.values (data.city_info_dict).map(item => item.TotalReviews);
+
+                // Code to create a bar chart using Chart.js
+                const ctx = document.getElementById('myChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: cities,
+                        datasets: [{
+                            label: 'Number of Restaurants',
+                            data: restaurantCounts,
+                            backgroundColor: 'rgba(255, 255, 0, 0.5)',
+                            borderRadius: Number.MAX_VALUE,
+                            borderWidth: 2,
+                            borderColor: 'black',
+                        }, {
+                            label: 'Number of Reviews',
+                            data: reviewCounts,
+                            backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                            borderRadius: Number.MAX_VALUE,
+                            borderWidth: 2,
+                            borderColor: 'black',
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                scaleLabel: {
+                                display: true,
+                                    text: 'City'
+                    }
+                }],
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Count'
+                    },
+                }]
+            }
+        }
+    });
+ }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
+=======
 
       const totalPages = Math.ceil(dedata.length / resultsPerPage);
       const maxPages = 10;
@@ -305,6 +367,7 @@
       currentPage = page;
       ophalenInternationaal();
     }
+>>>>>>> main
   </script>
 
   <!-- Navigatie bar -->
@@ -420,27 +483,10 @@
 
     <!-- Restaurants container -->
     <div class="container mt-4" id="linkerKnop" style="display: none">
-<<<<<<< HEAD
-      <button
-        type="button"
-        class="btn btn-primary btn-restaurant"
-        onclick="containerRestaurants(1)"
-      >
-        Lokale Restaurants
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary btn-restaurant"
-        onclick="containerRestaurants(2)"
-      >
-        Internationale Restaurants
-      </button>
-=======
       <button type="button" class="btn btn-primary btn-restaurant" onclick="containerRestaurants(1)"> Lokale Restaurants </button>
       <button type="button" class="btn btn-primary btn-restaurant" onclick="containerRestaurants(2)"> Internationale Restaurants </button>
       <button type="button" class="btn btn-primary btn-restaurant" onclick="containerRestaurants(3)"> Big Data for Big Nerds </button>
       
->>>>>>> main
 
       <!-- Container lokale restaurants -->
       <div class="container mt-4" id="lokaalRestaurant" style="display: none">
@@ -497,6 +543,13 @@
         <div id="paginationInternationaal"></div>
       </div>
     </div>
+<<<<<<< HEAD
+    <!-- grafiek container -->
+    <div class= "container mt-4" id="chart-container" style="width: 80%; margin: auto; display: none">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+=======
+>>>>>>> main
     <!-- Museums container -->
     <div class="container mt-4" id="middenKnop" style="display: none">
       <h3>Zoek een museum</h3>
@@ -751,15 +804,26 @@
 
         // Verberg alle containers
         document.getElementById("lokaalRestaurant").style.display = "none";
+<<<<<<< HEAD
+        document.getElementById("internationaalRestaurant").style.display = "none";
+        document.getElementById("chart-container").style.display = "none";
+=======
         document.getElementById("internationaalRestaurant").style.display =
           "none";
+>>>>>>> main
 
         // Laat de juiste container zien
         if (nummerButton == 1) {
           document.getElementById("lokaalRestaurant").style.display = "block";
         } else if (nummerButton == 2) {
+<<<<<<< HEAD
+          document.getElementById("internationaalRestaurant").style.display = "block";
+        } else if (nummerButton == 3) {
+          document.getElementById("chart-container").style.display = "block";
+=======
           document.getElementById("internationaalRestaurant").style.display =
             "block";
+>>>>>>> main
         }
       }
     </script>
