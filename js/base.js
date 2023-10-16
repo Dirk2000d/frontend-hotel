@@ -1,1 +1,1 @@
-const BACKEND_URL = "http://localhost:8083"
+const BACKEND_URL = "https://javayc2309dirk.azurewebsites.net"
