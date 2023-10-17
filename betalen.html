@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- CSS -->
+<style></style>
+
+<script>
+    function betalingscheck() {
+        // Controleer of de betalingsmethode is geselecteerd
+        var betalingsmethode = document.querySelector("select.custom-select").value;
+
+        // Controleer of de voorwaarden zijn geaccepteerd
+        var voorwaarden = document.querySelector("#invalidCheck3").checked;
+
+        // Controleer of alle velden voor persoonlijke gegevens zijn ingevuld
+        var voornaam = document.querySelector("#voornaam").value;
+        var achternaam = document.querySelector("#achternaam").value;
+        var adres = document.querySelector("#adres").value;
+        var email = document.querySelector("#email").value;
+        var telefoon = document.querySelector("#telefoon").value;
+
+        if (
+            betalingsmethode !== "Kies uw betalingsmethode" &&
+            voorwaarden &&
+            voornaam !== "" &&
+            achternaam !== "" &&
+            adres !== "" &&
+            email !== "" &&
+            telefoon !== ""
+        ) {
+            // Alles is ingevuld en geaccepteerd, toon "betaling geslaagd" melding
+            alert("Betaling geslaagd!");
+        } else {
+            // Er ontbreken gegevens of de voorwaarden zijn niet geaccepteerd, toon "betaling niet geslaagd" melding
+            alert("Betaling niet geslaagd. U heeft nog niet alles correct ingevuld.");
+        }
+    }
+</script>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Naam pagina -->
+    <title>Betalen</title>
+
+    <!-- Style-->
+    <link rel="stylesheet" href="css/styleHotel.css" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="js/base.js"></script>
+</head>
+
+<!-- Navigatie bar -->
+<header>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
+                    <div class="logo">
+                        <a href="index.html"><img src="Afbeeldingen/Logo.png" alt="#" height="60" /></a>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                    <nav class="navigation navbar navbar-expand-md navbar-dark">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="kamers.html">Kamers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="activiteiten.html">Activiteiten</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Reviews</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Restaurant</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Contact.html">Contact</a>
+                                </li>
+                            </ul>
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section"></div>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Inloggen</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="registreren.html">Registreren</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<body>
+    <div class="black_title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title">
+                        <h2>Betalen</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h3>Uw reservering</h3><br>
+                Kamer:<br>
+                Datum:<br>
+                Ontbijt:<br>
+                Aantal personen:<br>
+                Prijs: <br><br><br>
+
+                <h3>Betalen</h3><br>
+
+
+                Betalingsmethode: <select class="custom-select"><br>
+                    <option selected>Kies uw betalingsmethode</option>
+                    <option value="1">iDEAL</option>
+                </select><br><br>
+                <input type="checkbox" id="voorwaarden">
+                Accepteer de voorwaarden<br><br>
+
+                <button type="button" class="btn btn-warning" onclick="betalingscheck()">Bevestigen</button>
+            </div>
+            <div class="col-sm">
+                <h3>Persoonlijke gegevens</h3> <br>
+                <div class="row">
+                    <div class="col">
+                        Voornaam:<br>
+                        <input type="text" class="form-control" value="Piet" id="voornaam">
+                    </div>
+                    <div class="col">
+                        Achternaam: <br>
+                        <input type="text" class="form-control" value="Bakker" id="achternaam">
+                    </div>
+                </div><br>
+                Adres: <br> <input type="text" class="form-control" id="adres" value="Bakkerstraat 1"><br>
+                E-mail: <br> <input type="email" class="form-control" id="email" value="naam@voorbeeld.com"><br>
+                Telefoon: <br> <input type="tel" class="form-control" id="telefoon" value="0612345678"><br>
+            </div>
+        </div>
+    </div>
+</body>
