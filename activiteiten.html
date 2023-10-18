@@ -318,7 +318,7 @@
                 if (data && data.city_info_dict) {
                     const cities = Object.keys(data.city_info_dict);
                     const restaurantCounts = Object.values(data.city_info_dict).map(item => item.RestaurantCount);
-                    const maxReviewsToShow = 100000;
+                    //const maxReviewsToShow = 100000;
                     const reviewCounts = Object.values (data.city_info_dict).map(item => item.TotalReviews);
 
                 // Code to create a bar chart using Chart.js
