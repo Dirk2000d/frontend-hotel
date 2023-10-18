@@ -48,28 +48,33 @@
       background-color: #e7e7e5 !important;
       color: #000000 !important;
     }
+
     .btn-restaurant {
       background-color: black !important;
       color: white !important;
       border: none !important;
       text-align: center !important;
     }
+
     .btn-restaurant:hover {
       background-color: #ffc107 !important;
       color: white !important;
       transform: scale(1.05) !important;
       transition: transform 0.2s ease !important;
     }
+
     .btn_zoekprijs {
       background-color: black !important;
       color: white !important;
       border: none;
     }
+
     .btn-sm {
       background-color: black !important;
       color: white !important;
       border: none !important;
     }
+
     .btn-museum {
       background-color: black !important;
       color: white !important;
@@ -317,18 +322,12 @@
       currentPage = page;
       ophalenInternationaal();
     }
-    document.addEventListener('DOMContentLoaded', function() {
-        // Make a Fetch API request to your Flask endpoint
-        fetch("https://pythonapphotel23.azurewebsites.net/jeroen4/")  
-            .then(r => r.json())
-            .then(data => {
-                console.log('Received data:', data);
-                       
-        // Assuming your Flask endpoint returns data in the format { "city_counts": { "City1": count1, "City2": count2, ... } }
-        if (data && data.city_info_dict) {
-          const cities = Object.keys(data.city_info_dict);
-          const restaurantCounts = Object.values(data.city_info_dict).map(item => item.RestaurantCount);
-          const reviewCounts = Object.values(data.city_info_dict).map(item => item.TotalReviews);
+    document.addEventListener("DOMContentLoaded", function () {
+      // Make a Fetch API request to your Flask endpoint
+      fetch("https://pythonapphotel23.azurewebsites.net/jeroen4//")
+        .then((r) => r.json())
+        .then((data) => {
+          console.log("Received data:", data);
 
           // Assuming your Flask endpoint returns data in the format { "city_counts": { "City1": count1, "City2": count2, ... } }
           if (data && data.city_info_dict) {
@@ -399,14 +398,14 @@
     <div class="header">
       <div class="container">
         <div class="row">
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
             <div class="logo">
               <a href="index.html"
                 ><img src="Afbeeldingen/Logo.png" alt="#" height="60"
               /></a>
             </div>
           </div>
-          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
             <nav class="navigation navbar navbar-expand-md navbar-dark">
               <button
                 class="navbar-toggler"
@@ -431,9 +430,6 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="reviews.html">Reviews</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Restaurant</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="Contact.html">Contact</a>
@@ -732,7 +728,7 @@
 
         for (x = 0; x < dedata.length; x++) {
           /* Maak en definieer de variabelen latitude en longitude
-               Vervang ',' met ',' wanneer nodig */
+             Vervang ',' met ',' wanneer nodig */
           if (String(dedata[x].Latitude).indexOf(",") > -1) {
             latitude = parseFloat(dedata[x].Latitude.replace(",", "."));
             longitude = parseFloat(dedata[x].Longitude.replace(",", "."));

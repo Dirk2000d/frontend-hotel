@@ -20,6 +20,7 @@
     position: absolute;
     top: 620px;
     left: 0px;
+    border-radius: 10px;
    
   }
   #map_0 {
@@ -83,6 +84,8 @@
    
     
   </style>
+ 
+
    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
    <st src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
@@ -123,66 +126,66 @@
 
 <!-- Navigatie bar -->
 <header>
-<div class="header">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
-                        <div class="logo">
-                            <a href="index.html"><img src="Afbeeldingen/Logo.png" alt="#" height="60"/></a>
-                        </div>
-            </div>
-            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
-                <nav class="navigation navbar navbar-expand-md navbar-dark ">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarsExample04">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="kamers.html">Kamers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="activiteiten.html">Activiteiten</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="reviews.html">Reviews</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Restaurant</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Contact.html">Contact</a>
-                            </li>
-                        </ul>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section"></div>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Inloggen</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="registreren.html">Registreren</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
-<he>
+  <div class="header">
+      <div class="container">
+          <div class="row">
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
+                  <div class="logo">
+                      <a href="index.html"><img src="Afbeeldingen/Logo.png" alt="#" height="60" /></a>
+                  </div>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                  <nav class="navigation navbar navbar-expand-md navbar-dark">
+                      <button class="navbar-toggler" type="button" data-toggle="collapse"
+                          data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                          aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarsExample04">
+                          <ul class="navbar-nav mr-auto">
+                              <li class="nav-item">
+                                  <a class="nav-link" href="kamers.html">Kamers</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="activiteiten.html">Activiteiten</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="reviews.html">Reviews</a>
+                              </li>
+                              <li class="nav-item active">
+                                  <a class="nav-link" href="Contact.html">Contact</a>
+                              </li>
+                          </ul>
+                          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section"></div>
+                          <ul class="navbar-nav">
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#">Inloggen</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="registreren.html">Registreren</a>
+                              </li>
+                          </ul>
+                      </div>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
+
+<body>
+
   <div class="black_title">
     <div class="container">
-       <div class="row">
-          <div class="col-md-12">
-             <div class="title">
-                <h2>Contact</h2>
-             </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title">
+            <h2>Contact</h2>
           </div>
-       </div>
+        </div>
+      </div>
     </div>
-</div>
-</header>
-<body>
+  </div>
 
   <div class="text">
     <p class="contact-info"><b>Adres:</b> Raamgracht 98 </p>
@@ -213,7 +216,7 @@
  <script>
   // Basis kaart, niet weghalen
   var map_0 = L.map("map_0", {
-    center: [52.369401, 4.899627],
+    center: [52.369401, 4.89969],
     crs: L.CRS.EPSG3857,
     zoom: 15,
     zoomControl: true,
@@ -237,15 +240,15 @@
 
   // Voeg de marker toe voor het hotel
   var marker_0 = L.marker([52.369401, 4.899627], {}).addTo(map_0); // Raamgracht 1
-  var icon_0 = L.AwesomeMarkers.icon({
+  var marker_0= L.AwesomeMarkers.icon({
     extraClasses: "fa-rotate-0",
     icon: "hotel",
     iconColor: "white",
     markerColor: "red",
     prefix: "fa",
   });
-  marker_0.setIcon(icon_0);
-  marker_0.bindTooltip("<h5>Hotel</h5>", { sticky: true });
+  //marker_0.setIcon(icon_0);
+  //marker_0.bindTooltip("<h5>Hotel</h5>", { sticky: true });
 
 </script>
 
