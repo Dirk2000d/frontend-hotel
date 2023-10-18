@@ -1,318 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- CSS -->
+<!-- CSS -->
+<style>
+  /* Positie van de kaart */
+  #map_0 {
+    position: relative;
+    width: 90%;
+    height: 50%;
+    left: 5%;
+    top: 0%;
+  }
+
+  /* Restaurants, museums, markten button groep */
+  .btn-group {
+    background-color: white;
+    border: none;
+  }
+
+  .btn-group .btn {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    padding: 4px 20px;
+    font-size: 19px;
+    margin-right: 10px;
+  }
+
+  .btn-group .btn:hover {
+    background-color: black;
+    color: white;
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+  }
+
+  /* Knop voor openingstijden markten */
+  .markten-select {
+    width: 300px !important;
+  }
+
+  .btn-markten {
+    background-color: black !important;
+    color: white !important;
+  }
+
+  /* Tabel header openingstijden markten */
+  .th-markten {
+    background-color: #e7e7e5 !important;
+    color: #000000 !important;
+  }
+
+  .btn-restaurant {
+    background-color: black !important;
+    color: white !important;
+    border: none !important;
+    text-align: center !important;
+  }
+
+  .btn-restaurant:hover {
+    background-color: #ffc107 !important;
+    color: white !important;
+    transform: scale(1.05) !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  .btn_zoekprijs {
+    background-color: black !important;
+    color: white !important;
+    border: none;
+  }
+
+  .btn-sm {
+    background-color: black !important;
+    color: white !important;
+    border: none !important;
+  }
+
+  .btn-museum {
+    background-color: black !important;
+    color: white !important;
+    border: none !important;
+    text-align: center !important;
+  }
+</style>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Style-->
+  <link rel="stylesheet" href="css/styleHotel.css" />
+
+  <!-- Naam pagina -->
+  <title>Activiteiten Amsterdam</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="js/base.js"></script>
+
+  <!-- Kaart, NIET AANPASSEN -->
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <style>
-    /* Positie van de kaart */
-    #map_0 {
-      position: relative;
-      width: 90%;
-      height: 50%;
-      left: 5%;
-      top: 0%;
-    }
-
-    /* Restaurants, museums, markten button groep */
-    .btn-group {
-      background-color: white;
-      border: none;
-    }
-
-    .btn-group .btn {
-      background-color: #ffc107;
-      color: black;
-      border: none;
-      padding: 4px 20px;
-      font-size: 19px;
-      margin-right: 10px;
-    }
-
-    .btn-group .btn:hover {
-      background-color: black;
-      color: white;
-      transform: scale(1.05);
-      transition: transform 0.2s ease;
-    }
-
-    /* Knop voor openingstijden markten */
-    .markten-select {
-      width: 300px !important;
-    }
-
-    .btn-markten {
-      background-color: black !important;
-      color: white !important;
-    }
-
-    /* Tabel header openingstijden markten */
-    .th-markten {
-      background-color: #e7e7e5 !important;
-      color: #000000 !important;
-    }
-    .btn-restaurant {
-      background-color: black !important;
-      color: white !important;
-      border: none !important;
-      text-align: center !important;
-    }
-    .btn-restaurant:hover {
-      background-color: #ffc107 !important;
-      color: white !important;
-      transform: scale(1.05) !important;
-      transition: transform 0.2s ease !important;
-    }
-    .btn_zoekprijs {
-      background-color: black !important;
-      color: white !important;
-      border: none;
-    }
-    .btn-sm {
-      background-color: black !important;
-      color: white !important;
-      border: none !important;
-    }
-    .btn-museum {
-      background-color: black !important;
-      color: white !important;
-      border: none !important;
-      text-align: center !important;
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
   </style>
+  <style>
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>
+  /* Kaart */
+  L_NO_TOUCH = true;
+  L_DISABLE_3D = false;
 
-    <!-- Style-->
-    <link rel="stylesheet" href="css/styleHotel.css" />
+  /* Openingstijden markten ophalen */
+  function marktenOphalen() {
+    document.getElementById("marktenTabel").style.display = "block";
+    var artikelen_input = document.getElementById("artikelen_input").value; // Het soort markt
+    fetch(
+      "https://pythonapphotel23.azurewebsites.net/markten/" + artikelen_input
+    ) // Haalt alle data op voor het soort markt
+      .then((r) => r.json())
+      .then((d) => openingstijdenMarkten(d));
+  }
 
-    <!-- Naam pagina -->
-    <title>Activiteiten Amsterdam</title>
+  /* Openingstijden markten in tabel zetten */
+  function openingstijdenMarkten(dedata) {
+    var marktTabelBody = document.getElementById("marktTabelBody");
 
-    <!-- Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="js/base.js"></script>
-
-    <!-- Kaart, NIET AANPASSEN -->
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <style>
-      html,
-      body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-    <style>
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-      }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"
-    />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-  </head>
-
-  <script>
-    /* Kaart */
-    L_NO_TOUCH = true;
-    L_DISABLE_3D = false;
-
-    /* Openingstijden markten ophalen */
-    function marktenOphalen() {
-      document.getElementById("marktenTabel").style.display = "block";
-      var artikelen_input = document.getElementById("artikelen_input").value; // Het soort markt
-      fetch(
-        "https://pythonapphotel23.azurewebsites.net/markten/" + artikelen_input
-      ) // Haalt alle data op voor het soort markt
-        .then((r) => r.json())
-        .then((d) => openingstijdenMarkten(d));
+    /* Leegmaken van bestaande rijen in de tabel */
+    while (marktTabelBody.firstChild) {
+      marktTabelBody.removeChild(marktTabelBody.firstChild);
     }
 
-    /* Openingstijden markten in tabel zetten */
-    function openingstijdenMarkten(dedata) {
-      var marktTabelBody = document.getElementById("marktTabelBody");
+    /* Toevoegen van nieuwe rijen aan de tabel */
+    for (x = 0; x < dedata.length; x++) {
+      var table = document.getElementById("marktTabelBody");
+      var row = table.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      var cell7 = row.insertCell(6);
+      var cell8 = row.insertCell(7);
+      cell1.innerHTML = "<b>" + dedata[x].Locatie + "</b>";
+      cell2.innerHTML = dedata[x].Maandag;
+      cell3.innerHTML = dedata[x].Dinsdag;
+      cell4.innerHTML = dedata[x].Woensdag;
+      cell5.innerHTML = dedata[x].Donderdag;
+      cell6.innerHTML = dedata[x].Vrijdag;
+      cell7.innerHTML = dedata[x].Zaterdag;
+      cell8.innerHTML = dedata[x].Zondag;
+    }
+  }
+  let LocalcurrentPage = 1;
+  const LocalresultsPerPage = 100;
 
-      /* Leegmaken van bestaande rijen in de tabel */
-      while (marktTabelBody.firstChild) {
-        marktTabelBody.removeChild(marktTabelBody.firstChild);
+  function ophalenLokaal() {
+    var gebruikers_input = document.getElementById("gebruikers_input").value;
+    fetch(
+      "https://pythonapphotel23.azurewebsites.net/jeroen3/" + gebruikers_input
+    )
+      .then((r) => r.json())
+      .then((d) => gadoenLokaal(d));
+    console.log(d);
+  }
+  function gadoenLokaal(dedata) {
+    const resultaatDiv = document.getElementById("resultaat");
+    resultaatDiv.innerHTML = "";
+
+    const startIndex = (LocalcurrentPage - 1) * LocalresultsPerPage;
+    const endIndex = startIndex + LocalresultsPerPage;
+
+    for (let x = startIndex; x < endIndex && x < dedata.length; x++) {
+      resultaatDiv.innerHTML +=
+        "<br><b>" +
+        dedata[x].Name +
+        "</b> : " +
+        dedata[x].City +
+        "<b> : " +
+        dedata[x]["Price Range"] +
+        "</b> : " +
+        dedata[x].Reviews;
+    }
+
+    const totalPages = Math.ceil(dedata.length / LocalresultsPerPage);
+    const maxPages = 10;
+
+    const paginationDiv = document.getElementById("pagination");
+    paginationDiv.innerHTML = "";
+
+    let startPage = Math.max(LocalcurrentPage - Math.floor(maxPages / 2), 1);
+    let endPage = Math.min(startPage + maxPages - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+      paginationDiv.innerHTML += `<button onclick="changePageLokaal(${i})">${i}</button>`;
+    }
+  }
+  function changePageLokaal(page) {
+    LocalcurrentPage = page;
+    ophalenLokaal();
+  }
+  function zoekMusea() {
+    var zoekwoord = document
+      .getElementById("museumTitle")
+      .value.toLowerCase();
+    fetch(
+      "https://pythonapphotel23.azurewebsites.net/ZoekLocatieMusea/" +
+      zoekwoord
+    ) // Verander deze URL naar de juiste backend-URL
+      .then((response) => response.json())
+      //.then(r=>console.log(r))
+      .then((data) => toonResultaten(data));
+    //.catch(error => console.error('Fout bij het ophalen van gegevens:', error));
+  }
+
+  function toonResultaten(data) {
+    const resultaatDiv = document.getElementById("searchResult");
+    if (data.error) {
+      resultaatDiv.innerHTML = `<p>${data.error}</p>`;
+    } else {
+      const resultaten = data;
+      let resultaatHTML = "<ul>";
+      for (const resultaat of resultaten) {
+        resultaatHTML += `<li><strong>Titel:</strong> ${resultaat.Title}<br><strong>Openingstijden:</strong> ${resultaat.Calendarsummary}<br><strong>Ades:</strong> ${resultaat.Adres}<br></li><strong>Postcode:</strong> ${resultaat.Zipcode}</li><br><a href="${resultaat.Urls}"><strong>Link</strong></a></li><br><br>`;
       }
-
-      /* Toevoegen van nieuwe rijen aan de tabel */
-      for (x = 0; x < dedata.length; x++) {
-        var table = document.getElementById("marktTabelBody");
-        var row = table.insertRow(-1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
-        var cell6 = row.insertCell(5);
-        var cell7 = row.insertCell(6);
-        var cell8 = row.insertCell(7);
-        cell1.innerHTML = "<b>" + dedata[x].Locatie + "</b>";
-        cell2.innerHTML = dedata[x].Maandag;
-        cell3.innerHTML = dedata[x].Dinsdag;
-        cell4.innerHTML = dedata[x].Woensdag;
-        cell5.innerHTML = dedata[x].Donderdag;
-        cell6.innerHTML = dedata[x].Vrijdag;
-        cell7.innerHTML = dedata[x].Zaterdag;
-        cell8.innerHTML = dedata[x].Zondag;
-      }
+      resultaatHTML += "</ul>";
+      resultaatDiv.innerHTML = resultaatHTML;
     }
-    let LocalcurrentPage = 1;
-    const LocalresultsPerPage = 100;
+  }
+  let currentPage = 1;
+  const resultsPerPage = 100;
 
-    function ophalenLokaal() {
-      var gebruikers_input = document.getElementById("gebruikers_input").value;
-      fetch(
-        "https://pythonapphotel23.azurewebsites.net/jeroen3/" + gebruikers_input
-      )
-        .then((r) => r.json())
-        .then((d) => gadoenLokaal(d));
-      console.log(d);
-    }
-    function gadoenLokaal(dedata) {
-      const resultaatDiv = document.getElementById("resultaat");
-      resultaatDiv.innerHTML = "";
+  function ophalenInternationaal() {
+    var gebruikers_input_internationaal = document.getElementById(
+      "gebruikers_input_internationaal"
+    ).value;
+    fetch(
+      "https://pythonapphotel23.azurewebsites.net/jeroen2/" +
+      gebruikers_input_internationaal
+    )
+      .then((r) => r.json())
+      .then((d) => {
+        gadoenInternationaal(d);
+        console.log(d);
+      });
+  }
+  function gadoenInternationaal(dedata) {
+    const resultaatDiv = document.getElementById("resultaatInternationaal");
+    resultaatDiv.innerHTML = "";
 
-      const startIndex = (LocalcurrentPage - 1) * LocalresultsPerPage;
-      const endIndex = startIndex + LocalresultsPerPage;
+    const startIndex = (currentPage - 1) * resultsPerPage;
+    const endIndex = startIndex + resultsPerPage;
 
-      for (let x = startIndex; x < endIndex && x < dedata.length; x++) {
-        resultaatDiv.innerHTML +=
-          "<br><b>" +
-          dedata[x].Name +
-          "</b> : " +
-          dedata[x].City +
-          "<b> : " +
-          dedata[x]["Price Range"] +
-          "</b> : " +
-          dedata[x].Reviews;
-      }
-
-      const totalPages = Math.ceil(dedata.length / LocalresultsPerPage);
-      const maxPages = 10;
-
-      const paginationDiv = document.getElementById("pagination");
-      paginationDiv.innerHTML = "";
-
-      let startPage = Math.max(LocalcurrentPage - Math.floor(maxPages / 2), 1);
-      let endPage = Math.min(startPage + maxPages - 1, totalPages);
-
-      for (let i = startPage; i <= endPage; i++) {
-        paginationDiv.innerHTML += `<button onclick="changePageLokaal(${i})">${i}</button>`;
-      }
-    }
-    function changePageLokaal(page) {
-      LocalcurrentPage = page;
-      ophalenLokaal();
-    }
-    function zoekMusea() {
-      var zoekwoord = document
-        .getElementById("museumTitle")
-        .value.toLowerCase();
-      fetch(
-        "https://pythonapphotel23.azurewebsites.net/ZoekLocatieMusea/" +
-          zoekwoord
-      ) // Verander deze URL naar de juiste backend-URL
-        .then((response) => response.json())
-        //.then(r=>console.log(r))
-        .then((data) => toonResultaten(data));
-      //.catch(error => console.error('Fout bij het ophalen van gegevens:', error));
+    for (let x = startIndex; x < endIndex && x < dedata.length; x++) {
+      resultaatDiv.innerHTML +=
+        "<br><b>" +
+        dedata[x].Name +
+        "</b> : " +
+        dedata[x].City +
+        "<b> : " +
+        dedata[x].Rating +
+        "</b> : " +
+        dedata[x].Reviews;
     }
 
-    function toonResultaten(data) {
-      const resultaatDiv = document.getElementById("searchResult");
-      if (data.error) {
-        resultaatDiv.innerHTML = `<p>${data.error}</p>`;
-      } else {
-        const resultaten = data;
-        let resultaatHTML = "<ul>";
-        for (const resultaat of resultaten) {
-          resultaatHTML += `<li><strong>Titel:</strong> ${resultaat.Title}<br><strong>Openingstijden:</strong> ${resultaat.Calendarsummary}<br><strong>Ades:</strong> ${resultaat.Adres}<br></li><strong>Postcode:</strong> ${resultaat.Zipcode}</li><br><a href="${resultaat.Urls}"><strong>Link</strong></a></li><br><br>`;
-        }
-        resultaatHTML += "</ul>";
-        resultaatDiv.innerHTML = resultaatHTML;
-      }
+    const totalPages = Math.ceil(dedata.length / resultsPerPage);
+    const maxPages = 10;
+
+    const paginationDiv = document.getElementById("paginationInternationaal");
+    paginationDiv.innerHTML = "";
+
+    let startPage = Math.max(currentPage - Math.floor(maxPages / 2), 1);
+    let endPage = Math.min(startPage + maxPages - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+      paginationDiv.innerHTML += `<button onclick="changePageInternational(${i})">${i}</button>`;
     }
-    let currentPage = 1;
-    const resultsPerPage = 100;
-
-    function ophalenInternationaal() {
-      var gebruikers_input_internationaal = document.getElementById(
-        "gebruikers_input_internationaal"
-      ).value;
-      fetch(
-        "https://pythonapphotel23.azurewebsites.net/jeroen2/" +
-          gebruikers_input_internationaal
-      )
-        .then((r) => r.json())
-        .then((d) => {
-          gadoenInternationaal(d);
-          console.log(d);
-        });
-    }
-    function gadoenInternationaal(dedata) {
-      const resultaatDiv = document.getElementById("resultaatInternationaal");
-      resultaatDiv.innerHTML = "";
-
-      const startIndex = (currentPage - 1) * resultsPerPage;
-      const endIndex = startIndex + resultsPerPage;
-
-      for (let x = startIndex; x < endIndex && x < dedata.length; x++) {
-        resultaatDiv.innerHTML +=
-          "<br><b>" +
-          dedata[x].Name +
-          "</b> : " +
-          dedata[x].City +
-          "<b> : " +
-          dedata[x].Rating +
-          "</b> : " +
-          dedata[x].Reviews;
-      }
-
-      const totalPages = Math.ceil(dedata.length / resultsPerPage);
-      const maxPages = 10;
-
-      const paginationDiv = document.getElementById("paginationInternationaal");
-      paginationDiv.innerHTML = "";
-
-      let startPage = Math.max(currentPage - Math.floor(maxPages / 2), 1);
-      let endPage = Math.min(startPage + maxPages - 1, totalPages);
-
-      for (let i = startPage; i <= endPage; i++) {
-        paginationDiv.innerHTML += `<button onclick="changePageInternational(${i})">${i}</button>`;
-      }
-    }
+<<<<<<< HEAD
     function changePageInternational(page) {
       currentPage = page;
       ophalenInternationaal();
@@ -447,423 +437,475 @@
                 </ul>
               </div>
             </nav>
+=======
+  }
+  function changePageInternational(page) {
+    currentPage = page;
+    ophalenInternationaal();
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    // Make a Fetch API request to your Flask endpoint
+    fetch("https://pythonapphotel23.azurewebsites.net/jeroen4//")
+      .then(r => r.json())
+      .then(data => {
+        console.log('Received data:', data);
+
+        // Assuming your Flask endpoint returns data in the format { "city_counts": { "City1": count1, "City2": count2, ... } }
+        if (data && data.city_info_dict) {
+          const cities = Object.keys(data.city_info_dict);
+          const restaurantCounts = Object.values(data.city_info_dict).map(item => item.RestaurantCount);
+          const maxReviewsToShow = 100000;
+          const reviewCounts = Object.values(data.city_info_dict).map(item => item.TotalReviews);
+
+          // Code to create a bar chart using Chart.js
+          const ctx = document.getElementById('myChart').getContext('2d');
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: cities,
+              datasets: [{
+                label: 'Number of Restaurants',
+                data: restaurantCounts,
+                backgroundColor: 'rgba(255, 255, 0, 0.5)',
+                borderRadius: Number.MAX_VALUE,
+                borderWidth: 2,
+                borderColor: 'black',
+              }, {
+                label: 'Number of Reviews',
+                data: reviewCounts,
+                backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                borderRadius: Number.MAX_VALUE,
+                borderWidth: 2,
+                borderColor: 'black',
+              }]
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    text: 'City'
+                  }
+                }],
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Count'
+                  },
+                }]
+              }
+            }
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  });
+</script>
+
+<!-- Navigatie bar -->
+<header>
+  <div class="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
+          <div class="logo">
+            <a href="index.html"><img src="Afbeeldingen/Logo.png" alt="#" height="60" /></a>
+>>>>>>> main
           </div>
         </div>
-      </div>
-    </div>
-  </header>
-
-  <body>
-    <div class="black_title">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="title">
-              <h2>Activiteiten</h2>
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+          <nav class="navigation navbar navbar-expand-md navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+              aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExample04">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="kamers.html">Kamers</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="activiteiten.html">Activiteiten</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="reviews.html">Reviews</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Contact.html">Contact</a>
+                </li>
+              </ul>
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section"></div>
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Inloggen</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="registreren.html">Registreren</a>
+                </li>
+              </ul>
             </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<body>
+  <div class="black_title">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title">
+            <h2>Activiteiten</h2>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Restaurants, museums, markten knoppen -->
-    <div class="container mt-4">
-      <div class="d-flex justify-content-center">
-        <div class="btn-group" role="group" aria-label="Basic outlined example">
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            onclick="bestandOphalen('EtenDrinken.csv', 1)"
-          >
-            Restaurants
-          </button>
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            onclick="bestandOphalen('MuseaGalleries.csv', 2)"
-          >
-            Musea
-          </button>
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            onclick="bestandOphalen('MARKTEN_NEW.csv', 3)"
-          >
-            Markten
-          </button>
-        </div>
-      </div>
-    </div>
-    <br />
-
-    <!-- Kaart -->
-    <div class="folium-map" id="map_0"></div>
-    <br />
-
-    <!-- Restaurants container -->
-    <div class="container mt-4" id="linkerKnop" style="display: none">
-      <button
-        type="button"
-        class="btn btn-primary btn-restaurant"
-        onclick="containerRestaurants(1)"
-      >
-        Lokale Restaurants
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary btn-restaurant"
-        onclick="containerRestaurants(2)"
-      >
-        Internationale Restaurants
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary btn-restaurant"
-        onclick="containerRestaurants(3)"
-      >
-        Big Data for Big Nerds
-      </button>
-
-      <!-- Container lokale restaurants -->
-      <div class="container mt-4" id="lokaalRestaurant" style="display: none">
-        <br />
-        <label for="gebruikers_input"
-          ><strong>Kies jouw prijscategorie:</strong></label
-        ><br />
-        <select id="gebruikers_input" name="gebruikers_input">
-          <option value="$">Goedkoopst</option>
-          <option value="$$ - $$$">Gemiddeld Geprijsd</option>
-          <option value="$$$$">Duurst</option>
-        </select>
-
-        <button
-          onclick="ophalenLokaal()"
-          type="button"
-          class="btn btn-outline-success btn_zoekprijs"
-        >
-          Zoeken
+  <!-- Restaurants, museums, markten knoppen -->
+  <div class="container mt-4">
+    <div class="d-flex justify-content-center">
+      <div class="btn-group" role="group" aria-label="Basic outlined example">
+        <button type="button" class="btn btn-outline-primary" onclick="bestandOphalen('EtenDrinken.csv', 1)">
+          Restaurants
         </button>
-        <br />
-        <br />
-        <b>Locaties:</b>
-        <div id="resultaat"></div>
-        <div id="pagination"></div>
-      </div>
-
-      <!-- Container internationale restaurants -->
-      <div
-        class="container mt-4"
-        id="internationaalRestaurant"
-        style="display: none"
-      >
-        <form
-          action="https://pythonapphotel23.azurewebsites.net/jeroen2/"
-          method="GET"
-        >
-          <label for="gebruikers_input_internationaal">Zoek:</label>
-          <input
-            type="text"
-            id="gebruikers_input_internationaal"
-            name="search"
-            placeholder="Voer je zoekopdracht in"
-          />
-          <button
-            onclick="ophalenInternationaal()"
-            type="button"
-            class="btn btn-primary btn-sm"
-          >
-            Zoeken
-          </button>
-        </form>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
-        <div id="resultaatInternationaal"></div>
-        <div id="paginationInternationaal"></div>
-      </div>
-      <!-- grafiek container -->
-      <div
-        class="container mt-4"
-        id="chart-container"
-        style="width: 80%; margin: auto; display: none"
-      >
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <button type="button" class="btn btn-outline-primary" onclick="bestandOphalen('MuseaGalleries.csv', 2)">
+          Musea
+        </button>
+        <button type="button" class="btn btn-outline-primary" onclick="bestandOphalen('MARKTEN_NEW.csv', 3)">
+          Markten
+        </button>
       </div>
     </div>
-    <!-- Museums container -->
-    <div class="container mt-4" id="middenKnop" style="display: none">
-      <h3>Zoek een museum</h3>
+  </div>
+  <br />
 
-      <label for="museumTitle">Naam van het museum:</label>
-      <input type="text" id="museumTitle" name="museumTitle" />
-      <button type="button" onclick="zoekMusea()" class="btn-museum">
+  <!-- Kaart -->
+  <div class="folium-map" id="map_0"></div>
+  <br />
+
+  <!-- Restaurants container -->
+  <div class="container mt-4" id="linkerKnop" style="display: none">
+    <button type="button" class="btn btn-primary btn-restaurant" onclick="containerRestaurants(1)">
+      Lokale Restaurants
+    </button>
+    <button type="button" class="btn btn-primary btn-restaurant" onclick="containerRestaurants(2)">
+      Internationale Restaurants
+    </button>
+    <button type="button" class="btn btn-primary btn-restaurant" onclick="containerRestaurants(3)">
+      Big Data for Big Nerds
+    </button>
+
+    <!-- Container lokale restaurants -->
+    <div class="container mt-4" id="lokaalRestaurant" style="display: none">
+      <br />
+      <label for="gebruikers_input"><strong>Kies jouw prijscategorie:</strong></label><br />
+      <select id="gebruikers_input" name="gebruikers_input">
+        <option value="$">Goedkoopst</option>
+        <option value="$$ - $$$">Gemiddeld Geprijsd</option>
+        <option value="$$$$">Duurst</option>
+      </select>
+
+      <button onclick="ophalenLokaal()" type="button" class="btn btn-outline-success btn_zoekprijs">
         Zoeken
       </button>
-
-      <div id="searchResult"></div>
+      <br />
+      <br />
+      <b>Locaties:</b>
+      <div id="resultaat"></div>
+      <div id="pagination"></div>
     </div>
-    <!-- Markten container -->
 
-    <!-- Drop-down menu en button -->
-    <div class="container mt-4" id="rechterKnop" style="display: none">
-      <div class="input-group">
-        <div class="d-flex">
-          <select
-            class="form-select markten-select"
-            id="artikelen_input"
-            name="artikelen_input"
-            style="width: 100px"
-          >
-            <option value="Algemene waren">Algemene waren</option>
-            <option value="Kunst">Kunst / Antiek en curiosa</option>
-            <option value="Boerenmarkt">Boerenmarkt / Bioversmarkt</option>
-            <option value="Boeken">Boeken</option>
-            <option value="Postzegels en munten">Postzegels en munten</option>
-            <option value="Bloemen en planten">Bloemen en planten</option>
-          </select>
-          <button
-            class="btn btn-outline-secondary btn-markten"
-            type="button"
-            onclick="marktenOphalen()"
-          >
-            Vind de openingstijden
-          </button>
-        </div>
+    <!-- Container internationale restaurants -->
+    <div class="container mt-4" id="internationaalRestaurant" style="display: none">
+      <form action="https://pythonapphotel23.azurewebsites.net/jeroen2/" method="GET">
+        <label for="gebruikers_input_internationaal">Zoek:</label>
+        <input type="text" id="gebruikers_input_internationaal" name="search" placeholder="Voer je zoekopdracht in" />
+        <button onclick="ophalenInternationaal()" type="button" class="btn btn-primary btn-sm">
+          Zoeken
+        </button>
+      </form>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+      <div id="resultaatInternationaal"></div>
+      <div id="paginationInternationaal"></div>
+    </div>
+    <!-- grafiek container -->
+    <div class="container mt-4" id="chart-container" style="width: 80%; margin: auto; display: none">
+      <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+  </div>
+  <!-- Museums container -->
+  <div class="container mt-4" id="middenKnop" style="display: none">
+    <h3>Zoek een museum</h3>
+
+    <label for="museumTitle">Naam van het museum:</label>
+    <input type="text" id="museumTitle" name="museumTitle" />
+    <button type="button" onclick="zoekMusea()" class="btn-museum">
+      Zoeken
+    </button>
+
+    <div id="searchResult"></div>
+  </div>
+  <!-- Markten container -->
+
+  <!-- Drop-down menu en button -->
+  <div class="container mt-4" id="rechterKnop" style="display: none">
+    <div class="input-group">
+      <div class="d-flex">
+        <select class="form-select markten-select" id="artikelen_input" name="artikelen_input" style="width: 100px">
+          <option value="Algemene waren">Algemene waren</option>
+          <option value="Kunst">Kunst / Antiek en curiosa</option>
+          <option value="Boerenmarkt">Boerenmarkt / Bioversmarkt</option>
+          <option value="Boeken">Boeken</option>
+          <option value="Postzegels en munten">Postzegels en munten</option>
+          <option value="Bloemen en planten">Bloemen en planten</option>
+        </select>
+        <button class="btn btn-outline-secondary btn-markten" type="button" onclick="marktenOphalen()">
+          Vind de openingstijden
+        </button>
       </div>
-      <br /><br />
-
-      <!-- Openingstijden tabel -->
-      <table id="marktenTabel" class="table" style="display: none">
-        <thead>
-          <tr>
-            <th class="th-markten">Locatie</th>
-            <th class="th-markten">Maandag</th>
-            <th class="th-markten">Dinsdag</th>
-            <th class="th-markten">Woensdag</th>
-            <th class="th-markten">Donderdag</th>
-            <th class="th-markten">Vrijdag</th>
-            <th class="th-markten">Zaterdag</th>
-            <th class="th-markten">Zondag</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider" id="marktTabelBody">
-          <tr></tr>
-        </tbody>
-      </table>
-      <br /><br />
     </div>
+    <br /><br />
 
-    <script>
-      // Basis kaart, niet weghalen
-      var map_0 = L.map("map_0", {
-        center: [52.3677956, 4.89307],
-        crs: L.CRS.EPSG3857,
-        zoom: 15,
-        zoomControl: true,
-        preferCanvas: false,
-      });
-      var tile_layer_0 = L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-          attribution:
-            'Data by \u0026copy; \u003ca target="_blank" href="http://openstreetmap.org"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target="_blank" href="http://www.openstreetmap.org/copyright"\u003eODbL\u003c/a\u003e.',
-          detectRetina: false,
-          maxNativeZoom: 18,
-          maxZoom: 18,
-          minZoom: 0,
-          noWrap: false,
-          opacity: 1,
-          subdomains: "abc",
-          tms: false,
-        }
-      ).addTo(map_0);
+    <!-- Openingstijden tabel -->
+    <table id="marktenTabel" class="table" style="display: none">
+      <thead>
+        <tr>
+          <th class="th-markten">Locatie</th>
+          <th class="th-markten">Maandag</th>
+          <th class="th-markten">Dinsdag</th>
+          <th class="th-markten">Woensdag</th>
+          <th class="th-markten">Donderdag</th>
+          <th class="th-markten">Vrijdag</th>
+          <th class="th-markten">Zaterdag</th>
+          <th class="th-markten">Zondag</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider" id="marktTabelBody">
+        <tr></tr>
+      </tbody>
+    </table>
+    <br /><br />
+  </div>
 
-      // Voeg de marker toe voor het hotel
-      var marker_0 = L.marker([52.369401, 4.899627], {}).addTo(map_0); // Raamgracht 1
-      var icon_0 = L.AwesomeMarkers.icon({
-        extraClasses: "fa-rotate-0",
-        icon: "hotel",
-        iconColor: "white",
-        markerColor: "red",
-        prefix: "fa",
-      });
-      marker_0.setIcon(icon_0);
-      marker_0.bindTooltip("<h5>Hotel</h5>", { sticky: true });
+  <script>
+    // Basis kaart, niet weghalen
+    var map_0 = L.map("map_0", {
+      center: [52.3677956, 4.89307],
+      crs: L.CRS.EPSG3857,
+      zoom: 15,
+      zoomControl: true,
+      preferCanvas: false,
+    });
+    var tile_layer_0 = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        attribution:
+          'Data by \u0026copy; \u003ca target="_blank" href="http://openstreetmap.org"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target="_blank" href="http://www.openstreetmap.org/copyright"\u003eODbL\u003c/a\u003e.',
+        detectRetina: false,
+        maxNativeZoom: 18,
+        maxZoom: 18,
+        minZoom: 0,
+        noWrap: false,
+        opacity: 1,
+        subdomains: "abc",
+        tms: false,
+      }
+    ).addTo(map_0);
 
-      // Toevoegen markers
+    // Voeg de marker toe voor het hotel
+    var marker_0 = L.marker([52.369401, 4.899627], {}).addTo(map_0); // Raamgracht 1
+    var icon_0 = L.AwesomeMarkers.icon({
+      extraClasses: "fa-rotate-0",
+      icon: "hotel",
+      iconColor: "white",
+      markerColor: "red",
+      prefix: "fa",
+    });
+    marker_0.setIcon(icon_0);
+    marker_0.bindTooltip("<h5>Hotel</h5>", { sticky: true });
 
-      var markersLayer = L.layerGroup();
+    // Toevoegen markers
 
-      function bestandOphalen(bestandsnaam, buttonNummer) {
-        markersLayer.clearLayers(); // Verwijder huidige markers
+    var markersLayer = L.layerGroup();
 
-        fetch(
-          "https://pythonapphotel23.azurewebsites.net/alleinfo/" + bestandsnaam
-        ) // Haal data op
-          .then((r) => r.json())
-          .then((d) => drieButtons(d, bestandsnaam, buttonNummer));
+    function bestandOphalen(bestandsnaam, buttonNummer) {
+      markersLayer.clearLayers(); // Verwijder huidige markers
+
+      fetch(
+        "https://pythonapphotel23.azurewebsites.net/alleinfo/" + bestandsnaam
+      ) // Haal data op
+        .then((r) => r.json())
+        .then((d) => drieButtons(d, bestandsnaam, buttonNummer));
+    }
+
+    function drieButtons(dedata, bestandsnaam, buttonNummer) {
+      // Deze functie gaat werken als je op Restaurants, Museums of Markten klikt
+
+      // Verberg alle containers
+      document.getElementById("linkerKnop").style.display = "none";
+      document.getElementById("middenKnop").style.display = "none";
+      document.getElementById("rechterKnop").style.display = "none";
+      document.getElementById("lokaalRestaurant").style.display = "none";
+      document.getElementById("internationaalRestaurant").style.display =
+        "none";
+
+      // Laat de juiste container zien
+      if (buttonNummer == 1) {
+        document.getElementById("linkerKnop").style.display = "block";
+      } else if (buttonNummer == 2) {
+        document.getElementById("middenKnop").style.display = "block";
+        console.log("Hallo!", buttonNummer);
+      } else if (buttonNummer == 3) {
+        document.getElementById("rechterKnop").style.display = "block";
       }
 
-      function drieButtons(dedata, bestandsnaam, buttonNummer) {
-        // Deze functie gaat werken als je op Restaurants, Museums of Markten klikt
-
-        // Verberg alle containers
-        document.getElementById("linkerKnop").style.display = "none";
-        document.getElementById("middenKnop").style.display = "none";
-        document.getElementById("rechterKnop").style.display = "none";
-        document.getElementById("lokaalRestaurant").style.display = "none";
-        document.getElementById("internationaalRestaurant").style.display =
-          "none";
-
-        // Laat de juiste container zien
-        if (buttonNummer == 1) {
-          document.getElementById("linkerKnop").style.display = "block";
-        } else if (buttonNummer == 2) {
-          document.getElementById("middenKnop").style.display = "block";
-          console.log("Hallo!", buttonNummer);
-        } else if (buttonNummer == 3) {
-          document.getElementById("rechterKnop").style.display = "block";
+      for (x = 0; x < dedata.length; x++) {
+        /* Maak en definieer de variabelen latitude en longitude
+             Vervang ',' met ',' wanneer nodig */
+        if (String(dedata[x].Latitude).indexOf(",") > -1) {
+          latitude = parseFloat(dedata[x].Latitude.replace(",", "."));
+          longitude = parseFloat(dedata[x].Longitude.replace(",", "."));
+        } else {
+          latitude = parseFloat(dedata[x].Latitude);
+          longitude = parseFloat(dedata[x].Longitude);
         }
 
-        for (x = 0; x < dedata.length; x++) {
-          /* Maak en definieer de variabelen latitude en longitude
-               Vervang ',' met ',' wanneer nodig */
-          if (String(dedata[x].Latitude).indexOf(",") > -1) {
-            latitude = parseFloat(dedata[x].Latitude.replace(",", "."));
-            longitude = parseFloat(dedata[x].Longitude.replace(",", "."));
+        // Maak marker
+        var marker_0 = L.marker([latitude, longitude], {});
+
+        // Kleur en icoon van marker
+        if (bestandsnaam == "MARKTEN_NEW.csv") {
+          // Verander de kleur van de marker voor Markten
+          if (dedata[x].Artikelen.startsWith("Algemene")) {
+            color = "blue";
+            icon = "store";
+          } else if (dedata[x].Artikelen.startsWith("Kunst")) {
+            color = "purple";
+            icon = "palette";
+          } else if (dedata[x].Artikelen.startsWith("Boeren")) {
+            color = "green";
+            icon = "tractor";
+          } else if (dedata[x].Artikelen.startsWith("Boeken")) {
+            color = "gray";
+            icon = "book";
+          } else if (dedata[x].Artikelen.startsWith("Postzegels")) {
+            color = "darkblue";
+            icon = "envelope";
           } else {
-            latitude = parseFloat(dedata[x].Latitude);
-            longitude = parseFloat(dedata[x].Longitude);
+            color = "orange";
+            icon = "seedling";
           }
 
-          // Maak marker
-          var marker_0 = L.marker([latitude, longitude], {});
+          // Verander het marker icoon
+          var icon_0 = L.AwesomeMarkers.icon({
+            extraClasses: "fa-rotate-0",
+            icon: icon,
+            iconColor: "white",
+            markerColor: color,
+            prefix: "fa",
+          });
+          marker_0.setIcon(icon_0);
 
-          // Kleur en icoon van marker
-          if (bestandsnaam == "MARKTEN_NEW.csv") {
-            // Verander de kleur van de marker voor Markten
-            if (dedata[x].Artikelen.startsWith("Algemene")) {
-              color = "blue";
-              icon = "store";
-            } else if (dedata[x].Artikelen.startsWith("Kunst")) {
-              color = "purple";
-              icon = "palette";
-            } else if (dedata[x].Artikelen.startsWith("Boeren")) {
-              color = "green";
-              icon = "tractor";
-            } else if (dedata[x].Artikelen.startsWith("Boeken")) {
-              color = "gray";
-              icon = "book";
-            } else if (dedata[x].Artikelen.startsWith("Postzegels")) {
-              color = "darkblue";
-              icon = "envelope";
-            } else {
-              color = "orange";
-              icon = "seedling";
-            }
+          // Tooltip
+          marker_0.bindTooltip(
+            "<h5><b> Soort markt: </b>" +
+            dedata[x].Artikelen +
+            "<br><b>Openingsdagen:</b> " +
+            dedata[x].Dagen +
+            "</h5>",
+            { sticky: true }
+          );
+        } else if (bestandsnaam == "EtenDrinken.csv") {
+          // Verander het marker icoon
+          var icon_0 = L.AwesomeMarkers.icon({
+            extraClasses: "fa-rotate-0",
+            icon: "utensils",
+            iconColor: "white",
+            markerColor: "blue",
+            prefix: "fa",
+          });
+          marker_0.setIcon(icon_0);
 
-            // Verander het marker icoon
-            var icon_0 = L.AwesomeMarkers.icon({
-              extraClasses: "fa-rotate-0",
-              icon: icon,
-              iconColor: "white",
-              markerColor: color,
-              prefix: "fa",
-            });
-            marker_0.setIcon(icon_0);
-
-            // Tooltip
-            marker_0.bindTooltip(
-              "<h5><b> Soort markt: </b>" +
-                dedata[x].Artikelen +
-                "<br><b>Openingsdagen:</b> " +
-                dedata[x].Dagen +
-                "</h5>",
-              { sticky: true }
-            );
-          } else if (bestandsnaam == "EtenDrinken.csv") {
-            // Verander het marker icoon
-            var icon_0 = L.AwesomeMarkers.icon({
-              extraClasses: "fa-rotate-0",
-              icon: "utensils",
-              iconColor: "white",
-              markerColor: "blue",
-              prefix: "fa",
-            });
-            marker_0.setIcon(icon_0);
-
-            // Tooltip
-            restaurantNaam = dedata[x].Locatienaam;
-            if (typeof restaurantNaam !== "string") {
-              // als restaurantNaam == null
-              restaurantNaam = "Onbekend";
-            }
-            marker_0.bindTooltip(
-              "<h5><b>Naam: </b>" +
-                restaurantNaam +
-                "<br><b>Locatie: </b>" +
-                dedata[x].Adres +
-                "</h5>",
-              { sticky: true }
-            );
-          } else if (bestandsnaam == "MuseaGalleries.csv") {
-            // Verander het marker icoon
-            var icon_0 = L.AwesomeMarkers.icon({
-              extraClasses: "fa-rotate-0",
-              icon: "building-columns",
-              iconColor: "white",
-              markerColor: "purple",
-              prefix: "fa",
-            });
-            marker_0.setIcon(icon_0);
-
-            // Tooltip
-            museumNaam = dedata[x].Title;
-            if (typeof museumNaam !== "string") {
-              // als restaurantNaam == null
-              museumNaam = "Titl";
-            }
-            marker_0.bindTooltip(
-              "<h5><b>Naam: </b>" +
-                museumNaam +
-                "<br><b>Locatie: </b>" +
-                dedata[x].Adres +
-                "</h5>",
-              { sticky: true }
-            );
+          // Tooltip
+          restaurantNaam = dedata[x].Locatienaam;
+          if (typeof restaurantNaam !== "string") {
+            // als restaurantNaam == null
+            restaurantNaam = "Onbekend";
           }
+          marker_0.bindTooltip(
+            "<h5><b>Naam: </b>" +
+            restaurantNaam +
+            "<br><b>Locatie: </b>" +
+            dedata[x].Adres +
+            "</h5>",
+            { sticky: true }
+          );
+        } else if (bestandsnaam == "MuseaGalleries.csv") {
+          // Verander het marker icoon
+          var icon_0 = L.AwesomeMarkers.icon({
+            extraClasses: "fa-rotate-0",
+            icon: "building-columns",
+            iconColor: "white",
+            markerColor: "purple",
+            prefix: "fa",
+          });
+          marker_0.setIcon(icon_0);
 
-          // Voeg marker toe aan de laag
-          markersLayer.addLayer(marker_0);
+          // Tooltip
+          museumNaam = dedata[x].Title;
+          if (typeof museumNaam !== "string") {
+            // als restaurantNaam == null
+            museumNaam = "Titl";
+          }
+          marker_0.bindTooltip(
+            "<h5><b>Naam: </b>" +
+            museumNaam +
+            "<br><b>Locatie: </b>" +
+            dedata[x].Adres +
+            "</h5>",
+            { sticky: true }
+          );
         }
 
-        // Voeg marker toe aan de kaart
-        markersLayer.addTo(map_0);
+        // Voeg marker toe aan de laag
+        markersLayer.addLayer(marker_0);
       }
 
-      function containerRestaurants(nummerButton) {
-        // Deze functie gaat werken als je op Nationale Restaurants of Internationale Restaurants klikt
+      // Voeg marker toe aan de kaart
+      markersLayer.addTo(map_0);
+    }
 
-        // Verberg alle containers
-        document.getElementById("lokaalRestaurant").style.display = "none";
+    function containerRestaurants(nummerButton) {
+      // Deze functie gaat werken als je op Nationale Restaurants of Internationale Restaurants klikt
+
+      // Verberg alle containers
+      document.getElementById("lokaalRestaurant").style.display = "none";
+      document.getElementById("internationaalRestaurant").style.display =
+        "none";
+      document.getElementById("chart-container").style.display = "none";
+
+      // Laat de juiste container zien
+      if (nummerButton == 1) {
+        document.getElementById("lokaalRestaurant").style.display = "block";
+      } else if (nummerButton == 2) {
         document.getElementById("internationaalRestaurant").style.display =
-          "none";
-        document.getElementById("chart-container").style.display = "none";
-
-        // Laat de juiste container zien
-        if (nummerButton == 1) {
-          document.getElementById("lokaalRestaurant").style.display = "block";
-        } else if (nummerButton == 2) {
-          document.getElementById("internationaalRestaurant").style.display =
-            "block";
-        } else if (nummerButton == 3) {
-          document.getElementById("chart-container").style.display = "block";
-        }
+          "block";
+      } else if (nummerButton == 3) {
+        document.getElementById("chart-container").style.display = "block";
       }
-    </script>
+    }
+  </script>
 
-    <!-- Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+  <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
