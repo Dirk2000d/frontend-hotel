@@ -9,7 +9,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Naam pagina -->
-  <title>Kamers</title>
+  <title>ADMIN KAMERS</title>
 
   <!-- Style-->
   <link rel="stylesheet" href="css/styleHotel.css" />
@@ -82,7 +82,26 @@
       </div>
     </div>
   </div>
+  <div class="kamertoevoegen">
+    <div class="container">
+      <div id="toevoegen">
+        
+        <input id="inputId" type="hidden"> <br />
+        <input id="inputNummer"> <br/>
+        <input id="inputBeschikbaar"> <br/>
+        <input id="inputPrijs"> <br/>
+        <select class="form-select" id="inputType">
+            <option value=0>Suite</option>
+            <option value=1>Tweepersoonskamer</option>
+            <option value=2>Vierpersoonskamer</option>
+            <option value=3>Trouwkamer</option>
+        </select>
+        <button type="button" class="btn btn-dark btn-lg" onClick="updatenStap2()">wijziging opslaan</button>
+        <button type="button" class="btn btn-dark btn-lg" onClick="toevoegen()">toevoegen</button>
 
+      </div>
+    </div>
+  </div>
   <!-- Alle 4 de kamers -->
   <div class="alle_kamers">
     <div class="container">
@@ -110,11 +129,13 @@
                                  <figure><img src="Afbeeldingen/Kamer1.png" alt="#" /></figure>
                              </div>
                              <div class="bed_room">
-                                <h3>${allKamers[i].kamerType}</h3>
-                            <p style="text-align: left">
+                                <h5>${allKamers[i].kamerType}</5>
+                            <p style="text-align: left" class="fs-6">
                           <br />
                             Kamer nummer: ${allKamers[i].kamerNummer} <br />
-                            Minimum prijs: ${allKamers[i].prijs} <br /><br />
+                            Minimum prijs: ${allKamers[i].prijs} <br />
+                            Beschikbaar: ${allKamers[i].beschikbaar} <br />
+                            <button type="button" class="btn btn-dark btn-lg" onClick=updaten(${allKamers[i].id})>updaten</button><br/>
                            </p>
                            <p>
                              <button
@@ -123,7 +144,8 @@
                               onclick= details(${allKamers[i].id});
                               >
                                 Bekijk kamer
-                      </button>
+                      </button><br/>
+                      <button type="button" class="btn btn-dark btn-lg" onClick = verwijderen(${allKamers[i].id})>verwijderen</button>
                     </p>
                   </div>
                 </div>
@@ -138,6 +160,84 @@
       xhr.send();
     }
   
+    function toevoegen() {
+            // De JSON meegeven
+            var dekamer = {};
+            dekamer.kamerNummer = document.getElementById("inputNummer").value;
+            dekamer.prijs = document.getElementById("inputPrijs").value;
+            dekamer.beschikbaar = document.getElementById("inputBeschikbaar").value;
+            dekamer.kamerType = document.getElementById("inputType").value;
+
+            var deJSON = JSON.stringify(dekamer);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log("toevoegen gelukt");
+                }
+            }
+            xhr.open("POST", BACKEND_URL + "/voegkamertoe", true);
+            console.log(deJSON);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(deJSON);
+        }
+
+        function verwijderen(deid) {
+            //console.log("ik ben aan het verwijderen"+deid);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log("verwijderen gelukt");
+                }
+            }
+
+            xhr.open("DELETE", BACKEND_URL + "/verwijderkamer/" + deid, true);
+            xhr.send();
+        }
+
+        function updaten(deid) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log(this.responseText);
+                    var kamer = JSON.parse(this.responseText);
+                    document.getElementById("inputId").value = kamer.id;
+                    document.getElementById("inputNummer").value = kamer.kamerNummer; 
+                    document.getElementById("inputPrijs").value = kamer.prijs;
+                    document.getElementById("inputType").value = kamer.kamerType;
+                    document.getElementById("inputBeschikbaar").value = kamer.beschikbaar;
+                    
+                }
+            }
+            xhr.open("GET", BACKEND_URL + "/dekamer/" + deid, true);
+            xhr.send();
+        }
+
+        function updatenStap2() {
+            console.log("ik verzend de gegevens van de update velden");
+            var a = {};
+            a.id = document.getElementById("inputId").value;
+            a.kamerNummer = document.getElementById("inputNummer").value;
+            a.prijs = document.getElementById("inputPrijs").value;
+            a.kamerType = document.getElementById("inputType").value;
+            a.beschikbaar = document.getElementById("inputBeschikbaar").value;
+
+            var bJSON = JSON.stringify(a);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log("updaten gelukt");
+                }
+            }
+
+            xhr.open("PUT", BACKEND_URL + "/updatekamer", true);
+            console.log(bJSON);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(bJSON);
+        }
+
+    
+
     function details(deid) {
       // Bouw de URL op met de variabele als queryparameter en verwijzen naar "details.html"
       var nieuweURL = "kamerdetail.html?kamerid=" + encodeURIComponent(deid);
