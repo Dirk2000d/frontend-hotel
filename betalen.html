@@ -138,20 +138,41 @@
             </div>
             <div class="col-sm">
                 <h3>Persoonlijke gegevens</h3> <br>
-                <div class="row">
-                    <div class="col">
-                        Voornaam:<br>
-                        <input type="text" class="form-control" value="Piet" id="voornaam">
-                    </div>
-                    <div class="col">
-                        Achternaam: <br>
-                        <input type="text" class="form-control" value="Bakker" id="achternaam">
-                    </div>
-                </div><br>
-                Adres: <br> <input type="text" class="form-control" id="adres" value="Bakkerstraat 1"><br>
-                E-mail: <br> <input type="email" class="form-control" id="email" value="naam@voorbeeld.com"><br>
-                Telefoon: <br> <input type="tel" class="form-control" id="telefoon" value="0612345678"><br>
+                <div id="klant" class="row">
+                
             </div>
         </div>
     </div>
+
+    <script>
+        function toonKlant(){
+            let klantid = 1;//get("klantid");
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log(this.responseText);
+                    var klant = JSON.parse(this.responseText);
+                    var eindString = "";
+                    eindString += `
+                    <div class="col">
+                        Voornaam:<br>
+                        <input type="text" class="form-control" value=${klant.voornaam} id="voornaam">
+                    </div>
+                    <div class="col">
+                        Achternaam: <br>
+                        <input type="text" class="form-control" value=${klant.achternaam} id="achternaam"> <br>
+                    </div>
+                    </div><br>
+                     Adres: <br> <input type="text" class="form-control" id="adres" value=${klant.adres} <br>
+                    E-mail: <br> <input type="email" class="form-control" id="email" value=${klant.email}> <br>
+                    Telefoon: <br> <input type="tel" class="form-control" id="telefoon" value=${klant.tel}> <br>
+                    `
+                    document.getElementById("klant").innerHTML = eindString;
+                }
+            }
+            xhr.open("GET", BACKEND_URL + "/klant/"+ klantid, true);
+            xhr.send();
+        }
+        toonKlant();
+    </script>
 </body>
