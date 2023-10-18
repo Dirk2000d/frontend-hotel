@@ -6,17 +6,17 @@
 <script>
     function betalingscheck() {
         // Controleer of de betalingsmethode is geselecteerd
-        var betalingsmethode = document.querySelector("select.custom-select").value;
+        var betalingsmethode = document.getElementById("betalingsmethode").value;
 
         // Controleer of de voorwaarden zijn geaccepteerd
-        var voorwaarden = document.querySelector("#invalidCheck3").checked;
+        var voorwaarden = document.getElementById("voorwaarden").checked;
 
         // Controleer of alle velden voor persoonlijke gegevens zijn ingevuld
-        var voornaam = document.querySelector("#voornaam").value;
-        var achternaam = document.querySelector("#achternaam").value;
-        var adres = document.querySelector("#adres").value;
-        var email = document.querySelector("#email").value;
-        var telefoon = document.querySelector("#telefoon").value;
+        var voornaam = document.getElementById("voornaam").value;
+        var achternaam = document.getElementById("achternaam").value;
+        var adres = document.getElementById("adres").value;
+        var email = document.getElementById("email").value;
+        var telefoon = document.getElementById("telefoon").value;
 
         if (
             betalingsmethode !== "Kies uw betalingsmethode" &&
@@ -55,12 +55,12 @@
     <div class="header">
         <div class="container">
             <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
                     <div class="logo">
                         <a href="index.html"><img src="Afbeeldingen/Logo.png" alt="#" height="60" /></a>
                     </div>
                 </div>
-                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
                     <nav class="navigation navbar navbar-expand-md navbar-dark">
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
@@ -77,9 +77,6 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Reviews</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Restaurant</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="Contact.html">Contact</a>
@@ -130,7 +127,7 @@
                 <h3>Betalen</h3><br>
 
 
-                Betalingsmethode: <select class="custom-select"><br>
+                Betalingsmethode: <select class="custom-select" id="betalingsmethode"><br>
                     <option selected>Kies uw betalingsmethode</option>
                     <option value="1">iDEAL</option>
                 </select><br><br>
