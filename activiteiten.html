@@ -319,17 +319,16 @@
     }
     document.addEventListener('DOMContentLoaded', function() {
         // Make a Fetch API request to your Flask endpoint
-        fetch("https://pythonapphotel23.azurewebsites.net/jeroen4//")  
+        fetch("https://pythonapphotel23.azurewebsites.net/jeroen4/")  
             .then(r => r.json())
             .then(data => {
                 console.log('Received data:', data);
-                
-                // Assuming your Flask endpoint returns data in the format { "city_counts": { "City1": count1, "City2": count2, ... } }
-                if (data && data.city_info_dict) {
-                    const cities = Object.keys(data.city_info_dict);
-                    const restaurantCounts = Object.values(data.city_info_dict).map(item => item.RestaurantCount);
-                    //const maxReviewsToShow = 100000;
-                    const reviewCounts = Object.values (data.city_info_dict).map(item => item.TotalReviews);
+                       
+        // Assuming your Flask endpoint returns data in the format { "city_counts": { "City1": count1, "City2": count2, ... } }
+        if (data && data.city_info_dict) {
+          const cities = Object.keys(data.city_info_dict);
+          const restaurantCounts = Object.values(data.city_info_dict).map(item => item.RestaurantCount);
+          const reviewCounts = Object.values(data.city_info_dict).map(item => item.TotalReviews);
 
           // Assuming your Flask endpoint returns data in the format { "city_counts": { "City1": count1, "City2": count2, ... } }
           if (data && data.city_info_dict) {
@@ -337,7 +336,6 @@
             const restaurantCounts = Object.values(data.city_info_dict).map(
               (item) => item.RestaurantCount
             );
-            const maxReviewsToShow = 100000;
             const reviewCounts = Object.values(data.city_info_dict).map(
               (item) => item.TotalReviews
             );
