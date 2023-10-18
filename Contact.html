@@ -2,18 +2,34 @@
 <html lang="en">
   <!-- CSS -->
   <style>
-   .text {
-        text-align: left;
+
+  .text {
+    text-align: left;
+    padding-top: 4%;
     }
-    
+  .contact-info{
+    text-align: left;
+    padding-left: 13%; 
+
+  }
+  .text-container {
+    border: 3px solid black; 
+    width: 900px;
+    padding: 20px; 
+    margin-left: 170px;
+    position: absolute;
+    top: 80%;
+    left: 0;
+   
+  }
   #map_0 {
-      position: relative;
-      width: 40%;
-      height: 45%;
-      left: 35%;
-      border: 3px solid black
-     
+    position: static;
+    width: 25%;
+    height: 45%;
+    left: 50%;
+    bottom: 20%;
     }
+  
 
   .centered {
     position: absolute;
@@ -64,13 +80,7 @@
     }
   </style>
   <style>
-    #map {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      top: 0;
-      right: 0;
-    }
+   
     
   </style>
    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
@@ -173,13 +183,32 @@
 </div>
 </header>
 <body>
+
   <div class="text">
-    <p class="contact-info">Adres: </p>
-    <p class="contact-info">E-mail: voorbeeld@email.com</p>
-    <p class="contact-info">Telefoonnummer: (123) 456-7890</p>
-  </div>
+    <p class="contact-info"><b>Adres:</b> Raamgracht 98 </p>
+    <p class="contact-info"><b>E-mail:</b> OnsHotel@email.com</p>
+    <p class="contact-info"><b>Telefoonnummer:</b> +31 876 54 32 01</p>
+  </div>  
+  <div class="folium-map" id="map_0"></div>
+  <div class="text-container">
+    <b>OnsHotel</b> is gelegen in het centrum van Amsterdam en is op loopafstand van het Centraal Station.<br><br>
+   
+    Hier is een eenvoudige routebeschrijving voor auto of OV:<br>
+    <ul>
+    <li>Verlaat het Amsterdam Centraal Station aan de voorzijde van het gebouw (Stationplein-zijde).</li>
+    <li>Ga rechtdoor de Prins Hendrikkade op, in westelijke richting.</li>
+    <li> de Prins Hendrikkade volgen terwijl u langs het water (het IJ) loopt.</li>
+    <li>Na ongeveer 5-10 minuten lopen ziet u het gebouw 'NEMO Science Museum' aan uw rechterhand. Blijf langs het water lopen.</li>
+    <li>Blijf de Prins Hendrikkade volgen terwijl deze overgaat in de Oude Schans.</li> 
+    <li>Blijf de Oude Schans volgen totdat u Raamgracht bereikt.</li>
+    <li>Rechtsaf de Raamgracht op en zoek naar huisnummer 98.</li>
+  </ul>
+    </div>
+  
+
 <!-- Kaart -->
-<div class="folium-map" id="map_0"></div>
+  
+
 
  <script>
   // Basis kaart, niet weghalen
