@@ -215,7 +215,7 @@
  <script>
   // Basis kaart, niet weghalen
   var map_0 = L.map("map_0", {
-    center: [52.369401, 4.899627],
+    center: [52.369401, 4.89969],
     crs: L.CRS.EPSG3857,
     zoom: 15,
     zoomControl: true,
@@ -239,15 +239,15 @@
 
   // Voeg de marker toe voor het hotel
   var marker_0 = L.marker([52.369401, 4.899627], {}).addTo(map_0); // Raamgracht 1
-  var icon_0 = L.AwesomeMarkers.icon({
+  var marker_0= L.AwesomeMarkers.icon({
     extraClasses: "fa-rotate-0",
     icon: "hotel",
     iconColor: "white",
     markerColor: "red",
     prefix: "fa",
   });
-  marker_0.setIcon(icon_0);
-  marker_0.bindTooltip("<h5>Hotel</h5>", { sticky: true });
+  //marker_0.setIcon(icon_0);
+  //marker_0.bindTooltip("<h5>Hotel</h5>", { sticky: true });
 
 </script>
 
