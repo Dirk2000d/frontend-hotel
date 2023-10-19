@@ -592,6 +592,7 @@
         <canvas id="myChart" width="400" height="400"></canvas>
       </div>
     </div>
+
     <!-- Museums container -->
     <div class="container mt-4" id="middenKnop" style="display: none">
       <h3>Zoek een museum</h3>
@@ -604,10 +605,10 @@
 
       <div id="searchResult"></div>
     </div>
-    <!-- Markten container -->
 
-    <!-- Drop-down menu en button -->
+    <!-- Markten container -->
     <div class="container mt-4" id="rechterKnop" style="display: none">
+       <!-- Drop-down menu en button -->
       <div class="input-group">
         <div class="d-flex">
           <select
@@ -680,7 +681,7 @@
         }
       ).addTo(map_0);
 
-      // Voeg de marker toe voor het hotel
+      // Voeg de marker toe voor het hotel met breedtegraad en lengtegraad
       var marker_0 = L.marker([52.369401, 4.899627], {}).addTo(map_0); // Raamgracht 1
       var icon_0 = L.AwesomeMarkers.icon({
         extraClasses: "fa-rotate-0",
