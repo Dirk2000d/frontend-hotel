@@ -19,7 +19,8 @@
          function toevoegen() {
             // De JSON meegeven
             var deklant = {};
-            deklant.name = document.getElementById("inputNaam").value;
+            deklant.voorNaam = document.getElementById("inputVoornaam").value;
+            deklant.achterNaam = document.getElementById("inputAchternaam").value;
             deklant.email = document.getElementById("inputEmail").value;
             deklant.adres = document.getElementById("inputAdres").value;
             deklant.paspoortNummer = document.getElementById("inputPaspoortNummer").value;
@@ -51,7 +52,7 @@
                if (document.getElementById("inputWachtwoord").value === document.getElementById("inputWachtwoordCheck").value){
                     toevoegen();
                } else {
-                    console.log("wachtwoord komt niet overeen");
+                    alert("wachtwoord komt niet overeen");
                }
             }
     </script>
@@ -126,8 +127,12 @@
       <hr />
       <br />
       <input id="inputId" type="hidden" />
-      <label for="naam">Naam:</label>
-      <input id="inputNaam" />
+      <label for="voorNaam">Voornaam:</label>
+      <input id="inputVoornaam" />
+      <br /><br />
+
+      <label for="achterNaam">Achternaam:</label>
+      <input id="inputAchternaam" />
       <br /><br />
 
       <label for="email">Email:</label>
