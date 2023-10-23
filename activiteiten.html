@@ -263,7 +263,7 @@
         const resultaten = data;
         let resultaatHTML = "<ul>";
         for (const resultaat of resultaten) {
-          resultaatHTML += `<li><strong>Titel:</strong> ${resultaat.Title}<br><strong>Openingstijden:</strong> ${resultaat.Calendarsummary}<br><strong>Ades:</strong> ${resultaat.Adres}<br></li><strong>Postcode:</strong> ${resultaat.Zipcode}</li><br><a href="${resultaat.Urls}"><strong>Link</strong></a></li><br><br>`;
+          resultaatHTML += `<li><strong>Titel:</strong> ${resultaat.Title}<br><strong>Openingstijden:</strong> ${resultaat.Calendarsummary}<br><strong>Ades:</strong> ${resultaat.Adres}<br></li><strong>Postcode:</strong> ${resultaat.Zipcode}</li><br><br>`;
         }
         resultaatHTML += "</ul>";
         resultaatDiv.innerHTML = resultaatHTML;
