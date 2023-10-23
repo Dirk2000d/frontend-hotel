@@ -336,8 +336,11 @@
               (item) => item.RestaurantCount
             );
             const reviewCounts = Object.values(data.city_info_dict).map(
-              (item) => item.TotalReviews
+              (item) => ({original: item.TotalReviews, truncated: item.TotalReviews > 100000 ? 100000 : item.TotalReviews,
+              })
             );
+            console.log("Review Counts", reviewCounts);
+            console.log(reviewCounts.map((item) => item.original))
 
             // Code to create a bar chart using Chart.js
             const ctx = document.getElementById("myChart").getContext("2d");
@@ -356,7 +359,8 @@
                   },
                   {
                     label: "Number of Reviews",
-                    data: reviewCounts,
+                    data: reviewCounts.map((item) => item.truncated),
+                    originalData: reviewCounts.map((item) => item.original),
                     backgroundColor: "rgba(255, 0, 0, 0.5)",
                     borderRadius: Number.MAX_VALUE,
                     borderWidth: 2,
@@ -366,7 +370,7 @@
               },
               options: {
                 scales: {
-                  xAxes: [
+                  xAxes: [ 
                     {
                       scaleLabel: {
                         display: true,
@@ -382,6 +386,19 @@
                       },
                     },
                   ],
+                },
+                  tooltips: {
+                    enabled: true,
+                     callbacks: {
+                      label: (tooltipItem, data) => {
+                        console.log("Tooltip Callback Triggered");
+                        const { datasetIndex, index} = tooltipItem;
+                        const dataset = data.datasets[datasetIndex];
+                        const originalValue = dataset.originalData[index];
+                        return `${dataset.label}: ${originalValue}`;
+                     
+                    },
+                  },
                 },
               },
             });
