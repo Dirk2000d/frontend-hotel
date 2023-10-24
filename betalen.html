@@ -118,11 +118,7 @@
         <div class="row">
             <div class="col-sm">
                 <h3>Uw reservering</h3><br>
-                Kamer:<br>
-                Datum:<br>
-                Ontbijt:<br>
-                Aantal personen:<br>
-                Prijs: <br><br><br>
+                <div id="reservering"></div>
 
                 <h3>Betalen</h3><br>
 
@@ -162,7 +158,7 @@
                         Achternaam: <br>
                         <input type="text" class="form-control" value=${klant.achternaam} id="achternaam"> <br>
                     </div>
-                    </div><br>
+                    </div><p>
                      Adres: <br> <input type="text" class="form-control" id="adres" value=${klant.adres} <br>
                     E-mail: <br> <input type="email" class="form-control" id="email" value=${klant.email}> <br>
                     Telefoon: <br> <input type="tel" class="form-control" id="telefoon" value=${klant.tel}> <br>
@@ -173,6 +169,30 @@
             xhr.open("GET", BACKEND_URL + "/klant/"+ klantid, true);
             xhr.send();
         }
+
+        function toonReservering(){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log(this.responseText);
+                    var reservering = JSON.parse(this.responseText);
+                    var eindString = "";
+                    eindString += `
+                    
+                    Kamer:<br>
+                    Aankomst: ${reservering.aankomstDatum}<br>
+                    Vertrek: ${reservering.vertrekdatum}<br>
+                    Ontbijt: ${reservering.ontbijt}<br>
+                    Aantal personen: ${reservering.aantalPersonen}<br>
+                    Prijs: <br><br><br>
+                    `
+                    document.getElementById("reservering").innerHTML = eindString;
+                }
+            }
+            xhr.open("GET", BACKEND_URL + "/reservering/"+ 6, true);
+            xhr.send();
+        }
         toonKlant();
+        toonReservering();
     </script>
 </body>
