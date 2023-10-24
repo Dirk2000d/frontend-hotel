@@ -76,7 +76,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="title">
-              <h2>Kamer 1</h2>
+              <h2>Kamer Reserveren</h2>
             </div>
           </div>
         </div>
@@ -140,13 +140,14 @@
         function reserveren(){
           var dereservering = {};
             dereservering.aankomstDatum = document.getElementById("aankomst").value;
-            dereservering.vertrekDatum = document.getElementById("vertrek").value;
+            dereservering.vertrekdatum = document.getElementById("vertrek").value;
             if(document.getElementById("ontbijt").value == "on"){
               dereservering.ontbijt = true;
             } else {
               dereservering.ontbijt = false;
             };
             dereservering.aantalPersonen = document.getElementById("aantalPersonen").value;
+            
 
             var deJSON = JSON.stringify(dereservering);
 
