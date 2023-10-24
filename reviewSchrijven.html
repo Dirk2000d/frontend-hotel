@@ -13,7 +13,7 @@
       display: none;
       position: absolute;
       right: 0;
-      background-color: #ffc107;
+      background-color: #ffffff;
       color: black;
       border: none;
       padding: 4px 20px;
@@ -183,7 +183,9 @@
       <div id="review" class="review-box" style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);">
         <div class="review-header">
           </div>
-          <input id="inputTekst" size="100%"> 
+          <div class="input-group">
+            <textarea id="inputTekst" class="form-control" aria-label="With textarea" rows="4" cols="50"></textarea>
+          </div>
           <div class="star-rating"></div>
           <form>
             <label for="rating">1 t/m 5 sterren:</label><p></p>
@@ -201,6 +203,8 @@
             <input type="radio" id="star1" name="rate" value="1" />
             <label for="star1" title="text">1 star</label>
           </div> -->
+          <div class="col-md-12" style="position: absolute; top: 100%; left: 50%; transform: translate(-50%, -50%);">
+            <button id="reviewButton" class="btn btn-primary" style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px;" onclick="toevoegen()">Deel je ervaring!</button>
           
           <div class="review-content">
             <p></p>
@@ -211,10 +215,8 @@
     </div>
     </div>
   <div class="row">
-    <div class="col-md-12" style="position: absolute; top: 100%; left: 50%; transform: translate(-50%, -50%);">
-      <button id="reviewButton" class="btn btn-primary" style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px;" onclick="toevoegen()">Deel je ervaring!</button>
+    
     </div>
-  </div>
 </body>
 <script>
 function toevoegen() {
