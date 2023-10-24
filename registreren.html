@@ -16,96 +16,126 @@
     />
     <script src="js/base.js"></script>
     <script>
-         function toevoegen() {
-            // De JSON meegeven
-            var deklant = {};
-            deklant.voorNaam = document.getElementById("inputVoornaam").value;
-            deklant.achterNaam = document.getElementById("inputAchternaam").value;
-            deklant.email = document.getElementById("inputEmail").value;
-            deklant.adres = document.getElementById("inputAdres").value;
-            deklant.paspoortNummer = document.getElementById("inputPaspoortNummer").value;
-            deklant.geboorteDatum = document.getElementById("inputGeboorteDatum").value;
-            deklant.wachtwoord = document.getElementById("inputWachtwoord").value;
+      function toevoegen() {
+        // De JSON meegeven
+        var deklant = {};
+        deklant.name = document.getElementById("inputNaam").value;
+        deklant.email = document.getElementById("inputEmail").value;
+        deklant.adres = document.getElementById("inputAdres").value;
+        deklant.paspoortNummer = document.getElementById(
+          "inputPaspoortNummer"
+        ).value;
+        deklant.geboorteDatum =
+          document.getElementById("inputGeboorteDatum").value;
+        deklant.wachtwoord = document.getElementById("inputWachtwoord").value;
 
-            var deJSON = JSON.stringify(deklant);
+        var deJSON = JSON.stringify(deklant);
 
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    console.log("reactie ontvangen");
-                    let responseDto =JSON.parse(xhr.responseText);
-                    if (responseDto.succes){
-                        alert("is gelukt!");
-                        window.location.href = "index.html";
-                    } else {
-                        alert(responseDto.validatieMeldingen[0]);
-                    }
-                }
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (this.readyState == 4) {
+            console.log("reactie ontvangen");
+            let responseDto = JSON.parse(xhr.responseText);
+            if (responseDto.succes) {
+              alert("is gelukt!");
+              window.location.href = "index.html";
+            } else {
+              alert(responseDto.validatieMeldingen[0]);
             }
-            xhr.open("POST", BACKEND_URL + "/voegklanttoe", true);
-            console.log(deJSON);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(deJSON);
-            }
+          }
+        };
+        xhr.open("POST", BACKEND_URL + "/voegklanttoe", true);
+        console.log(deJSON);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(deJSON);
+      }
 
-            function vergelijken()  {
-               if (document.getElementById("inputWachtwoord").value === document.getElementById("inputWachtwoordCheck").value){
-                    toevoegen();
-               } else {
-                    alert("wachtwoord komt niet overeen");
-               }
-            }
+      function vergelijken() {
+        if (
+          document.getElementById("inputWachtwoord").value ===
+          document.getElementById("inputWachtwoordCheck").value
+        ) {
+          toevoegen();
+        } else {
+          console.log("wachtwoord komt niet overeen");
+        }
+      }
     </script>
+    <style>
+      label {
+        display: inline-block;
+        text-align: right;
+        width: 150px;
+        margin-right: 10px;
+      }
+
+      input {
+        display: inline-block;
+        margin-bottom: 10px; /* Add bottom margin for spacing between elements */
+      }
+    </style>
   </head>
 
   <!-- Navigatie bar -->
   <header>
     <div class="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
-                    <div class="logo">
-                        <a href="index.html"><img src="Afbeeldingen/Logo.png" alt="#" height="60" /></a>
-                    </div>
-                </div>
-                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                    <nav class="navigation navbar navbar-expand-md navbar-dark">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarsExample04">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="kamers.html">Kamers</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="activiteiten.html">Activiteiten</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="reviews.html">Reviews</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="Contact.html">Contact</a>
-                                </li>
-                            </ul>
-                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section"></div>
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="login.html">Inloggen</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="registreren.html">Registreren</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
+            <div class="logo">
+              <a href="index.html"
+                ><img src="Afbeeldingen/Logo.png" alt="#" height="60"
+              /></a>
             </div>
+          </div>
+          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+            <nav class="navigation navbar navbar-expand-md navbar-dark">
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarsExample04"
+                aria-controls="navbarsExample04"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarsExample04">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="kamers.html">Kamers</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="activiteiten.html"
+                      >Activiteiten</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="reviews.html">Reviews</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="Contact.html">Contact</a>
+                  </li>
+                </ul>
+                <div
+                  class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section"
+                ></div>
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Inloggen</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="registreren.html">Registreren</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
         </div>
+      </div>
     </div>
-</header>
+  </header>
 
   <body>
     <div class="black_title">

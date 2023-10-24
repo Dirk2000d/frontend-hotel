@@ -76,10 +76,11 @@
     }
 
     .btn-museum {
-      background-color: black !important;
+      background-color: rgb(8, 8, 8) !important;
       color: white !important;
       border: none !important;
       text-align: center !important;
+      border-radius: 5px;
     }
   </style>
 
@@ -263,7 +264,7 @@
         const resultaten = data;
         let resultaatHTML = "<ul>";
         for (const resultaat of resultaten) {
-          resultaatHTML += `<li><strong>Titel:</strong> ${resultaat.Title}<br><strong>Openingstijden:</strong> ${resultaat.Calendarsummary}<br><strong>Ades:</strong> ${resultaat.Adres}<br></li><strong>Postcode:</strong> ${resultaat.Zipcode}</li><br><a href="${resultaat.Urls}"><strong>Link</strong></a></li><br><br>`;
+          resultaatHTML += `<li><strong>Titel:</strong> ${resultaat.Title}<br><strong>Openingstijden:</strong> ${resultaat.Calendarsummary}<br><strong>Ades:</strong> ${resultaat.Adres}<br></li><strong>Postcode:</strong> ${resultaat.Zipcode}</li><br><br>`;
         }
         resultaatHTML += "</ul>";
         resultaatDiv.innerHTML = resultaatHTML;
@@ -335,10 +336,12 @@
             const restaurantCounts = Object.values(data.city_info_dict).map(
               (item) => item.RestaurantCount
             );
-            const maxReviewsToShow = 100000;
             const reviewCounts = Object.values(data.city_info_dict).map(
-              (item) => item.TotalReviews
+              (item) => ({original: item.TotalReviews, truncated: item.TotalReviews > 100000 ? 100000 : item.TotalReviews,
+              })
             );
+            console.log("Review Counts", reviewCounts);
+            console.log(reviewCounts.map((item) => item.original))
 
             // Code to create a bar chart using Chart.js
             const ctx = document.getElementById("myChart").getContext("2d");
@@ -357,7 +360,8 @@
                   },
                   {
                     label: "Number of Reviews",
-                    data: reviewCounts,
+                    data: reviewCounts.map((item) => item.truncated),
+                    originalData: reviewCounts.map((item) => item.original),
                     backgroundColor: "rgba(255, 0, 0, 0.5)",
                     borderRadius: Number.MAX_VALUE,
                     borderWidth: 2,
@@ -367,7 +371,7 @@
               },
               options: {
                 scales: {
-                  xAxes: [
+                  xAxes: [ 
                     {
                       scaleLabel: {
                         display: true,
@@ -383,6 +387,19 @@
                       },
                     },
                   ],
+                },
+                  tooltips: {
+                    enabled: true,
+                     callbacks: {
+                      label: (tooltipItem, data) => {
+                        console.log("Tooltip Callback Triggered");
+                        const { datasetIndex, index} = tooltipItem;
+                        const dataset = data.datasets[datasetIndex];
+                        const originalValue = dataset.originalData[index];
+                        return `${dataset.label}: ${originalValue}`;
+                     
+                    },
+                  },
                 },
               },
             });
@@ -592,11 +609,12 @@
         <canvas id="myChart" width="400" height="400"></canvas>
       </div>
     </div>
+
     <!-- Museums container -->
     <div class="container mt-4" id="middenKnop" style="display: none">
-      <h3>Zoek een museum</h3>
+      <h3>Ontdek de magische wereld van musea</h3>
 
-      <label for="museumTitle">Naam van het museum:</label>
+      <label for="museumTitle">Vul naam van museum of keyword:</label>
       <input type="text" id="museumTitle" name="museumTitle" />
       <button type="button" onclick="zoekMusea()" class="btn-museum">
         Zoeken
@@ -604,10 +622,10 @@
 
       <div id="searchResult"></div>
     </div>
-    <!-- Markten container -->
 
-    <!-- Drop-down menu en button -->
+    <!-- Markten container -->
     <div class="container mt-4" id="rechterKnop" style="display: none">
+       <!-- Drop-down menu en button -->
       <div class="input-group">
         <div class="d-flex">
           <select
@@ -680,7 +698,7 @@
         }
       ).addTo(map_0);
 
-      // Voeg de marker toe voor het hotel
+      // Voeg de marker toe voor het hotel met breedtegraad en lengtegraad
       var marker_0 = L.marker([52.369401, 4.899627], {}).addTo(map_0); // Raamgracht 1
       var icon_0 = L.AwesomeMarkers.icon({
         extraClasses: "fa-rotate-0",
@@ -783,6 +801,10 @@
                 "</h5>",
               { sticky: true }
             );
+
+
+
+            
           } else if (bestandsnaam == "EtenDrinken.csv") {
             // Verander het marker icoon
             var icon_0 = L.AwesomeMarkers.icon({
