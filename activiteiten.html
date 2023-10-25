@@ -2,6 +2,17 @@
 <html lang="en">
   <!-- CSS -->
   <style>
+  /* Weer knop */
+    #rightButton {
+      top: 220px;
+      display: inline-block;
+      position: fixed;
+      right: 5%;
+      transform: translateY(-50%);
+      background: #7fcdf6;
+      border-color: #7fcdf6;
+    }
+
     /* Positie van de kaart */
     #map_0 {
       position: relative;
@@ -145,6 +156,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
+
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   </head>
 
   <script>
@@ -484,6 +498,10 @@
         </div>
       </div>
     </div>
+
+    <button id="rightButton" class="btn btn-info btn-lg" onclick="window.location.href = 'weer.html'">
+      <i class="fas fa-cloud-sun-rain"></i> Weer
+    </button>
 
     <!-- Restaurants, museums, markten knoppen -->
     <div class="container mt-4">
