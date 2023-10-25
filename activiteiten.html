@@ -2,6 +2,16 @@
 <html lang="en">
   <!-- CSS -->
   <style>
+  /* Weer knop */
+    #rightButton {
+      top: 220px;
+      display: inline-block;
+      position: absolute; /* Change position to absolute */
+      right: 5%;
+      transform: translateY(-50%);
+      background: #7fcdf6;
+      border-color: #7fcdf6;
+    }
     /* Positie van de kaart */
     #map_0 {
       position: relative;
@@ -145,6 +155,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
+
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   </head>
 
   <script>
@@ -337,7 +350,7 @@
               (item) => item.RestaurantCount
             );
             const reviewCounts = Object.values(data.city_info_dict).map(
-              (item) => ({original: item.TotalReviews, truncated: item.TotalReviews > 100000 ? 100000 : item.TotalReviews,
+              (item) => ({original: item.TotalReviews, truncated: item.TotalReviews > 80000 ? 80000 : item.TotalReviews,
               })
             );
             console.log("Review Counts", reviewCounts);
@@ -485,6 +498,10 @@
       </div>
     </div>
 
+    <button id="rightButton" class="btn btn-info btn-lg" onclick="window.location.href = 'weer.html'">
+      <i class="fas fa-cloud-sun-rain"></i> Weer
+    </button>
+
     <!-- Restaurants, museums, markten knoppen -->
     <div class="container mt-4">
       <div class="d-flex justify-content-center">
@@ -606,7 +623,7 @@
         id="chart-container"
         style="width: 80%; margin: auto; display: none"
       >
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <canvas id="myChart" width="400" height="200"></canvas>
       </div>
     </div>
 
