@@ -24,7 +24,7 @@
                         alert(responseDto.validatieMeldingen[0]);
                 }
             }
-            xhr.open("POST", BACKEND_URL + "/loginklant", true);
+            xhr.open("POST", BACKEND_URL + "/login", true);
             console.log(deJSON);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(deJSON);
