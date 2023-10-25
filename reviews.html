@@ -20,11 +20,21 @@
       font-size: 19px;
       margin-right: 10px;
     }
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url("Afbeeldingen/Algemene foto Amsterdam.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 150vh;
+    }
     #reviewButton:hover {
       background-color: black;
       color: white;
       transform: scale(1.05);
       transition: transform 0.2s ease;
+      
     }
     .black_title {
       background-color: black;
@@ -70,21 +80,8 @@
         document.getElementById("reviewButton").style.display = "block";
     }
   });
-    document.addEventListener("DOMContentLoaded", function() {
-      const starRating1 = document.getElementById("starRating1");
-      const starRating2 = document.getElementById("starRating2");
-      const rating = 4; 
-
-      for (let i = 1; i <= 5; i++) {
-        const star1 = document.createElement("span");
-        star1.innerHTML = i <= rating ? "★" : "☆";
-        starRating1.appendChild(star1);
-
-        const star2 = document.createElement("span");
-        star2.innerHTML = i <= rating ? "★" : "☆";
-        starRating2.appendChild(star2)
-      }
-  });
+    // document.addEventListener("DOMContentLoaded", 
+    // );
   </script>
 </head>
 <body>
@@ -152,37 +149,54 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-12" style="position: relative;">
-      <img src="Afbeeldingen/Algemene foto Amsterdam.jpg" style="width: 100%; height: 100%" />
-      <div class="review-box" style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);">
-        <div class="review-header">
-          Jeroen Hadderingh's review
-        </div>
-        <div class="star-rating" id="starRating1"></div>
-        <div class="review-content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
-        </div>
-        <div class="review-footer">
-          <span>Geplaatst op 18 oktober, 2023</span>
-        </div>
-      </div>
-      <div class="review-box" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-        <div class="review-header">
-          Bart Becker's review
-        </div>
-        <div class="star-rating" id="starRating2"></div>
-        <div class="review-content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
-        </div>
-        <div class="review-footer">
-          <span>Geplaatst op 18 oktober, 2023</span>
-        </div>
+    <div class=" col-md-6 mt-3 mx-auto text-center" style="position: relative;">
+      <div id="review" class="review-box" style="position: relative;">
       </div>
     </div>
+    </div>
+</div>
   <div class="row">
-    <div class="col-md-12" style="position: absolute; top: 100%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="col-md-12 mt-3 text-center" style="position: absolute; top: 100%; left: 50%; transform: translate(-50%, -50%);">
       <button id="reviewButton" class="btn btn-primary" style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px;" onclick="redirectToReviewPage()">Deel je ervaring!</button>
     </div>
   </div>
 </body>
+<script>
+  function toonReviews() {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          console.log(this.responseText);
+          var allReviews = JSON.parse(this.responseText);
+          var review = "";
+          for (var i = 0; i < allReviews.length; i++) {
+            let rating = allReviews[i].waardering;
+            let ratingHTML = "";
+            for (let j = 1; j <= 5; j++){
+              ratingHTML += j <= rating ? "★" : "☆";
+            }
+            review += `<div class="review-header">
+          ${allReviews[i].id}
+        </div>
+        <div class="star-rating">${ratingHTML}</div>
+        <div class="review-content">
+          <p>${allReviews[i].tekst}</p>
+        </div>
+        <div class="review-footer">
+          <span>Geplaatst op ${allReviews[i].datum}</span>
+        </div>
+              `
+          }
+          document.getElementById("review").innerHTML = review;
+          
+        }
+  
+      }
+      xhr.open("GET", BACKEND_URL + "/dereviews", true);
+      xhr.send();
+    }
+    
+    toonReviews();
+    //starRating();
+</script>
 </html>

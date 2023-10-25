@@ -73,6 +73,15 @@
         display: inline-block;
         margin-bottom: 10px; /* Add bottom margin for spacing between elements */
       }
+      .btn-lg {
+        margin-left: 400px;
+      }
+      .btn-dark {
+        margin-left: 180px;
+      }
+      .shift-right {
+        margin-left: 800px;
+      }
     </style>
   </head>
 
@@ -150,15 +159,19 @@
       </div>
     </div>
 
-    <div class="container" style="margin: 20px auto">
+    <div class="container shift-right" style="margin: 20px auto">
       <br />
       Al een account?
-      <button class="btn btn-dark">Login</button>
+      <button class="btn btn-dark" href="registreren.html">Login</button>
       <hr />
       <br />
       <input id="inputId" type="hidden" />
-      <label for="naam">Naam:</label>
-      <input id="inputNaam" />
+      <label for="voorNaam">Voornaam:</label>
+      <input id="inputVoornaam" />
+      <br /><br />
+
+      <label for="achterNaam">Achternaam:</label>
+      <input id="inputAchternaam" />
       <br /><br />
 
       <label for="email">Email:</label>

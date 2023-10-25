@@ -76,7 +76,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="title">
-              <h2>Kamer 1</h2>
+              <h2>Kamer Reserveren</h2>
             </div>
           </div>
         </div>
@@ -112,12 +112,12 @@
                     eindString +=`
                     <div class="col-md-3 col-sm-4">
                        Aankomstdatum:<br />
-                    <input type="date" id="date" /><br /><br />
+                    <input type="date" id="aankomst" /><br /><br />
                        Vertrekdatum:<br />
-                    <input type="date" id="date" /><br /><br />
+                    <input type="date" id="vertrek" /><br /><br />
                     <br /><br />Prijs: ${kamer.prijs}<br /><br />Prijs inclusief ontbijt:
                      <br /><br /><br />
-                    <button type="button" class="btn btn-warning btn-lg">
+                    <button onClick="reserveren()" type="button" class="btn btn-warning btn-lg">
                       Reserveren
                      </button>
                    </div>
@@ -137,6 +137,32 @@
             xhr.open("GET", BACKEND_URL + "/dekamer/"+kamerid, true);
             xhr.send();
         }
+        function reserveren(){
+          var dereservering = {};
+            dereservering.aankomstDatum = document.getElementById("aankomst").value;
+            dereservering.vertrekdatum = document.getElementById("vertrek").value;
+            if(document.getElementById("ontbijt").value == "on"){
+              dereservering.ontbijt = true;
+            } else {
+              dereservering.ontbijt = false;
+            };
+            dereservering.aantalPersonen = document.getElementById("aantalPersonen").value;
+            
+
+            var deJSON = JSON.stringify(dereservering);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log("toevoegen gelukt");
+                }
+            }
+            xhr.open("POST", BACKEND_URL + "/voegreserveringtoe", true);
+            console.log(deJSON);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(deJSON);
+        }
+
         toonKamer();
     </script>
   </body>
