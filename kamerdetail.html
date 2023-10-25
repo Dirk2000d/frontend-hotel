@@ -155,6 +155,7 @@
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4) {
                     console.log("toevoegen gelukt");
+                    window.location.href = "betalen.html";
                 }
             }
             xhr.open("POST", BACKEND_URL + "/voegreserveringtoe", true);

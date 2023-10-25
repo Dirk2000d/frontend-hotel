@@ -179,17 +179,17 @@
                     var eindString = "";
                     eindString += `
                     
-                    Kamer:<br>
+                    Kamer:${reservering.kamerNummer}<br>
                     Aankomst: ${reservering.aankomstDatum}<br>
                     Vertrek: ${reservering.vertrekdatum}<br>
                     Ontbijt: ${reservering.ontbijt}<br>
                     Aantal personen: ${reservering.aantalPersonen}<br>
-                    Prijs: <br><br><br>
+                    Prijs:${reservering.totaalPrijs} <br><br><br>
                     `
                     document.getElementById("reservering").innerHTML = eindString;
                 }
             }
-            xhr.open("GET", BACKEND_URL + "/reservering/"+ 6, true);
+            xhr.open("GET", BACKEND_URL + "/reservering/"+ 17, true);
             xhr.send();
         }
         toonKlant();
