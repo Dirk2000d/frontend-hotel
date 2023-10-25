@@ -106,11 +106,19 @@
 
     function weerFunctie(data) {
       const weerDiv = document.getElementById("weerResultaat");
-      weerDiv.innerHTML = "";
-      weerDiv.innerHTML += "<h1 class='temp' style='font-size: 50px'>" + data.liveweer[0].temp + " °C</h1>";
-      weerDiv.innerHTML += "<h2 class='city' style='font-size: 30px'>" + data.liveweer[0].plaats + "</h2>";
-      weerDiv.innerHTML += "<h2 class='city' style='font-size: 15px'>" + data.liveweer[0].verw + "</h2>";
-      weerDiv.innerHTML += "<div class='details' style='font-size: 15px'><div class='col'><i class='fas fa-wind' style='font-size: 3em; color: white;'></i><br><br>Windrichting: " + data.liveweer[0].windr + "<br>Windsnelheid: " + data.liveweer[0].windms + " m/s</i></div><div class='col'><i class='fas fa-temperature-high' style='font-size: 3em; color: white;'></i><br><br>Max. temperatuur vandaag: " + data.liveweer[0].d0tmax + " °C<br>Min. temperatuur vandaag: " + data.liveweer[0].d0tmin + " °C</i></div></div>";
+      weerDiv.innerHTML = "<br>";
+      if (data.liveweer[0].samenv == 'Onbewolkt'){
+        weerDiv.innerHTML += "<i class='fas fa-sun' style='font-size: 4em; color: white;'></i>";
+      }
+      else if ((data.liveweer[0].samenv.toLowerCase()).endsWith('regen')){
+        weerDiv.innerHTML += "<i class='fas fa-cloud-rain' style='font-size: 4em; color: white;'></i>";
+      }
+      else if ((data.liveweer[0].samenv.toLowerCase()).endsWith('bewolkt')){
+        weerDiv.innerHTML += "<i class='fas fa-cloud' style='font-size: 4em; color: white;'></i>";
+      }
+      weerDiv.innerHTML += "<br><br><h2  style='font-size: 15px'>" + data.liveweer[0].samenv + "</h2><br>";
+      weerDiv.innerHTML += "<nobr><h1 style='font-size: 50px'>" + data.liveweer[0].temp + " °C</h1>";
+      weerDiv.innerHTML += "<div class='details' style='font-size: 15px'><div class='col'><i class='fas fa-wind' style='font-size: 2em; color: white;'></i><br><br>Windrichting: " + data.liveweer[0].windr + "<br>Windsnelheid: " + data.liveweer[0].windms + " m/s</i></div><div class='col'><i class='fas fa-temperature-high' style='font-size: 2em; color: white;'></i><br><br>Max. temperatuur: " + data.liveweer[0].d0tmax + " °C<br>Min. temperatuur: " + data.liveweer[0].d0tmin + " °C</i></div></div>";
     }
   </script>
 </head>
