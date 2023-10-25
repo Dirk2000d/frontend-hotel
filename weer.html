@@ -32,7 +32,7 @@
     background: linear-gradient(180deg, #52A4D8, #73BAE1) !important;
     color: #ffffff;
     margin: 0 auto;
-    padding: 30px 30px;
+    padding: 40px 40px;
     text-align: center;
     border-color: #52A4D8;
   }
@@ -77,6 +77,16 @@
     justify-content: space-between;
     padding: 0 20px;
     margin-top: 50px;
+    font-size: 15px;
+    column-rule: 2px double #000000; /* Set the column rule properties */
+  }
+
+  .col {
+    text-align: left;
+  }
+
+  .col2 {
+    text-align: right;
   }
 </style>
 
@@ -106,19 +116,20 @@
 
     function weerFunctie(data) {
       const weerDiv = document.getElementById("weerResultaat");
-      weerDiv.innerHTML = "<br>";
-      weerDiv.innerHTML += "<nobr><h1 style='font-size: 50px'>" + data.liveweer[0].temp + " °C</h1><br><br>";
+
       if (data.liveweer[0].samenv == 'Onbewolkt') {
-        weerDiv.innerHTML += "<i class='fas fa-sun' style='font-size: 4em; color: white;'></i>";
+        icon = 'sun';
       }
       else if ((data.liveweer[0].samenv.toLowerCase()).endsWith('regen')) {
-        weerDiv.innerHTML += "<i class='fas fa-cloud-rain' style='font-size: 4em; color: white;'></i>";
+        icon = 'cloud-rain';
       }
       else if ((data.liveweer[0].samenv.toLowerCase()).endsWith('bewolkt')) {
-        weerDiv.innerHTML += "<i class='fas fa-cloud' style='font-size: 4em; color: white;'></i>";
+        icon = 'cloud';
       }
-      weerDiv.innerHTML += "<br><br>" + data.liveweer[0].samenv + "<br><br>";
-      weerDiv.innerHTML += "<div class='details' style='font-size: 15px'><div class='col-2'><i class='fas fa-wind' style='font-size: 2em; color: white;'></i></div><br><br><div class='col-4'>Windrichting: " + data.liveweer[0].windr + "<br>Windsnelheid: " + data.liveweer[0].windms + " m/s</div><div class='col-2'><i class='fas fa-temperature-high' style='font-size: 2em; color: white;'></i></div><br><br><div class='col-4'>Max. temperatuur: " + data.liveweer[0].d0tmax + " °C<br>Min. temperatuur: " + data.liveweer[0].d0tmin + " °C</i></div></div>";
+
+      weerDiv.innerHTML = "<div class='details'><div class='col-6'><h1 style='font-size: 50px'>" + data.liveweer[0].temp + " °C</h1>" + data.liveweer[0].plaats + "</div><div class='col-6'><i class='fas fa-" + icon + "' style='font-size: 3em; color: white;'></i><br><br>" + data.liveweer[0].samenv + "</div></div>";
+      weerDiv.innerHTML += "<br><hr>"
+      weerDiv.innerHTML += "<div class='details'><div class='col col-1'></div><div class='col col-1'><i class='fas fa-wind' style='font-size: 2em; color: white;'></i></div><br><br><div class='col col-3'>Windrichting: " + data.liveweer[0].windr + "<br>Windsnelheid: " + data.liveweer[0].windms + " m/s</div><div class='col col-1'></div><div class='col col-1'><i class='fas fa-temperature-high' style='font-size: 2em; color: white;'></i></div><br><br><div class='col col-3'>Max. temperatuur: " + data.liveweer[0].d0tmax + " °C<br>Min. temperatuur: " + data.liveweer[0].d0tmin + " °C</i></div><div class='col col-1'></div></div>";
     }
   </script>
 </head>
