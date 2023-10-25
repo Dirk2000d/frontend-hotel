@@ -4,7 +4,7 @@
   #rightButton {
     top: 220px;
     display: inline-block;
-    position: fixed;
+    position: absolute; /* Change position to absolute */
     right: 5%;
     transform: translateY(-50%);
     background: #7fcdf6;
@@ -14,7 +14,7 @@
   #leftButton {
     top: 220px;
     display: inline-block;
-    position: fixed;
+    position: absolute;
     left: 5%;
     transform: translateY(-50%);
     background: #7fcdf6;
@@ -109,7 +109,7 @@
   <script>
     function ophalenWeer() {
       var inputStad = document.getElementById("zoekWeer").value;
-      fetch("https://weerlive.nl/api/json-data-10min.php?key=8d1e5e1e1f&locatie=" + inputStad)
+      fetch("https://weerlive.nl/api/json-data-10min.php?key=bdb01393fa&locatie=" + inputStad)
         .then((r) => r.json())
         .then((d) => weerFunctie(d));
     }
