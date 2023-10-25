@@ -28,14 +28,14 @@
   .card {
     top: 20px;
     width: 90%;
-    max-width: 700px;
+    max-width: 800px;
     background: linear-gradient(180deg, #52A4D8, #73BAE1) !important;
     color: #ffffff;
     margin: 0 auto;
-    padding: 40px 35px;
+    padding: 30px 30px;
     text-align: center;
     border-color: #52A4D8;
-}
+  }
 
   .search {
     width: 100%;
@@ -50,7 +50,7 @@
     background: #ffffff;
     color: #555;
     padding: 10px 25px;
-    height: 60px;
+    height: 40px;
     border-radius: 30px;
     flex: 1;
     margin-right: 16px;
@@ -62,8 +62,8 @@
     outline: 0;
     background: #ffffff;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
   }
 
@@ -71,7 +71,7 @@
     color: #ffffff;
   }
 
-  .details{
+  .details {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -107,18 +107,18 @@
     function weerFunctie(data) {
       const weerDiv = document.getElementById("weerResultaat");
       weerDiv.innerHTML = "<br>";
-      if (data.liveweer[0].samenv == 'Onbewolkt'){
+      weerDiv.innerHTML += "<nobr><h1 style='font-size: 50px'>" + data.liveweer[0].temp + " °C</h1><br><br>";
+      if (data.liveweer[0].samenv == 'Onbewolkt') {
         weerDiv.innerHTML += "<i class='fas fa-sun' style='font-size: 4em; color: white;'></i>";
       }
-      else if ((data.liveweer[0].samenv.toLowerCase()).endsWith('regen')){
+      else if ((data.liveweer[0].samenv.toLowerCase()).endsWith('regen')) {
         weerDiv.innerHTML += "<i class='fas fa-cloud-rain' style='font-size: 4em; color: white;'></i>";
       }
-      else if ((data.liveweer[0].samenv.toLowerCase()).endsWith('bewolkt')){
+      else if ((data.liveweer[0].samenv.toLowerCase()).endsWith('bewolkt')) {
         weerDiv.innerHTML += "<i class='fas fa-cloud' style='font-size: 4em; color: white;'></i>";
       }
-      weerDiv.innerHTML += "<br><br><h2  style='font-size: 15px'>" + data.liveweer[0].samenv + "</h2><br>";
-      weerDiv.innerHTML += "<nobr><h1 style='font-size: 50px'>" + data.liveweer[0].temp + " °C</h1>";
-      weerDiv.innerHTML += "<div class='details' style='font-size: 15px'><div class='col'><i class='fas fa-wind' style='font-size: 2em; color: white;'></i><br><br>Windrichting: " + data.liveweer[0].windr + "<br>Windsnelheid: " + data.liveweer[0].windms + " m/s</i></div><div class='col'><i class='fas fa-temperature-high' style='font-size: 2em; color: white;'></i><br><br>Max. temperatuur: " + data.liveweer[0].d0tmax + " °C<br>Min. temperatuur: " + data.liveweer[0].d0tmin + " °C</i></div></div>";
+      weerDiv.innerHTML += "<br><br>" + data.liveweer[0].samenv + "<br><br>";
+      weerDiv.innerHTML += "<div class='details' style='font-size: 15px'><div class='col-2'><i class='fas fa-wind' style='font-size: 2em; color: white;'></i></div><br><br><div class='col-4'>Windrichting: " + data.liveweer[0].windr + "<br>Windsnelheid: " + data.liveweer[0].windms + " m/s</div><div class='col-2'><i class='fas fa-temperature-high' style='font-size: 2em; color: white;'></i></div><br><br><div class='col-4'>Max. temperatuur: " + data.liveweer[0].d0tmax + " °C<br>Min. temperatuur: " + data.liveweer[0].d0tmin + " °C</i></div></div>";
     }
   </script>
 </head>
@@ -190,7 +190,8 @@
       <button onclick="ophalenWeer()"><i class="fas fa-search"></i></button>
     </div><br>
     <div class="weather">
-      <div id="weerResultaat"></div>
+      <div id="weerResultaat">
+      </div>
     </div>
   </div>
 
@@ -201,4 +202,5 @@
     <i class="fas fa-cloud-sun-rain"></i> Weer
   </button>
 </body>
+
 </html>
