@@ -351,7 +351,7 @@
               (item) => item.RestaurantCount
             );
             const reviewCounts = Object.values(data.city_info_dict).map(
-              (item) => ({original: item.TotalReviews, truncated: item.TotalReviews > 100000 ? 100000 : item.TotalReviews,
+              (item) => ({original: item.TotalReviews, truncated: item.TotalReviews > 80000 ? 80000 : item.TotalReviews,
               })
             );
             console.log("Review Counts", reviewCounts);
@@ -624,7 +624,7 @@
         id="chart-container"
         style="width: 80%; margin: auto; display: none"
       >
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <canvas id="myChart" width="400" height="200"></canvas>
       </div>
     </div>
 
