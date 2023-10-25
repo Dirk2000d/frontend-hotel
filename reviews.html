@@ -20,11 +20,21 @@
       font-size: 19px;
       margin-right: 10px;
     }
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url("Afbeeldingen/Algemene foto Amsterdam.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 150vh;
+    }
     #reviewButton:hover {
       background-color: black;
       color: white;
       transform: scale(1.05);
       transition: transform 0.2s ease;
+      
     }
     .black_title {
       background-color: black;
@@ -139,13 +149,14 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-12" style="position: relative;">
-      <img src="Afbeeldingen/Algemene foto Amsterdam.jpg" style="width: 100%; height: 100%" />
-      <div id="review" class="review-box" style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);">
+    <div class=" col-md-6 mt-3 mx-auto text-center" style="position: relative;">
+      <div id="review" class="review-box" style="position: relative;">
       </div>
     </div>
+    </div>
+</div>
   <div class="row">
-    <div class="col-md-12" style="position: absolute; top: 100%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="col-md-12 mt-3 text-center" style="position: absolute; top: 100%; left: 50%; transform: translate(-50%, -50%);">
       <button id="reviewButton" class="btn btn-primary" style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px;" onclick="redirectToReviewPage()">Deel je ervaring!</button>
     </div>
   </div>
