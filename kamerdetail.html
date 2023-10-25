@@ -100,9 +100,10 @@
           return decodeURIComponent(name[1]);
       }
 
-
+      let kamerid = get("kamerid");
+        
       function toonKamer(){
-        let kamerid = get("kamerid");
+        
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function(){
                 if(this.readyState == 4){
@@ -112,10 +113,10 @@
                     eindString +=`
                     <div class="col-md-3 col-sm-4">
                        Aankomstdatum:<br />
-                    <input type="date" id="aankomst" /><br /><br />
+                    <input onchange="berekenPrijs()" type="date" id="aankomst" /><br /><br />
                        Vertrekdatum:<br />
-                    <input type="date" id="vertrek" /><br /><br />
-                    <br /><br />Prijs: ${kamer.prijs}<br /><br />Prijs inclusief ontbijt:
+                    <input onchange="berekenPrijs()" type="date" id="vertrek" /><br /><br />
+                    <br /><br />Prijs: ${kamer.prijs}<br /><br />Prijs inclusief ontbijt: <span id="totaalPrijs"></span>
                      <br /><br /><br />
                     <button onClick="reserveren()" type="button" class="btn btn-warning btn-lg">
                       Reserveren
@@ -136,11 +137,14 @@
             }
             xhr.open("GET", BACKEND_URL + "/dekamer/"+kamerid, true);
             xhr.send();
-        }
+      }
         function reserveren(){
           var dereservering = {};
             dereservering.aankomstDatum = document.getElementById("aankomst").value;
             dereservering.vertrekdatum = document.getElementById("vertrek").value;
+            dereservering.kamerId = kamerid;
+            dereservering.klantId = 1;
+            
             if(document.getElementById("ontbijt").value == "on"){
               dereservering.ontbijt = true;
             } else {
@@ -155,7 +159,9 @@
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4) {
                     console.log("toevoegen gelukt");
-                    window.location.href = "betalen.html";
+                    var reservering = JSON.parse(this.responseText);
+                    window.location.href = "betalen.html?reserveringid=" +reservering.id;
+
                 }
             }
             xhr.open("POST", BACKEND_URL + "/voegreserveringtoe", true);
@@ -163,7 +169,29 @@
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(deJSON);
         }
+        function berekenPrijs(){
+            var berekeningDto = {};
 
+            berekeningDto.aankomstDatum = document.getElementById("aankomst").value;
+            berekeningDto.vertrekdatum = document.getElementById("vertrek").value;
+            berekeningDto.kamerId = kamerid;
+
+            var deJSON = JSON.stringify(berekeningDto);
+            
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log("toevoegen gelukt");
+                    var totaalPrijs = JSON.parse(this.responseText);
+                    document.getElementById("totaalPrijs").innerText = totaalPrijs;
+
+                }
+            }
+            xhr.open("POST", BACKEND_URL + "/berekenprijs", true);
+            console.log(deJSON);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(deJSON);
+        }
         toonKamer();
     </script>
   </body>

@@ -141,34 +141,32 @@
     </div>
 
     <script>
-        function toonKlant(){
-            let klantid = 1;//get("klantid");
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    console.log(this.responseText);
-                    var klant = JSON.parse(this.responseText);
-                    var eindString = "";
-                    eindString += `
-                    <div class="col">
-                        Voornaam:<br>
-                        <input type="text" class="form-control" value=${klant.voornaam} id="voornaam">
-                    </div>
-                    <div class="col">
-                        Achternaam: <br>
-                        <input type="text" class="form-control" value=${klant.achternaam} id="achternaam"> <br>
-                    </div>
-                    </div><p>
-                     Adres: <br> <input type="text" class="form-control" id="adres" value=${klant.adres} <br>
-                    E-mail: <br> <input type="email" class="form-control" id="email" value=${klant.email}> <br>
-                    Telefoon: <br> <input type="tel" class="form-control" id="telefoon" value=${klant.tel}> <br>
-                    `
-                    document.getElementById("klant").innerHTML = eindString;
-                }
-            }
-            xhr.open("GET", BACKEND_URL + "/klant/"+ klantid, true);
-            xhr.send();
-        }
+    function get(name){
+        if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+          return decodeURIComponent(name[1]);
+      }
+
+      let reserveringid = get("reserveringid");
+
+        // function toonKlant(){
+        //     let klantid = 1;//get("klantid");
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.onreadystatechange = function () {
+        //         if (this.readyState == 4) {
+        //             console.log(this.responseText);
+        //             var klant = JSON.parse(this.responseText);
+        //             var eindString = "";
+        //             eindString += `
+                    
+        //             `
+        //             document.getElementById("klant").innerHTML = eindString;
+        //         }
+        //     }
+        //     xhr.open("GET", BACKEND_URL + "/klant/"+ klantid, true);
+        //     xhr.send();
+        // }
+
+
 
         function toonReservering(){
             var xhr = new XMLHttpRequest();
@@ -178,21 +176,33 @@
                     var reservering = JSON.parse(this.responseText);
                     var eindString = "";
                     eindString += `
+                    <div class="col">
+                        Voornaam:<br>
+                        <input type="text" class="form-control" value=${reservering.klant.voornaam} id="voornaam">
+                    </div>
+                    <div class="col">
+                        Achternaam: <br>
+                        <input type="text" class="form-control" value=${reservering.klant.achternaam} id="achternaam"> <br>
+                    </div>
+                    </div><p>
+                     Adres: <br> <input type="text" class="form-control" id="adres" value=${reservering.klant.adres} <br>
+                    E-mail: <br> <input type="email" class="form-control" id="email" value=${reservering.klant.email}> <br>
+                    Telefoon: <br> <input type="tel" class="form-control" id="telefoon" value=${reservering.klant.tel}> <br>
                     
-                    Kamer:${reservering.kamerNummer}<br>
+                    Kamer:${reservering.kamer.kamerNummer}<br>
                     Aankomst: ${reservering.aankomstDatum}<br>
                     Vertrek: ${reservering.vertrekdatum}<br>
                     Ontbijt: ${reservering.ontbijt}<br>
                     Aantal personen: ${reservering.aantalPersonen}<br>
-                    Prijs:${reservering.totaalPrijs} <br><br><br>
+                    Totaal Prijs:${reservering.totaalPrijs} <br><br><br>
                     `
                     document.getElementById("reservering").innerHTML = eindString;
                 }
             }
-            xhr.open("GET", BACKEND_URL + "/reservering/"+ 17, true);
+            xhr.open("GET", BACKEND_URL + "/reservering/" +reserveringid, true);
             xhr.send();
         }
-        toonKlant();
+        //toonKlant();
         toonReservering();
     </script>
 </body>
