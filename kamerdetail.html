@@ -56,7 +56,7 @@
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section"></div>
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Inloggen</a>
+                                    <a class="nav-link" href="login.html">Inloggen</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="registreren.html">Registreren</a>
@@ -112,20 +112,30 @@
                     var eindString = "";
                     eindString +=`
                     <div class="col-md-3 col-sm-4">
-                       Aankomstdatum:<br />
-                    <input onchange="berekenPrijs()" type="date" id="aankomst" /><br /><br />
-                       Vertrekdatum:<br />
-                    <input onchange="berekenPrijs()" type="date" id="vertrek" /><br /><br />
-                    <br /><br />Prijs: ${kamer.prijs}<br /><br />Prijs inclusief ontbijt: <span id="totaalPrijs"></span>
+
+                      <p class="text-break">Deze tweepersoons kamer is een mooi optrekje in Amsterdam. <br>
+Hier heeft u een mooi uitzicht over de grachten van Amsterdam.<br>
+<br>
+- Een Kingssize bed<br>
+- Koelkast<br>
+- Badkamer bad en douche<br>
+</p>
+                      
                      <br /><br /><br />
                     <button onClick="reserveren()" type="button" class="btn btn-warning btn-lg">
                       Reserveren
                      </button>
                    </div>
-                  <div class="col-md-4 col-sm-4">
-                     <br /><input type="checkbox" id="ontbijt" /> Ontbijt<br /><br />
-                       Aantal personen:<br />
-                     <input type="number" id="aantalPersonen" min="1" max="5" />
+                  <div class="col-md-3 col-sm-4">
+                    Aankomstdatum:<br />
+                    <input onchange="berekenPrijs()" type="date" id="aankomst" /><br /><br />
+                       Vertrekdatum:<br />
+                    <input onchange="berekenPrijs()" type="date" id="vertrek" /><br /><br />
+                    <br /><input onchange="berekenPrijs()" type="checkbox" id="ontbijt" /> Ontbijt: € 10,- p.p. per nacht<br /><br />
+                    Aantal personen:<br />
+                    <input onchange="berekenPrijs()" type="number" id="aantalPersonen" min="1" max="5" />
+                    <br /><br />Prijs kamer: €${kamer.prijs} per nacht.<br/>
+                    <br />Prijs totaal: €<span id="totaalPrijs"></span>
                    </div>
                         <br /><br /><br />
                     <div class="col-md-3 col-sm-4">
@@ -175,6 +185,8 @@
             berekeningDto.aankomstDatum = document.getElementById("aankomst").value;
             berekeningDto.vertrekdatum = document.getElementById("vertrek").value;
             berekeningDto.kamerId = kamerid;
+            berekeningDto.ontbijt = document.getElementById("ontbijt").checked;
+            berekeningDto.personen = document.getElementById("aantalPersonen").value;
 
             var deJSON = JSON.stringify(berekeningDto);
             

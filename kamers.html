@@ -111,8 +111,8 @@
                                 <h3>${allKamers[i].kamerType}</h3>
                             <p style="text-align: left">
                           <br />
-                            Kamer nummer: ${allKamers[i].kamerNummer} <br />
-                            Minimum prijs: ${allKamers[i].prijs} <br /><br />
+                            Kamernummer: ${allKamers[i].kamerNummer} <br/>
+                            Minimum prijs: €${allKamers[i].prijs} <br/><br />
                            </p>
                            <p>
                              <button
@@ -139,7 +139,7 @@
     function details(deid) {
       // Bouw de URL op met de variabele als queryparameter en verwijzen naar "details.html"
       var nieuweURL = "kamerdetail.html?kamerid=" + encodeURIComponent(deid);
-      console.log(deid);
+      //console.log(deid);
       // Navigeer naar de nieuwe URL
       window.location.href = nieuweURL;
   
