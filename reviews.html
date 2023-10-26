@@ -14,7 +14,7 @@
       display: inline-block;
       position: absolute;
       background-color: white;
-      color: black;
+      color: #0f1521;
       border: none;
       right: 5%;
       padding: 4px 20px;
@@ -38,7 +38,7 @@
       
     }
     .black_title {
-      background-color: black;
+      background-color: #0f1521;
       color: white;
     }
     .review-box {
@@ -177,7 +177,7 @@
         </div>
         <div class="star-rating">${ratingHTML}</div>
         <div class="review-content">
-          <p>${allReviews[i].tekst}</p>
+          <p class="text-break">${allReviews[i].tekst}</p>
         </div>
         <div class="review-footer">
           <span>Geplaatst op ${allReviews[i].datum}</span>
