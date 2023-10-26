@@ -102,7 +102,7 @@
           var allKamers = JSON.parse(this.responseText);
           var kamer = "";
           for (var i = 0; i < allKamers.length; i++) {
-            kamer += `  <div class="col-md-3 col-sm-4">
+            kamer += `  <div class="col-md-4 col-sm-4">
                           <div id="serv_hover" class="room">
                              <div class="room_img">
                                  <figure><img src="Afbeeldingen/Kamer1.png" alt="#" /></figure>
@@ -111,8 +111,8 @@
                                 <h3>${allKamers[i].kamerType}</h3>
                             <p style="text-align: left">
                           <br />
-                            Kamer nummer: ${allKamers[i].kamerNummer} <br />
-                            Minimum prijs: ${allKamers[i].prijs} <br /><br />
+                            Kamer nummer: €${allKamers[i].kamerNummer} <br />
+                            Minimum prijs: €${allKamers[i].prijs} <br /><br />
                            </p>
                            <p>
                              <button
