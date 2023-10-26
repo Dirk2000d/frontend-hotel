@@ -11,7 +11,7 @@
   <style>
     #reviewButton {
       display: none;
-      background-color: #ffc107;
+      background-color: white;
       color: black;
       border: none;
       padding: 4px 20px;
@@ -36,12 +36,11 @@
     .black_title {
       background-color: black;
       color: white;
-      padding: 10px;
     }
     .review-box {
-      background-color: #ffc107;
+      background-color: white;
       color: black;
-      border: 1px solid #ddd;
+      border: 1px solid black;
       padding: 20px;
       margin: 20px 0;
       border-radius: 8px;
@@ -120,7 +119,6 @@
     // );
   </script>
 </head>
-<body>
   <!-- Navigatiebar-->
   <header>
     <div class="header">
@@ -170,20 +168,18 @@
     </div>
   </div>
 </header>
-
-  <div style="position: relative;">
-    <div class="black_title">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 mt-3">
-            <div class="title">
-              <h2 style="text-align: center;">Reviews schrijven</h2>
-            </div> 
+<body>
+  <div class="black_title">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title">
+            <h2>Review Schrijven</h2>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 <div class="container">
   <div class="row">
     <div class="col-12 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
@@ -238,6 +234,9 @@ function toevoegen() {
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4) {
                     console.log("toevoegen gelukt");
+
+                    //Redirect to review page
+                    window.location.href="reviews.html";
                 }
             }
             xhr.open("POST", BACKEND_URL + "/voegreviewtoe", true);

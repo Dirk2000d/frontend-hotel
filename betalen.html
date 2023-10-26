@@ -175,7 +175,28 @@
                     console.log(this.responseText);
                     var reservering = JSON.parse(this.responseText);
                     var eindString = "";
+                    var eindStringKlant = "";
                     eindString += `
+                    <div class="row">
+                    <div class="col-4">
+                        Kamernummer<br>
+                        Aankomstdatum<br>
+                        Vertrekdatum<br>
+                        Ontbijt<br>
+                        Aantal personen<br><br>
+                        <h3 style='font-size:20px;'>Totale prijs</h3>
+                    </div>
+                    <div class="col-8">
+                    ${reservering.kamer.kamerNummer}<br>
+                    ${reservering.aankomstDatum}<br>
+                    ${reservering.vertrekdatum}<br>
+                    ${reservering.ontbijt}<br>
+                    ${reservering.aantalPersonen}<br><br>
+                    <h3 style='font-size:20px;'>€ ${reservering.totaalPrijs} </h3><br><br>
+                    </div>
+                    `
+                    eindStringKlant += `
+                    <div class="row">
                     <div class="col">
                         Voornaam:<br>
                         <input type="text" class="form-control" value=${reservering.klant.voornaam} id="voornaam">
@@ -185,18 +206,12 @@
                         <input type="text" class="form-control" value=${reservering.klant.achternaam} id="achternaam"> <br>
                     </div>
                     </div><p>
-                     Adres: <br> <input type="text" class="form-control" id="adres" value=${reservering.klant.adres} <br>
+                    Adres: <br> <input type="text" class="form-control" id="adres" value=${reservering.klant.adres}> <br>
                     E-mail: <br> <input type="email" class="form-control" id="email" value=${reservering.klant.email}> <br>
                     Telefoon: <br> <input type="tel" class="form-control" id="telefoon" value=${reservering.klant.tel}> <br>
-                    
-                    Kamer:${reservering.kamer.kamerNummer}<br>
-                    Aankomst: ${reservering.aankomstDatum}<br>
-                    Vertrek: ${reservering.vertrekdatum}<br>
-                    Ontbijt: ${reservering.ontbijt}<br>
-                    Aantal personen: ${reservering.aantalPersonen}<br>
-                    Totaal Prijs:${reservering.totaalPrijs} <br><br><br>
                     `
                     document.getElementById("reservering").innerHTML = eindString;
+                    document.getElementById("klant").innerHTML = eindStringKlant;
                 }
             }
             xhr.open("GET", BACKEND_URL + "/reservering/" +reserveringid, true);
