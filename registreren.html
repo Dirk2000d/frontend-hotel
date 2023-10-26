@@ -19,7 +19,8 @@
       function toevoegen() {
         // De JSON meegeven
         var deklant = {};
-        deklant.name = document.getElementById("inputNaam").value;
+        deklant.voornaam = document.getElementById("inputVoornaam").value;
+        deklant.achternaam = document.getElementById("inputAchternaam").value;
         deklant.email = document.getElementById("inputEmail").value;
         deklant.adres = document.getElementById("inputAdres").value;
         deklant.paspoortNummer = document.getElementById(
@@ -160,11 +161,15 @@
     </div>
 
     <div class="container shift-right" style="margin: 20px auto">
+
+    
       <br />
       Al een account?
       <button class="btn btn-dark" onclick="window.location.href = 'login.html'">Login</button>
       <hr />
       <br />
+      <div class="row">
+        <div class="col">
       <input id="inputId" type="hidden" />
       <label for="voorNaam">Voornaam:</label>
       <input id="inputVoornaam" />
@@ -181,7 +186,8 @@
       <label for="adres">Adres:</label>
       <input id="inputAdres" />
       <br /><br />
-
+      </div>
+      <div class="col" >
       <label for="paspoortNummer">Paspoort nummer:</label>
       <input id="inputPaspoortNummer" />
       <br /><br />
@@ -200,6 +206,7 @@
       <button class="btn btn-warning btn-lg" onClick="vergelijken()">
         Registreren
       </button>
+      </div>
     </div>
   </body>
 </html>
