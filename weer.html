@@ -126,6 +126,9 @@
       else if ((data.liveweer[0].samenv.toLowerCase()).endsWith('bewolkt')) {
         icon = 'cloud';
       }
+      else{
+        icon = 'cloud';
+      }
 
       weerDiv.innerHTML = "<div class='details'><div class='col-6'><h1 style='font-size: 50px'>" + data.liveweer[0].temp + " °C</h1>" + data.liveweer[0].plaats + "</div><div class='col-6'><i class='fas fa-" + icon + "' style='font-size: 3em; color: white;'></i><br><br>" + data.liveweer[0].samenv + "</div></div>";
       weerDiv.innerHTML += "<br><hr>"
